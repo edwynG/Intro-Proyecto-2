@@ -1,0 +1,254 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+}
+
+a{
+    text-decoration: none;
+    
+}
+a:active{
+    color: inherit;
+    
+}
+
+body{
+    height: 98vh;
+    display:flex;
+    justify-content:center;
+    width: 100%;
+}
+
+.content__father{
+    margin: 10px;
+    height:100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.content__sesion{
+    max-width:1400px;
+    height:90%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:40px;
+    min-height:900px;
+    margin:15px;
+    width:100%
+}
+
+.seccion__title{
+    font-size:70px;
+}
+
+.sesion__main{
+    display:flex;
+    align-items:center;
+    transition: width 0.5s ease;
+    border-radius:29.5px;
+    height:70%;
+    width: 68%;
+    -webkit-box-shadow: 0px 0px 54px -3px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 54px -3px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 54px -3px rgba(0,0,0,0.25);
+
+}
+
+.sesion__formulario{
+    flex-grow:3;
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+    align-items:center;
+    height:100%;
+    justify-content: center;
+    border-radius: 29.5px  0px 0px 29.5px;
+    
+}
+
+.sesion__Aside{
+    flex-grow:1;
+    max-width: 430px;
+    text-align:center;
+    border-radius:   0px 29.5px 29.5px 0px;
+    height:100%;
+    background: #2193b0; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2193b0, #6dd5ed); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2193b0, #6dd5ed); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.aside__title{
+    font-size: 40px;
+}
+
+.sesion__Aside > i{
+    font-size: 215px;
+}
+
+.Formulario__input-icon{
+    width:80%;
+    text-align:center;
+    height:50px;
+}
+
+.Formulario__input{
+    width:75%;
+    padding:15px 10px 15px 35px;
+    border:none;
+    border-bottom:1px solid lightgray;
+    margin:10px;
+    outline:none;
+    font-size:18px;
+    border-radius:20px;
+    min-width: 150px;
+   
+    
+}
+
+.Formulario__input:focus{
+    -webkit-box-shadow: -4px 5px 19px 3px rgba(0,0,0,0.06);
+    -moz-box-shadow: -4px 5px 19px 3px rgba(0,0,0,0.06);
+    box-shadow: -4px 5px 19px 3px rgba(0,0,0,0.06);
+   transition: outline 1s ease-out;
+    outline:1px solid lightgray;
+
+}
+.Formulario__input:hover{
+   
+   transition: outline 1s ease-out;
+    outline:1px solid lightgray;
+
+}
+
+
+.Formulario__input-icon > i {
+    position: absolute;
+    transform: translate(23px, 29px);
+}
+
+
+
+#modePage {
+    font-weight: 900;
+    color: #4e5aaf;
+    cursor: pointer;
+}
+
+p.formulario__text {
+    font-size: 14px;
+}
+
+
+.formulario__title{
+    font-size:45px    
+}
+
+.formulario__button{
+    border:none;
+    padding:20px 30px;
+    width:50%;
+    min-width: 200px;
+    cursor:pointer;
+    font-size:16px;
+    border-radius:20px;
+    background-color: #e4eced;
+    transition: background-color .6s ease;
+}
+
+.formulario__button:hover{
+    background-color: #6dd5ed;
+}
+
+.formulario__button:active{
+    background-color: #61b7ca;
+}
+
+
+
+
+@media  screen and (max-width:1200px) {
+    .sesion__main{
+        transition: width 0.5s ease;
+        width:90%; 
+    }
+}
+
+@media  screen and (max-width:1200px) {
+    .sesion__Aside{
+        transition: display 0.7s ease;
+        display: none;
+    }
+}
+
+@media  screen and (max-width:510px) {
+        .sesion__main {
+            transition: width 0.5s ease;
+            width: 100%;
+        }
+        .formulario__title{
+            font-size:37px    
+        }
+    
+}
+
+@media  screen and (max-width:415px) {
+    .seccion__title{
+        font-size:40px;
+    }
+
+    .formulario__title{
+        font-size:40px    
+    }
+}
+
+/* body{
+    height: 100vh;
+}
+
+
+
+main.content__father {
+    height: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.sesion__main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.sesion__Aside {
+    flex-grow: 1;
+}
+
+.sesion__formulario {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 20px;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.content__sesion{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 60%;
+        gap: 15px;
+    
+} */;
+   
+    
