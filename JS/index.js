@@ -1,5 +1,5 @@
 
-let BtnMenu = document.getElementById("nav_icon-resposive");
+let btnMenu = document.getElementById("nav_icon-resposive");
 let btnMenuClose = document.getElementById("nav_reposive-close");
 let btnSignUp = document.querySelector(".main_button");
 let btnSignIn=document.getElementById("sign_in");
@@ -24,4 +24,4 @@ btnSignUp.addEventListener("click",() => initLogin("SignUp"))
 btnSignIn.addEventListener("click",() => initLogin("SignIn"))
 btnMenuClose.addEventListener("click",()=> menu())
 
-BtnMenu.addEventListener("click", () => menu())
+btnMenu.addEventListener("click", () => menu())

@@ -1,2 +1,2 @@
-Cedula;Nombre;Edad;Password
-31307714;Samantha;17;Hola
+Cedula;Correo;Edad;Password
+31307714;samantha.p.ramirez.y@gmail.com;17;Hola
