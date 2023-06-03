@@ -2,7 +2,8 @@
 let BtnMenu = document.getElementById("nav_icon-resposive");
 let btnMenuClose = document.getElementById("nav_reposive-close");
 let btnLogin = document.querySelector(".main_button");
-let btnSingIn=document.getElementById("sing_in");
+let btnSignIn=document.getElementById("sign_in");
+
 function menu(){
     let lista = document.querySelector(".nav_lista");
     let asideResponsive = document.querySelector(".container_aside");
@@ -19,8 +20,8 @@ function initLogin(name){
     
 }
 
-btnLogin.addEventListener("click",() =>  initLogin("login"))
-btnSingIn.addEventListener("click",() =>  initLogin("SingIn"))
+btnLogin.addEventListener("click",() => initLogin("SignUp"))
+btnSignIn.addEventListener("click",() => initLogin("SignIn"))
 btnMenuClose.addEventListener("click",()=> menu())
 
 BtnMenu.addEventListener("click", () => menu())

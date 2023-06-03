@@ -4342,7 +4342,7 @@ readers do not read off random characters that represent icons */
 .fa-person-half-dress::before {
   content: "\e548"; }
 
-.fa-person-harassing::before {
+.fa-person-harassign::before {
   content: "\e549"; }
 
 .fa-person-hiking::before {
