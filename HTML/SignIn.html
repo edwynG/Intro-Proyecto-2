@@ -22,21 +22,24 @@
                 </div>
             </div>
             <div class="sesion__formulario" id="login__content">
-                <h2 class="formulario__title">¡Hola,Amigo!</h2>
-                <form action="" class="formulario_Container-input">
+                <h2 class="formulario__title">¡Hola, amigo!</h2>
+                <form action="" class="formulario_Container-input" id="signInForm">
                     <div class="Formulario__input-icon">
                         <i class="fa-solid fa-user" id="formulario_icono"></i>
-                        <input class="Formulario__input" type="email" placeholder="User">
+                        <input name="email" class="Formulario__input" type="email" placeholder="User" required>
                     </div>
     
                     <div class="Formulario__input-icon">
                         <i class="fa-sharp fa-solid fa-key" id="formulario_icono"></i>
-                        <input class="Formulario__input" type="password" placeholder="Password">
+                        <input name="password" class="Formulario__input" type="password" placeholder="Password" required>
     
                     </div>
+                    <input id="submit" class="formulario__button" type="submit" value="Submit">
                 </form>
-                <button class="formulario__button">Siguiente</button>
-                <p class="formulario__text">¿No estas registrado? <span id="modePage"><a href="login.html">Registrarse</a> </span></p>
+                
+                <input type="file" name="validateUser" id="validateUser" style="display: none;">
+                
+                <p class="formulario__text">¿No estas registrado? <span id="modePage"><a href="SignUp.html">Registrarse</a> </span></p>
             </div>
             <div></div>
      </section>

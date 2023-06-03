@@ -1,0 +1,2 @@
+Cedula;Nombre;Edad;Password
+31307714;Samantha;17;Hola
