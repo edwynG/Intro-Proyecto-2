@@ -1,7 +1,7 @@
-//CARRERA; NRO ESTUDIANTES
-Biología;204
-Computación;340
-Física;130
-Matemática;129
-Química;150
-Geoquímiica;110
+//ID ESCUELA; NOMBRE; NRO ESTUDIANTES; 
+1;Computación;340
+2;Biología;204
+3;Matemáticas;129
+4;Física;130
+5;Química;150
+6;Geoquímiica;110

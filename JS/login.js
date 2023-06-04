@@ -12,6 +12,11 @@ function initLogin(name){
     window.open(`${name}.html`,"_self");   
 }
 
+//SESSION USER
+function sessionUser(id){
+    sessionStorage.setItem("userId", id.toString());
+}
+
 //SALIR DEL POPUP
 let exit = document.querySelector(".nav_container-close");
 
@@ -28,7 +33,8 @@ function getData(form) {
 function validateUser(infoForm, attr){
     for(let i = 0; i < attr.length; i++){
         if(infoForm["emailIn"] === attr[i][2]){
-            initLogin("index")
+            sessionUser(attr[i][1]);
+            initLogin("homeAlumno")
             return
         }
     }
