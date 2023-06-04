@@ -1,0 +1,7 @@
+//ESCUELA; CANTIDAD CARRERAS
+Escuela de Computación;1
+Escuela de Biología;1
+Escuela de Matemáticas;1
+Escuela de Física;1
+Escuela de Química;1
+Escuela de Geoquímica;1

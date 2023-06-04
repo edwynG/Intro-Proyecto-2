@@ -1,0 +1,7 @@
+//CARRERA; NRO ESTUDIANTES
+Biología;204
+Computación;340
+Física;130
+Matemática;129
+Química;150
+Geoquímiica;110

@@ -1,2 +1,0 @@
-Cedula;Correo;Edad;Password
-31307714;samantha.p.ramirez.y@gmail.com;17;Hola

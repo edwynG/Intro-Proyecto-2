@@ -1,0 +1,12 @@
+//FACULTAD; CODIGO
+Facultad de Agronomía;1
+Facultad de Arquitectura y Urbanismo;2
+Facultad de Ciencias;3
+Facultad de Ciencias Económicas y Sociales;4
+Facultad de Farmacia;5
+Facultad de Humanidades y Educación;6
+Facultad de Ingeniería;7
+Facultad de Ciencias Jurídicas y Políticas;8
+Facultad de Medicina;9
+Facultad de Odontología;10
+Facultad de Veterinaria;11

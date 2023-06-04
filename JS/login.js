@@ -2,6 +2,7 @@ var data = "";
 var objects = [];
 var attr = [];
 var infoForm = null;
+let newData = "";
 
 //OTROS
 function clickButton(buttonId){
@@ -26,23 +27,59 @@ function getData(form) {
 
 function validateUser(infoForm, attr){
     for(let i = 0; i < attr.length; i++){
-        if(infoForm["email"] === attr[i][1]){
+        if(infoForm["emailIn"] === attr[i][2]){
             initLogin("index")
             return
         }
     }
     initLogin("SignIn")
-    alert("No estas registrado");
+    alert("Datos incorrectos");
     return
 }
   
-document.getElementById("signInForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    infoForm = getData(e.target);
-});
+let signInForm = document.getElementById("signInForm");
+if(signInForm != null){
+    signInForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        infoForm = getData(e.target);
+    });
+}
+
+let signUpForm = document.getElementById("signUpForm");
+if(signUpForm != null){
+    signUpForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        infoForm = getData(e.target);
+    });
+}
+
+//ESCRIBIR ARCHIVO
+function mergeData(){
+    newData = data + "\n";
+    for (let i in infoForm){
+        newData += infoForm[i].toString() + ";";
+    }
+}
+
+function download(nombre){
+    let filename = nombre + ".txt";
+    let text = newData;
+    let blob = new Blob([text], {type:'text/plain'});
+    let link = document.createElement("a");
+    link.download = filename;
+    link.href = window.URL.createObjectURL(blob);
+    document.body.appendChild(link);
+    link.click();
+
+    setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(link.href);
+    }, 100);
+    initLogin("index")
+}
 
 //LEER ARCHIVO 
-document.getElementById("validateUser").addEventListener("change", function() {
+document.getElementById("readFile").addEventListener("change", function() {
     var fr = new FileReader();
     fr.onload = function(){
         
@@ -51,9 +88,22 @@ document.getElementById("validateUser").addEventListener("change", function() {
         for(let i = 0; i < objects.length; i++){
             attr[i] = objects[i].split(";");
         }
-        clickButton("submit");
-        if(data != "" && infoForm != null)
-            validateUser(infoForm, attr)
+
+        //DISCRIMINAR POR SIGN IN O SIGN UP
+        let type = document.getElementById("readFile").name;
+        if (type === "readFileIn"){
+            clickButton("submitIn");
+            if(data != "" && infoForm != null)
+                validateUser(infoForm, attr)
+
+        }else if(type === "readFileUp"){
+            clickButton("submitUp");
+            if(data != "" && infoForm != null){
+                mergeData();
+                clickButton("writeFile");
+            }
+        }
+        
     }
     fr.readAsText(this.files[0]);
 });

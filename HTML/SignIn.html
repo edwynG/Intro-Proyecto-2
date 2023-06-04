@@ -13,10 +13,7 @@
      <section class="contaniner_loger">
             <div class="loger_nav-icon">
                 <div class="nav_icon-vacio"> </div>
-                <div class="nav_container-icon nav_icon-items">
-                    <i class="fa-sharp fa-solid fa-gear" id="nav_icon-logo"></i>
-                    
-                </div>
+                
                 <div class="nav_container-close nav_icon-items">
                     <i class="fa-solid fa-xmark" id="loger_nav-close"  id="nav_icon-close"></i>
                 </div>
@@ -26,19 +23,20 @@
                 <form action="" class="formulario_Container-input" id="signInForm">
                     <div class="Formulario__input-icon">
                         <i class="fa-solid fa-user" id="formulario_icono"></i>
-                        <input name="email" class="Formulario__input" type="email" placeholder="User" required>
+                        <input name="emailIn" class="Formulario__input" type="email" placeholder="Email" required>
                     </div>
     
                     <div class="Formulario__input-icon">
                         <i class="fa-sharp fa-solid fa-key" id="formulario_icono"></i>
-                        <input name="password" class="Formulario__input" type="password" placeholder="Password" required>
+                        <input name="passwordIn" class="Formulario__input" type="password" placeholder="Password" required>
     
                     </div>
                     
-                    <input id="submit" class="formulario__button" type="submit" value="Submit" hidden>
+                    <input id="submitIn" class="formulario__button" type="submit" value="Submit" hidden>
                 </form>
-                <label for="validateUser" class="formulario__button">Submit</label>
-                <input type="file" name="validateUser" id="validateUser" hidden>
+                <p>Selecciona el archivo Alumno.txt / Profesor.txt</p>
+                <label for="readFile" class="formulario__button">Siguiente</label>
+                <input type="file" name="readFileIn" id="readFile" hidden>
                 
                 <p class="formulario__text">¿No estas registrado? <span id="modePage"><a href="SignUp.html">Registrarse</a> </span></p>
             </div>
