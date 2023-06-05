@@ -19,8 +19,8 @@
                     <div class="nav_reposive-icoClose responsive-lis">
                         <i class="fa-solid fa-xmark"></i>
                     </div>
-                    <li class="lista_items">inicio</li>
-                    <li class="lista_items">Cursos</li>
+                    <li class="lista_items" id="inicio">inicio</li>
+                    <li class="lista_items" id="materias">Materias</li>
                     <li class="lista_items">Data Maestra</li>
                     <li class="lista_items">Perfil</li>
                 </ul>
@@ -32,7 +32,13 @@
                 </div>
             </div>
         </header>
-        <main class="container_main">
+        <main class="container_main"></main>
+        
+    </section>
+
+
+    <template id="template_Inicio">
+     
             <section class="main_items main_item-1 main_item-container-1">
                 <h1 class="main_items-title">Estado</h1>
                 <div class="main_items-container">
@@ -157,9 +163,78 @@
             <section class="main_items main_item-4">
         
             </section>
-        </main>
-    </section>
+        
+    </template>
 
+    <template id="template_materias">
+        
+            <section class="container_items-procesoMaterias" id="ContenedorInscribirMateria">
+                <h1 class="item_procesoMaterias-text">Inscribir Materias</h1>
+                <div class="items-proceso-Materias  contianer_item-inscribir">
+                    <h2>matematica</h2>
+                    <span>N/A</span> 
+                    <i class="fa-solid fa-check" id="inscribirMateria"></i>
+                  </div>
+                  <div class="items-proceso-Materias  contianer_item-inscribir">
+                    <h2>Algoritmo</h2>
+                    <span>N/A</span> 
+                    <i class="fa-solid fa-check" id="inscribirMateria"></i>
+                  </div>
+                  
+            </section>
+            <section class="container_items-procesoMaterias" id="ContenedorRetirarMateria">
+                <h1 class="item_procesoMaterias-text">Retirar materias</h1>
+                <div class="items-proceso-Materias   contianer_item-retirar">
+                    <h2>matematica</h2>
+                    <span>N/A</span> 
+                    <i class="fa-solid fa-xmark" id="RetirarMateria"></i>
+                  </div>
+            </section>
+       
+    </template>
+
+<!-- Actividades -->
+<!-- 
+    <main class="container_main-cursos">
+        <section class="main_cursos-item-list">
+            <ul class="item_list-container">
+                <li class="list_container-items">matematica</li>
+                <li class="list_container-items">Algoritmo y programacion</li>
+                <li class="list_container-items">Matematicas discretas</li>
+                <li class="list_container-items">Introduccion a la informatica</li>
+                <li class="list_container-items">la vida</li>
+            </ul>
+        </section>
+        <section class="main_cursos-item-Date">
+            <article class="item_date-datosPerson">
+                <h1 class="datosPerson_nameMateria">Matematicas</h1>
+                <div class="datosPerson_container-datosMateria">
+                    <div class="datosMateria-items">
+                        <h3 class="datosMaterias_items-text">Horario</h3>
+                    </div>
+                    <div class="datosMateria-items">
+                        <h3 class="datosMaterias_items-text">Horario</h3>
+                    </div>
+                    <div class="datosMateria-items">
+                        <h3 class="datosMaterias_items-text">Horario</h3>
+                    </div>
+                    <div class="datosMateria-items">
+                        <h3 class="datosMaterias_items-text">Horario</h3>
+                    </div>
+                    <div class="datosMateria-items">
+                        <h3 class="datosMaterias_items-text">Horario</h3>
+                    </div>
+                    <div class="datosMateria-items">
+                        <h3 class="datosMaterias_items-text">Horario</h3>
+                    </div>
+                </div>
+            </article>
+            <article class="item_container-table">
+                <h1 class="container_table-text">Actividades</h1>
+            </article>
+        </section>
+    </main> 
+-->
     <script src="../JS/monitor.js"></script>
 </body>
 </html>
