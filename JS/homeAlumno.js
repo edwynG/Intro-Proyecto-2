@@ -1,4 +1,7 @@
 
+
+
+
 /* Algoritmo para cargar inicio automaticamente*/
 const template_inicio = document.getElementById("template_Inicio");
 const inicio_Clone=document.importNode(template_inicio.content,true);
@@ -7,6 +10,7 @@ const Container_Page= document.querySelector(".container_main");
 
 Container_Page.appendChild(inicio_Clone);
 /*********************************************** */
+
 
 /*Funciones para moverse entre paginas */
 function CargarInicio(){
@@ -89,3 +93,14 @@ function inscribirMateria(materia,codigo,op){
     }
 
 }
+
+/**************************************************** */
+
+/*Regresar al Menu principal*/
+
+document.querySelector(".container_person-close").addEventListener("click",()=> {
+   window.open("index.html");
+   window.close();
+})
+
+/************************** */
