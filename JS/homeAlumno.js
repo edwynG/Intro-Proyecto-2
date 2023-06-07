@@ -11,6 +11,7 @@ class Asignatura {
 		this.nombre = nombre;
 		this.codigo = codigo;
 		this.uc = uc;
+        this.notaEstudiante = -1;
 	}
 }
 
@@ -99,6 +100,9 @@ function calcularExpedienteAcademico(){
                 if(aprendizajeEstudiante[j]["estado"] === "Aprobada"){
                     expedienteAcademico['UC'] += Number(attrAsignatura[i]["uc"]);
                 }
+                debugger
+                attrAsignatura[i]["notaEstudiante"] = aprendizajeEstudiante[j]["nota"];
+                
                 asignaturasInscritas.push(attrAsignatura[i]);
                 
             }
