@@ -1,13 +1,38 @@
 //VARIABLES GLOBALES
-var dataAsignatura = "", arrayAsignatura = [], objectsAsignatura = [];
-var dataAprendizaje = "", arrayAprendizaje = [], objectsAprendizaje = [];
-var dataActividades = "", arrayActividades = [], objectsActividades = [];
-var dataNotasActvidades = "", arrayNotasActvidades = [], objectsNotasActvidades = [];
+var dataAsignatura = "", objectsAsignatura = [];
+var dataAprendizaje = "", objectsAprendizaje = [];
+var dataActividades = "", objectsActividades = [];
+var dataNotasActvidades = "", objectsNotasActvidades = [];
 let codigosAsignaturasImpartidas = sessionStorage.getItem("userOtro").replaceAll('[', '');
 codigosAsignaturasImpartidas = codigosAsignaturasImpartidas.replaceAll(']', '');
 codigosAsignaturasImpartidas = codigosAsignaturasImpartidas.split(",");
 
 let informacionProfesor = []; //[curso, [estudianteinfo, [actividadinfo]]]
+
+//OTROS
+function clickButton(buttonId){
+    document.getElementById(buttonId).click();
+}
+
+function getData(form) {
+    var formData = new FormData(form);
+    return Object.fromEntries(formData);
+}
+
+function download(text, nameFile){
+    let filename = nameFile + ".txt";
+    let blob = new Blob([text], {type:'text/plain'});
+    let link = document.createElement("a");
+    link.download = filename;
+    link.href = window.URL.createObjectURL(blob);
+    document.body.appendChild(link);
+    link.click();
+
+    setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(link.href);
+    }, 100);
+}
 
 //CLASES
 class Asignatura {
@@ -53,7 +78,6 @@ class NotasActividades {
 //OBTENER INFORMACION DEL PROFESOR
 function obtenerInformacionProfesor(){
     //ASIGNATURA RELACIONADAS
-    let asignaturaImpartidas = [];
     for(let i = 0; i < objectsAsignatura.length; i++){
         if(codigosAsignaturasImpartidas.includes(objectsAsignatura[i]["codigo"])){
 
@@ -82,12 +106,11 @@ function obtenerInformacionProfesor(){
                     infoEstudiantesAsignatura.push([objectsAprendizaje[j], actividadesAsignatura]);
                 }  
             }
-            asignaturaImpartidas.push([objectsAsignatura[i], infoEstudiantesAsignatura]);
+            informacionProfesor.push([objectsAsignatura[i], infoEstudiantesAsignatura]);
         }  
     }
-    return asignaturaImpartidas;
+    return informacionProfesor;
 }
-
 
 //LEER ARCHIVOS
 document.getElementById("asignatura").addEventListener("change", function() {
@@ -96,6 +119,7 @@ document.getElementById("asignatura").addEventListener("change", function() {
         
         dataAsignatura = fr.result;
         dataAsignatura = dataAsignatura.split(/[\r\n]+/g);
+        let arrayAsignatura = [];
         for(let i = 0; i < dataAsignatura.length; i++){
             arrayAsignatura[i] = dataAsignatura[i].split(";");
             objectsAsignatura[i] = new Asignatura(arrayAsignatura[i][0], arrayAsignatura[i][1], arrayAsignatura[i][2]);
@@ -111,6 +135,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
         
         dataAprendizaje = fr.result;
         dataAprendizaje = dataAprendizaje.split(/[\r\n]+/g);
+        let arrayAprendizaje = [];
         for(let i = 0; i < dataAprendizaje.length; i++){
             arrayAprendizaje[i] = dataAprendizaje[i].split(";");
             objectsAprendizaje[i] = new Aprendizaje(arrayAprendizaje[i][0], arrayAprendizaje[i][1], arrayAprendizaje[i][2], arrayAprendizaje[i][3], arrayAprendizaje[i][4]);
@@ -126,6 +151,7 @@ document.getElementById("actividades").addEventListener("change", function() {
         
         dataActividades = fr.result;
         dataActividades = dataActividades.split(/[\r\n]+/g);
+        let arrayActividades = [];
         for(let i = 0; i < dataActividades.length; i++){
             arrayActividades[i] = dataActividades[i].split(";");
             objectsActividades[i] = new Actividad(arrayActividades[i][0], arrayActividades[i][1], arrayActividades[i][2], arrayActividades[i][3], arrayActividades[i][4], arrayActividades[i][5]);
@@ -141,6 +167,7 @@ document.getElementById("notasxactividades").addEventListener("change", function
         
         dataNotasActvidades = fr.result;
         dataNotasActvidades = dataNotasActvidades.split(/[\r\n]+/g);
+        let arrayNotasActvidades = [];
         for(let i = 0; i < dataNotasActvidades.length; i++){
             arrayNotasActvidades[i] = dataNotasActvidades[i].split(";");
             objectsNotasActvidades[i] = new NotasActividades(arrayNotasActvidades[i][0], arrayNotasActvidades[i][1], arrayNotasActvidades[i][2], arrayNotasActvidades[i][3]);
@@ -152,18 +179,45 @@ document.getElementById("notasxactividades").addEventListener("change", function
     fr.readAsText(this.files[0]);
 });
 
-//DESCARGAR ARCHIVO
-function download(text, nameFile){
-    let filename = nameFile + ".txt";
-    let blob = new Blob([text], {type:'text/plain'});
-    let link = document.createElement("a");
-    link.download = filename;
-    link.href = window.URL.createObjectURL(blob);
-    document.body.appendChild(link);
-    link.click();
+//LEER FORMULARIOS
+var infoFormAsignatura;
+let formAsignatura = document.getElementById("formAsignatura");
+if(formAsignatura != null){
+    formAsignatura.addEventListener("submit", function (e) {
+        e.preventDefault();
+        infoFormAsignatura = getData(e.target);
+    });
+}
 
-    setTimeout(() => {
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(link.href);
-    }, 100);
+//CAMBIAR NOTA Y TIPO DE EXAMEN
+function saveInfoAsignatura(id_alumno, id_asignatura){
+    clickButton("submitInfoAsignatura");
+    
+    //ENCONTRAR APRENDIZAJE MODIFICADO EN ARRAY
+    let newAprendizaje = objectsAprendizaje.find(aprendizaje => (aprendizaje['id_alumno'] === id_alumno) && (aprendizaje['id_asignatura'] === id_asignatura));
+    
+    //MODIFICAR VALORES EN OBJECTSAPRENDIZAJE
+    let i = objectsAprendizaje.indexOf(newAprendizaje);
+    if(infoFormAsignatura["notaAsignatura"]){
+        newAprendizaje["nota"] = infoFormAsignatura["notaAsignatura"];
+    }
+    if(infoFormAsignatura["tipoExamen"]){
+        newAprendizaje["tipo_examen"] = infoFormAsignatura["tipoExamen"];
+    }
+    objectsAprendizaje[i] = newAprendizaje;
+    
+    //MODIFICAR DATAAPRENDIZAJE, ARRAYAPRENDIZAJE
+    dataAprendizaje = "";
+    let aux = "";
+    for(let i = 0; i < objectsAprendizaje.length; i++){
+        aux = JSON.stringify(Object.values(objectsAprendizaje[i])).replaceAll('"', '');
+        aux = aux.replaceAll(',', ';');
+        aux = aux.replaceAll('[', '');
+        aux = aux.replaceAll(']', '');
+        
+        dataAprendizaje += aux;
+        dataAprendizaje += "\n";
+    }
+
+    download(dataAprendizaje, 'Aprendizaje');
 }

@@ -1,7 +1,7 @@
 /*SAM */
 //VARIABLES GLOBALES
-var dataAsignatura = "", objectsAsignatura = [], attrAsignatura = [];
-var dataAprendizaje = "", objectsAprendizaje = [], attrAprendizaje = [];
+var dataAsignatura = "", attrAsignatura = [];
+var dataAprendizaje = "", attrAprendizaje = [];
 var asignaturasInscritas = [], todasAsignaturas = [];
 
 
@@ -124,10 +124,9 @@ function retirarAsignatura(idAsignatura){
         
         if(attrAprendizaje[i]["id_asignatura"] == idAsignatura && attrAprendizaje[i]["id_alumno"] === sessionStorage.getItem("userId")){
             attrAprendizaje[i]["estado"] = 'Retirada';
-            objectsAprendizaje[i][2] = 'Retirada';
             
         }
-        aux = JSON.stringify(objectsAprendizaje[i]).replaceAll('"', '');
+        aux = JSON.stringify(Object.values(attrAprendizaje[i])).replaceAll('"', '');
         aux = aux.replaceAll(',', ';');
         aux = aux.replaceAll('[', '');
         aux = aux.replaceAll(']', '');
@@ -143,11 +142,10 @@ function retirarAsignatura(idAsignatura){
 function inscribirAsignatura(idAsignatura){
     dataAprendizaje = "";
     attrAprendizaje.push(new Aprendizaje(sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0", "Tipo de examen"));
-    objectsAprendizaje.push([sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0", "Tipo de examen"]);
     let aux = "";
 
     for(let i = 0; i < attrAprendizaje.length; i++){
-        aux = JSON.stringify(objectsAprendizaje[i]).replaceAll('"', '');
+        aux = JSON.stringify(Object.values(attrAprendizaje[i])).replaceAll('"', '');
         aux = aux.replaceAll(',', ';');
         aux = aux.replaceAll('[', '');
         aux = aux.replaceAll(']', '');
@@ -166,6 +164,7 @@ document.getElementById("asignatura").addEventListener("change", function() {
         
         dataAsignatura = fr.result;
         dataAsignatura = dataAsignatura.split(/[\r\n]+/g);
+        let objectsAsignatura = [];
         for(let i = 0; i < dataAsignatura.length; i++){
             objectsAsignatura[i] = dataAsignatura[i].split(";");
             attrAsignatura[i] = new Asignatura(objectsAsignatura[i][0], objectsAsignatura[i][1], objectsAsignatura[i][2]);
@@ -182,6 +181,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
         
         dataAprendizaje = fr.result;
         dataAprendizaje = dataAprendizaje.split(/[\r\n]+/g);
+        let objectsAprendizaje = [];
         for(let i = 0; i < dataAprendizaje.length; i++){
             objectsAprendizaje[i] = dataAprendizaje[i].split(";");
             attrAprendizaje[i] = new Aprendizaje(objectsAprendizaje[i][0], objectsAprendizaje[i][1], objectsAprendizaje[i][2], objectsAprendizaje[i][3], objectsAprendizaje[i][4]);

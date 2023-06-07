@@ -10,6 +10,7 @@
 </head>
 <body>
 
+    <!--INPUTS PARA CARGAR ARCHIVOS-->
     <h3>Seleccionar archivo Asignatura.txt</h3>
     <input type="file" name="asignatura" id="asignatura">
 
@@ -21,6 +22,25 @@
 
     <h3>Seleccionar archivo NotasActividades.txt</h3>
     <input type="file" name="notasxactividades" id="notasxactividades">
+
+
+    <!--FORMULARIO DE ASIGNATURASINFO-->
+    <form action="" id="formAsignatura">
+
+        <div>
+            <p>20</p>
+            <input name="notaAsignatura" type="text">
+        </div>
+
+        <div>
+            <p>Tipo de examen</p>
+            <input name="tipoExamen" type="text">
+        </div>
+
+        <input id="submitInfoAsignatura" type="submit" value="Submit" hidden>
+
+    </form>
+    <button onclick="saveInfoAsignatura('29897058', '6201')">Guardar</button>
 
     <script src="../JS/homeProfesor.js"></script>
 </body>
