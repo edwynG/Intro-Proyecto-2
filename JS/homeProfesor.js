@@ -3,10 +3,11 @@ var dataAsignatura = "", arrayAsignatura = [], objectsAsignatura = [];
 var dataAprendizaje = "", arrayAprendizaje = [], objectsAprendizaje = [];
 var dataActividades = "", arrayActividades = [], objectsActividades = [];
 var dataNotasActvidades = "", arrayNotasActvidades = [], objectsNotasActvidades = [];
-var asignaturasImpartidas = [], actividadesRelacionadas = [];
 let codigosAsignaturasImpartidas = sessionStorage.getItem("userOtro").replaceAll('[', '');
 codigosAsignaturasImpartidas = codigosAsignaturasImpartidas.replaceAll(']', '');
-codigosAsignaturasImpartidas = codigosAsignaturasImpartidas.split(",")
+codigosAsignaturasImpartidas = codigosAsignaturasImpartidas.split(",");
+
+let informacionProfesor = []; //[curso, [estudianteinfo, [actividadinfo]]]
 
 //CLASES
 class Asignatura {
@@ -36,10 +37,11 @@ class Actividad {
 		this.realizada = realizada;
 		this.horas = horas;
 		this.observaciones = observaciones;
+        this.notaEstudiante = -1;
 	}
 }
 
-class NotaActividades {
+class NotasActividades {
 	constructor(id_asignatura, id_actividad, id_alumno, nota){
 		this.id_asignatura = id_asignatura;
 		this.id_actividad = id_actividad;
@@ -48,23 +50,44 @@ class NotaActividades {
 	}
 }
 
-//ASIGNATURAS IMPARTIDAS
-function obtenerAsignaturasImpartidas(){
+//OBTENER INFORMACION DEL PROFESOR
+function obtenerInformacionProfesor(){
+    //ASIGNATURA RELACIONADAS
+    let asignaturaImpartidas = [];
     for(let i = 0; i < objectsAsignatura.length; i++){
         if(codigosAsignaturasImpartidas.includes(objectsAsignatura[i]["codigo"])){
-            asignaturasImpartidas.push(objectsAsignatura[i]);
+
+            //ESTUDIANTES E INFORMACION EN LA ASIGNATURA
+            let infoEstudiantesAsignatura = [];
+
+            for(let j = 0; j < objectsAprendizaje.length; j++){
+                if(objectsAprendizaje[j]["id_asignatura"] == objectsAsignatura[i]["codigo"]){
+
+                    //ACTIVIDADES DE LA ASIGNATURA
+                    let actividadesAsignatura = [];
+                    for(let k = 0; k < objectsActividades.length; k++){
+                        if(objectsActividades[k]["id_asignatura"] == objectsAsignatura[i]["codigo"]){
+                            
+                            //INFORMACION DEL ESTUDIANTE EN LAS ACTIVIDADES
+                            let notaActividad = objectsNotasActvidades.find(nota => (nota["id_actividad"] == objectsActividades[k]["id_actividad"]) && (nota["id_alumno"] == objectsAprendizaje[j]["id_alumno"]) && (nota["id_asignatura"] == objectsAsignatura[i]["codigo"]));
+                            if(notaActividad){
+                                objectsActividades[k]["notaEstudiante"] = notaActividad["nota"];
+
+                                actividadesAsignatura.push(objectsActividades[k]);
+                            }
+                            
+                            
+                        }  
+                    }
+                    infoEstudiantesAsignatura.push([objectsAprendizaje[j], actividadesAsignatura]);
+                }  
+            }
+            asignaturaImpartidas.push([objectsAsignatura[i], infoEstudiantesAsignatura]);
         }  
     }
+    return asignaturaImpartidas;
 }
 
-//ACTIVIDADES RELACIONADAS
-function obtenerActividadesRelacionadas(){
-    for(let i = 0; i < objectsActividades.length; i++){
-        if(codigosAsignaturasImpartidas.includes(objectsActividades[i]["id_asignatura"])){
-            actividadesRelacionadas.push(objectsActividades[i]);
-        }  
-    }
-}
 
 //LEER ARCHIVOS
 document.getElementById("asignatura").addEventListener("change", function() {
@@ -77,8 +100,6 @@ document.getElementById("asignatura").addEventListener("change", function() {
             arrayAsignatura[i] = dataAsignatura[i].split(";");
             objectsAsignatura[i] = new Asignatura(arrayAsignatura[i][0], arrayAsignatura[i][1], arrayAsignatura[i][2]);
         }
-        if(dataAsignatura.length > 0)
-            obtenerAsignaturasImpartidas();
         
     }
     fr.readAsText(this.files[0]);
@@ -122,10 +143,10 @@ document.getElementById("notasxactividades").addEventListener("change", function
         dataNotasActvidades = dataNotasActvidades.split(/[\r\n]+/g);
         for(let i = 0; i < dataNotasActvidades.length; i++){
             arrayNotasActvidades[i] = dataNotasActvidades[i].split(";");
-            objectsNotasActvidades[i] = new NotaActividades(arrayNotasActvidades[i][0], arrayNotasActvidades[i][1], arrayNotasActvidades[i][2], arrayNotasActvidades[i][3]);
+            objectsNotasActvidades[i] = new NotasActividades(arrayNotasActvidades[i][0], arrayNotasActvidades[i][1], arrayNotasActvidades[i][2], arrayNotasActvidades[i][3]);
         }
         if(dataNotasActvidades.length > 0)
-            obtenerActividadesRelacionadas();
+            obtenerInformacionProfesor();
         
     }
     fr.readAsText(this.files[0]);
