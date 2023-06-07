@@ -1,29 +1,25 @@
 /*SAM */
-var dataAsignatura = "";
-var objectsAsignatura = [];
-var attrAsignatura = [];
-var dataAprendizaje = "";
-var objectsAprendizaje = [];
-var attrAprendizaje = [];
-var asignaturasInscritas = [];
-var todasAsignaturas = [];
+//VARIABLES GLOBALES
+var dataAsignatura = "", objectsAsignatura = [], attrAsignatura = [];
+var dataAprendizaje = "", objectsAprendizaje = [], attrAprendizaje = [];
+var asignaturasInscritas = [], todasAsignaturas = [];
 
 
 //CLASES
+class Asignatura {
+	constructor(nombre, codigo, uc){
+		this.nombre = asignatura;
+		this.codigo = codigo;
+		this.uc = uc;
+	}
+}
+
 class Aprendizaje {
 	constructor(id_alumno, id_asignatura, estado, nota){
 		this.id_alumno = id_alumno;
 		this.id_asignatura = id_asignatura;
 		this.estado = estado;
 		this.nota = nota;
-	}
-}
-
-class Asignatura {
-	constructor(asignatura, codigo, uc){
-		this.asignatura = asignatura;
-		this.codigo = codigo;
-		this.uc = uc;
 	}
 }
 
@@ -142,6 +138,8 @@ function retirarAsignatura(idAsignatura){
 //INSCRIBIR ASIGNATURA
 function inscribirAsignatura(idAsignatura){
     dataAprendizaje = "";
+    attrAprendizaje.push(new Aprendizaje(sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0"));
+    objectsAprendizaje.push([sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0"]);
     let aux = "";
 
     for(let i = 0; i < attrAprendizaje.length; i++){
@@ -153,16 +151,6 @@ function inscribirAsignatura(idAsignatura){
         dataAprendizaje += aux;
         dataAprendizaje += "\n";
     }
-    
-    objectsAprendizaje.push(sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0");
-
-    attrAprendizaje.push(new Aprendizaje(sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0"));
-
-    aux = sessionStorage.getItem("userId") + ";" + idAsignatura.toString() + ";" + "Inscrita;0";
-
-    dataAprendizaje += aux;
-    debugger
-
     download(dataAprendizaje, 'Aprendizaje');
     
 }
@@ -194,7 +182,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
             objectsAprendizaje[i] = dataAprendizaje[i].split(";");
             attrAprendizaje[i] = new Aprendizaje(objectsAprendizaje[i][0], objectsAprendizaje[i][1], objectsAprendizaje[i][2], objectsAprendizaje[i][3]);
         }
-        if(dataAprendizaje != "")
+        if(dataAprendizaje.length > 0)
             calcularExpedienteAcademico();
         
     }

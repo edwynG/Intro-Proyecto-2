@@ -1,117 +1,116 @@
 class Universidad {
 	constructor(nombre, rif, direccion){
-		this._nombre = nombre;
-		this._rif = rif;
-		this._direccion = direccion;
+		this.nombre = nombre;
+		this.rif = rif;
+		this.direccion = direccion;
 	}
 }
 
 class Facultad {
-	constructor(id_universidad, facultad){
-		this._id_universidad = id_universidad;
-		this._facultad = facultad;
+	constructor(id_universidad, nombre){
+		this.id_universidad = id_universidad;
+		this.nombre = nombre;
 	}
 }
 
 class Escuela {
-	constructor(id_facultad, escuela){
-		this._id_facultad = id_facultad;
-		this._escuela = escuela;
-		this._nro_carreras = nro_carreras;
+	constructor(id_facultad, nombre){
+		this.id_facultad = id_facultad;
+		this.nombre = nombre;
+		this.nro_carreras = nro_carreras;
 	}
 }
 
 class Carrera {
-	constructor(id_escuela, carrera){
-		this._id_escuela = id_escuela;
-		this._carrera = carrera;
-		this._nro_est = nro_est;
+	constructor(id_escuela, nombre){
+		this.id_escuela = id_escuela;
+		this.nombre = nombre;
+		this.nro_est = nro_est;
 	}
 }
 
-
 class Aula {
 	constructor(nro_aula){
-		this._nro_aula = nro_aula;
+		this.nro_aula = nro_aula;
 	}
 }
 
 class Periodo {
 	constructor(tipo, fecha_inicio, fecha_fin, semanas){
-		this._tipo = tipo;
-		this._fecha_inicio = fecha_inicio;
-		this._fecha_fin = fecha_fin;
-		this._semanas = semanas;
+		this.tipo = tipo;
+		this.fecha_inicio = fecha_inicio;
+		this.fecha_fin = fecha_fin;
+		this.semanas = semanas;
 	}
 }
 
 class Aprendizaje {
 	constructor(id_alumno, id_asignatura, estado, nota){
-		this._id_alumno = id_alumno;
-		this._id_asignatura = id_asignatura;
-		this._estado = estado;
-		this._nota = nota;
+		this.id_alumno = id_alumno;
+		this.id_asignatura = id_asignatura;
+		this.estado = estado;
+		this.nota = nota;
 	}
 }
 
 class Asignatura {
 	constructor(asignatura, codigo, uc){
-		this._asignatura = asignatura;
-		this._codigo = codigo;
-		this._uc = uc;
+		this.asignatura = asignatura;
+		this.codigo = codigo;
+		this.uc = uc;
 	}
 }
 
 class Horario {
 	constructor(horario){
-		this._horario = horario;
+		this.horario = horario;
 	}
 }
 
 class Pensum {
-	constructor(id_carrera, asignatura, codigo){
-		this._id_carrera = id_carrera;
-		this.asignatura = asignatura;
-		this._codigo = codigo;
+	constructor(id_carrera, nombre_asignatura, codigo_asignatura){
+		this.id_carrera = id_carrera;
+		this.nombre_asignatura = nombre_asignatura;
+		this.codigo_asignatura = codigo_asignatura;
 	}
 }
 
 class Persona {
-	constructor(nombre, cedula, correo){
-		this._nombre = nombre;
-		this._cedula = cedula; 
-		this._correo = correo;
+	constructor(nombre, cedula, email){
+		this.nombre = nombre;
+		this.cedula = cedula; 
+		this.email = email;
 	}
 }
 
 class Estudiante extends Persona{
-	constructor(nombre, cedula, correo, prepa){
-		super(nombre, cedula, correo);
-		this._prepa = prepa;
+	constructor(nombre, cedula, email, prepa){
+		super(nombre, cedula, email);
+		this.prepa = prepa;
 	}
 }
 
 class Profesor extends Persona{
-	constructor(nombre, cedula, correo, cursos){
-		super(nombre, cedula, correo);
-		this._cursos = cursos;
+	constructor(nombre, cedula, email, cursos){
+		super(nombre, cedula, email);
+		this.cursos = cursos;
 	}
 }
 
 class Actividad {
-	constructor(id_asignatura, actividad, realizada, horas, observaciones){
-		this._id_asignatura = id_asignatura;
-		this._actividad = actividad; 
-		this._realizada = realizada;
-		this._horas = horas;
-		this._observaciones = observaciones;
+	constructor(id_asignatura, nombre, realizada, horas, observaciones){
+		this.id_asignatura = id_asignatura;
+		this.nombre = nombre; 
+		this.realizada = realizada;
+		this.horas = horas;
+		this.observaciones = observaciones;
 	}
 }
 
-class notaActividades {
+class NotaActividades {
 	constructor(id_alumno, id_actividad, nota){
-		this._id_alumno = id_alumno;
-		this._id_asignatura = id_actividad;
-		this._nota = nota;
+		this.id_alumno = id_alumno;
+		this.id_asignatura = id_actividad;
+		this.nota = nota;
 	}
 }

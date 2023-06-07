@@ -5,7 +5,7 @@ Matemáticas Discretas I;8206;4
 Matemáticas I;6106;2
 Algoritmos y estructura de datos;6107;4
 Organización y estructura del computador;6109;5
-Matemáticas II;61011;5
+Matemáticas II;6101;5
 Matemáticas Discretas II;5106;2
 Ingeniería de Software;1206;2
 Organización y Estructura del Computador II;6306;2

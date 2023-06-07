@@ -14,8 +14,11 @@ function openPage(name){
 }
 
 //SESSION USER
-function sessionUser(id){
+function sessionUser(name, id, email, otro){
+    sessionStorage.setItem("userName", name.toString());
     sessionStorage.setItem("userId", id.toString());
+    sessionStorage.setItem("userEmail", email.toString());
+    sessionStorage.setItem("userOtro", otro.toString());
 }
 
 //SALIR DEL POPUP
@@ -34,7 +37,7 @@ function getData(form) {
 function validateUser(infoForm, attr){
     for(let i = 0; i < attr.length; i++){
         if(infoForm["emailIn"] === attr[i][2]){
-            sessionUser(attr[i][1]);
+            sessionUser(attr[i][0], attr[i][1], attr[i][2], attr[i][3]);
             if(infoForm["profeIn"] == "false"){
                 openPage("homeAlumno")
             }else if(infoForm["profeIn"] == "true"){
