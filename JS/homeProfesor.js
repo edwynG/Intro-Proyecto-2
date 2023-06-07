@@ -19,16 +19,18 @@ class Asignatura {
 }
 
 class Aprendizaje {
-	constructor(id_alumno, id_asignatura, estado, nota){
+	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen){
 		this.id_alumno = id_alumno;
 		this.id_asignatura = id_asignatura;
 		this.estado = estado;
 		this.nota = nota;
+		this.tipo_examen = tipo_examen;
 	}
 }
 
 class Actividad {
-	constructor(id_asignatura, nombre, realizada, horas, observaciones){
+	constructor(id_actividad, id_asignatura, nombre, realizada, horas, observaciones){
+		this.id_actividad = id_actividad;
 		this.id_asignatura = id_asignatura;
 		this.nombre = nombre; 
 		this.realizada = realizada;
@@ -41,7 +43,7 @@ class NotaActividades {
 	constructor(id_asignatura, id_actividad, id_alumno, nota){
 		this.id_asignatura = id_asignatura;
 		this.id_actividad = id_actividad;
-        this.id_alumno = id_alumno;
+		this.id_alumno = id_alumno;
 		this.nota = nota;
 	}
 }
@@ -90,7 +92,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
         dataAprendizaje = dataAprendizaje.split(/[\r\n]+/g);
         for(let i = 0; i < dataAprendizaje.length; i++){
             arrayAprendizaje[i] = dataAprendizaje[i].split(";");
-            objectsAprendizaje[i] = new Aprendizaje(arrayAprendizaje[i][0], arrayAprendizaje[i][1], arrayAprendizaje[i][2], arrayAprendizaje[i][3]);
+            objectsAprendizaje[i] = new Aprendizaje(arrayAprendizaje[i][0], arrayAprendizaje[i][1], arrayAprendizaje[i][2], arrayAprendizaje[i][3], arrayAprendizaje[i][4]);
         }
         
     }
@@ -105,7 +107,7 @@ document.getElementById("actividades").addEventListener("change", function() {
         dataActividades = dataActividades.split(/[\r\n]+/g);
         for(let i = 0; i < dataActividades.length; i++){
             arrayActividades[i] = dataActividades[i].split(";");
-            objectsActividades[i] = new Actividad(arrayActividades[i][0], arrayActividades[i][1], arrayActividades[i][2], arrayActividades[i][3], arrayActividades[i][4]);
+            objectsActividades[i] = new Actividad(arrayActividades[i][0], arrayActividades[i][1], arrayActividades[i][2], arrayActividades[i][3], arrayActividades[i][4], arrayActividades[i][5]);
         }
         
     }

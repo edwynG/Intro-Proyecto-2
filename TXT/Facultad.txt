@@ -1,4 +1,4 @@
-//ID UNIVERSIDAD; NOMBRE
+ID UNIVERSIDAD; NOMBRE
 1;Facultad de Ciencias
 1;Facultad de Agronomía
 1;Facultad de Arquitectura y Urbanismo

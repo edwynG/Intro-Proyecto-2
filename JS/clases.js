@@ -7,9 +7,10 @@ class Universidad {
 }
 
 class Facultad {
-	constructor(id_universidad, nombre){
+	constructor(id_universidad, nombre, cantidad_carreras){
 		this.id_universidad = id_universidad;
 		this.nombre = nombre;
+		this.cantidad_carreras = cantidad_carreras;
 	}
 }
 
@@ -30,8 +31,8 @@ class Carrera {
 }
 
 class Aula {
-	constructor(nro_aula){
-		this.nro_aula = nro_aula;
+	constructor(nombre){
+		this.nombre = nombre;
 	}
 }
 
@@ -45,19 +46,40 @@ class Periodo {
 }
 
 class Aprendizaje {
-	constructor(id_alumno, id_asignatura, estado, nota){
+	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen){
 		this.id_alumno = id_alumno;
 		this.id_asignatura = id_asignatura;
 		this.estado = estado;
 		this.nota = nota;
+		this.tipo_examen = tipo_examen;
 	}
 }
 
 class Asignatura {
-	constructor(asignatura, codigo, uc){
-		this.asignatura = asignatura;
+	constructor(nombre, codigo, uc){
+		this.nombre = nombre;
 		this.codigo = codigo;
 		this.uc = uc;
+	}
+}
+
+class Actividad {
+	constructor(id_actividad, id_asignatura, nombre, realizada, horas, observaciones){
+		this.id_actividad = id_actividad;
+		this.id_asignatura = id_asignatura;
+		this.nombre = nombre; 
+		this.realizada = realizada;
+		this.horas = horas;
+		this.observaciones = observaciones;
+	}
+}
+
+class NotaActividades {
+	constructor(id_asignatura, id_actividad, id_alumno, nota){
+		this.id_asignatura = id_asignatura;
+		this.id_actividad = id_actividad;
+		this.id_alumno = id_alumno;
+		this.nota = nota;
 	}
 }
 
@@ -94,23 +116,5 @@ class Profesor extends Persona{
 	constructor(nombre, cedula, email, cursos){
 		super(nombre, cedula, email);
 		this.cursos = cursos;
-	}
-}
-
-class Actividad {
-	constructor(id_asignatura, nombre, realizada, horas, observaciones){
-		this.id_asignatura = id_asignatura;
-		this.nombre = nombre; 
-		this.realizada = realizada;
-		this.horas = horas;
-		this.observaciones = observaciones;
-	}
-}
-
-class NotaActividades {
-	constructor(id_alumno, id_actividad, nota){
-		this.id_alumno = id_alumno;
-		this.id_asignatura = id_actividad;
-		this.nota = nota;
 	}
 }

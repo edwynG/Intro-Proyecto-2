@@ -1,4 +1,4 @@
-//ID CARRERA; ASIGNATURA; CODIGO
+ID CARRERA; NOMBRE ASIGNATURA; CODIGO ASIGNATURA
 1;Algoritmos y Programación;6201
 1;Introducción a la Informática;6301
 1;Matemáticas I;8206

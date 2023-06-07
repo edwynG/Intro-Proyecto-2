@@ -16,11 +16,12 @@ class Asignatura {
 }
 
 class Aprendizaje {
-	constructor(id_alumno, id_asignatura, estado, nota){
+	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen){
 		this.id_alumno = id_alumno;
 		this.id_asignatura = id_asignatura;
 		this.estado = estado;
 		this.nota = nota;
+		this.tipo_examen = tipo_examen;
 	}
 }
 
@@ -100,7 +101,6 @@ function calcularExpedienteAcademico(){
                 if(aprendizajeEstudiante[j]["estado"] === "Aprobada"){
                     expedienteAcademico['UC'] += Number(attrAsignatura[i]["uc"]);
                 }
-                debugger
                 attrAsignatura[i]["notaEstudiante"] = aprendizajeEstudiante[j]["nota"];
                 
                 asignaturasInscritas.push(attrAsignatura[i]);
@@ -142,8 +142,8 @@ function retirarAsignatura(idAsignatura){
 //INSCRIBIR ASIGNATURA
 function inscribirAsignatura(idAsignatura){
     dataAprendizaje = "";
-    attrAprendizaje.push(new Aprendizaje(sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0"));
-    objectsAprendizaje.push([sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0"]);
+    attrAprendizaje.push(new Aprendizaje(sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0", "Tipo de examen"));
+    objectsAprendizaje.push([sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0", "Tipo de examen"]);
     let aux = "";
 
     for(let i = 0; i < attrAprendizaje.length; i++){
@@ -184,7 +184,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
         dataAprendizaje = dataAprendizaje.split(/[\r\n]+/g);
         for(let i = 0; i < dataAprendizaje.length; i++){
             objectsAprendizaje[i] = dataAprendizaje[i].split(";");
-            attrAprendizaje[i] = new Aprendizaje(objectsAprendizaje[i][0], objectsAprendizaje[i][1], objectsAprendizaje[i][2], objectsAprendizaje[i][3]);
+            attrAprendizaje[i] = new Aprendizaje(objectsAprendizaje[i][0], objectsAprendizaje[i][1], objectsAprendizaje[i][2], objectsAprendizaje[i][3], objectsAprendizaje[i][4]);
         }
         if(dataAprendizaje.length > 0)
             calcularExpedienteAcademico();

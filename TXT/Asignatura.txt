@@ -1,4 +1,4 @@
-//NOMBRE; CODIGO; UC
+NOMBRE; CODIGO; UC
 Algoritmos y Programación;6201;2
 Introducción a la Informática;6301;4
 Matemáticas Discretas I;8206;4
