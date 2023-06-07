@@ -7,14 +7,14 @@ class Universidad {
 }
 
 class Facultad {
-	constructor(facultad, id_universidad){
+	constructor(id_universidad, facultad){
 		this._id_universidad = id_universidad;
 		this._facultad = facultad;
 	}
 }
 
 class Escuela {
-	constructor(escuela, id_facultad){
+	constructor(id_facultad, escuela){
 		this._id_facultad = id_facultad;
 		this._escuela = escuela;
 		this._nro_carreras = nro_carreras;
@@ -22,7 +22,7 @@ class Escuela {
 }
 
 class Carrera {
-	constructor(carrera, id_escuela){
+	constructor(id_escuela, carrera){
 		this._id_escuela = id_escuela;
 		this._carrera = carrera;
 		this._nro_est = nro_est;
@@ -33,14 +33,6 @@ class Carrera {
 class Aula {
 	constructor(nro_aula){
 		this._nro_aula = nro_aula;
-	}
-}
-
-
-class PlanEstudio {
-	constructor(act_planificadas, act_realizadas){
-		this._act_planificadas = act_planificadas;
-		this._act_realizadas = act_realizadas;
 	}
 }
 
@@ -76,15 +68,13 @@ class Horario {
 	}
 }
 
-
 class Pensum {
-	constructor(asignatura, codigo, id_carrera){
+	constructor(id_carrera, asignatura, codigo){
 		this._id_carrera = id_carrera;
-		this._asignatura = asignatura;
+		this.asignatura = asignatura;
 		this._codigo = codigo;
 	}
 }
-
 
 class Persona {
 	constructor(nombre, cedula, correo){
@@ -101,10 +91,10 @@ class Estudiante extends Persona{
 	}
 }
 
-
 class Profesor extends Persona{
-	constructor(nombre, cedula, correo){
+	constructor(nombre, cedula, correo, cursos){
 		super(nombre, cedula, correo);
+		this._cursos = cursos;
 	}
 }
 

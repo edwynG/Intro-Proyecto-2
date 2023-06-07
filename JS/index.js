@@ -15,13 +15,13 @@ function menu(){
     iconMenu.classList.toggle("responsive_aside");
 }
 
-function initLogin(name){
+function openPage(name){
    window.open(`${name}.html`,"_self");
     
 }
 
-btnSignUp.addEventListener("click",() => initLogin("SignUp"))
-btnSignIn.addEventListener("click",() => initLogin("SignIn"))
+btnSignUp.addEventListener("click",() => openPage("SignUp"))
+btnSignIn.addEventListener("click",() => openPage("SignIn"))
 btnMenuClose.addEventListener("click",()=> menu())
 
 btnMenu.addEventListener("click", () => menu())

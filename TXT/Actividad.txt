@@ -1,4 +1,4 @@
-//ID ASIGNATURA; ACTIVIDAD; REALIZACION T/F; TIEMPO EN REALIZAR; OBSERVACION; 
+//ID ASIGNATURA; ACTIVIDAD; REALIZACION T/F; HORAS; OBSERVACION
 6201;Examen escrito;true;2 horas;Evaluación efectiva
 6201;Quiz;true;2 horas;Indice de aprobados medio/bajo
 6201;Proyecto;2 semanas;true;Evaluación efectiva, nota promedio media/alta

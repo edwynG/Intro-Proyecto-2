@@ -13,21 +13,26 @@
     <section class="contaniner_loger">
             <div class="loger_nav-icon">
                 <div class="nav_icon-vacio"> </div>
-                <div class="nav_container-close nav_icon-items">
-                    <i class="fa-solid fa-xmark" id="loger_nav-close"  id="nav_icon-close"></i>
+                <div class="nav_container-close">
+                    <i class="fa-solid fa-xmark" id="loger_nav-close"></i>
                 </div>
             </div>
+
             <div class="sesion__formulario" id="login__content">
                 <h2 class="formulario__title">¡Bienvenido!</h2>
+                <!--FORM-->
                 <form action="" class="formulario_Container-input" id="signUpForm">
+
                     <div class="Formulario__input-icon">
                         <i class="fa-solid fa-user" id="formulario_icono"></i>
                         <input name="nameUp" class="Formulario__input" type="text" placeholder="Nombre y Apellido" required>
                     </div>
+
                     <div class="Formulario__input-icon">
                         <i class="fa-sharp fa-solid fa-key" id="formulario_icono"></i>
                         <input name="ciUp" class="Formulario__input" type="text" placeholder="Cedula" required>
                     </div>
+
                     <div class="Formulario__input-icon">
                         <i class="fa-solid fa-envelope" id="formulario_icono"></i>
                         <input name="emailUp" class="Formulario__input" type="email" placeholder="Email" required>
@@ -38,27 +43,41 @@
                         <input name="passwordUp" class="Formulario__input" type="password" placeholder="Password" required>
                     </div>
 
-                    <div class="Formulario__input-icon">
-                        <label for="prepa">Eres preparador?</label>
-
-                        <select name="prepaUp" id="prepa">
-                            <option value="false">No</option>
-                            <option value="true">Si</option>
-                        </select>
+                    <div class="Formulario__input-icon for_input-box-item">
+                        <div class="for_input-box-item">
+                            <label for="profe" class="input_checkbox-text">Eres profesor?</label>
+    
+                            <select name="profeUp" id="profe" class="SelecOptions">
+                                <option value="false">No</option>
+                                <option value="true">Si</option>
+                            </select>
+                        </div>
+                            <div class="for_input-box-item">
+                                <label for="prepa" class="input_checkbox-text">Eres preparador?</label>
+        
+                                <select name="prepaUp" id="prepa" class="SelecOptions">
+                                    <option value="false">No</option>
+                                    <option value="true">Si</option>
+                                </select>
+                            </div>
                     </div>
+
                     <input id="submitUp" class="formulario__button" type="submit" value="Submit" hidden>
+
                 </form>
 
-                <p>Selecciona el archivo Alumno.txt / Profesor.txt</p>
+                <br>
+                <p class="File_parrafo">Selecciona el archivo Alumno.txt / Profesor.txt</p>
                 <label for="readFile" class="formulario__button">Siguiente</label>
                 <input id="readFile" type="file" name="readFileUp" hidden>
 
-                <input id="writeFile" type="button" value="write" onclick="download('Alumno')" hidden>
+                <input id="writeFile" type="button" value="write" onclick="download()" hidden>
 
                 <p class="formulario__text">¿Ya estas registrado? <span id="modePage"><a href="SignIn.html">Incia sesion</a> </span></p>
             </div>
         <div></div>
     </section>
     <script src="../JS/login.js"></script>
+
 </body>
 </html>
