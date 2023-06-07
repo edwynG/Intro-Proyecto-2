@@ -8,7 +8,7 @@ var asignaturasInscritas = [], todasAsignaturas = [];
 //CLASES
 class Asignatura {
 	constructor(nombre, codigo, uc){
-		this.nombre = asignatura;
+		this.nombre = nombre;
 		this.codigo = codigo;
 		this.uc = uc;
 	}
