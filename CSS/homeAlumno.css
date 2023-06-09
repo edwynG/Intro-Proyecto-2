@@ -21,8 +21,27 @@
 .responsive{
     display: none;
 }
+
+.icon_btn_materia {
+    cursor: pointer !important;
+    padding: 5px 8px;
+    border-radius: 50%;
+    height: 28px;
+}
+.icon_btn_materia:hover{
+    background: var(--fondoOpacity);
+}
+
+#inscribir_Materia{
+    padding: 6px;
+}
+
 .responsive-lis{
     display: none;
+}
+
+.template{
+    display: none !important;
 }
 .container_header {
     display: flex;
@@ -196,7 +215,7 @@
 }
 
 .main_items-title {
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .container_person-name {
@@ -237,8 +256,18 @@
     padding: 5px 6px;
 }
 
+
+.name_materias-proceso{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    gap: 35px;
+}
+
+
 .items-proceso-Materias h2{
     font-weight: 400;
+    font-size: 19px;
 }
 
 
@@ -254,6 +283,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.9s ease;
 }
 
 .load_file {
@@ -268,6 +298,7 @@
     min-width: 412px;
     gap: 6px;
     margin: 10px;
+
 }
 
 .btn_file {

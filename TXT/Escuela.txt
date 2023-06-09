@@ -1,4 +1,4 @@
-//ID FACULTAD; NOMBRE; CANTIDAD CARRERAS
+ID FACULTAD; NOMBRE; CANTIDAD CARRERAS
 1;Escuela de Computación;1
 1;Escuela de Biología;1
 1;Escuela de Matemáticas;1
