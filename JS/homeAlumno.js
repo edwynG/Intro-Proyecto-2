@@ -5,6 +5,7 @@ var dataAprendizaje = "", attrAprendizaje = [];
 var asignaturasInscritas = [], todasAsignaturas = [];
 var retirar_materia = document.getElementById("retirar_Materia");
 var inscribir_materia=document.getElementById("inscribir_Materia")
+var tablaCalificaciones =document.getElementById("calificaciones");
 
 //CLASES
 class Asignatura {
@@ -192,7 +193,9 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
             calcularExpedienteAcademico();
             layoutEstrucutrado();
             loopInscribir();
-            loopRetirar()
+            loopRetirar();
+            personStatus();
+
     }
     fr.readAsText(this.files[0]);
 });
@@ -217,45 +220,11 @@ function download(data, nameFile){
 
 /*EDWYN*/
 
-/* Algoritmo para cargar inicio automaticamente*/
+// /*Moverse entre paginas ********/
+
 const template_inicio = document.getElementById("template_Inicio");
 const template_materias = document.getElementById("template_materias");
-// const inicio_Clone=document.importNode(template_inicio.content,true);
 
-// const Container_Page= document.querySelector(".container_main");
-
-// Container_Page.appendChild(inicio_Clone);
-// /*********************************************** */
-
-
-// /*Funciones para moverse entre paginas */
-// function CargarInicio(){
-//     const template = document.getElementById("template_Inicio");
-//     const clone=document.importNode(template.content,true);
-
-//     const Container_Page= document.querySelector(".container_main");
-//     while(Container_Page.firstElementChild){
-//         Container_Page.removeChild(Container_Page.firstElementChild)
-//     }
-//     Container_Page.appendChild(clone);
-// }
-
-// function CargarMaterias(){
-//     const template = document.getElementById("template_materias");
-//     const clone=document.importNode(template.content,true);
-
-//     const Container_Page= document.querySelector(".container_main");
-
-//     while(Container_Page.firstElementChild){
-//         Container_Page.removeChild(Container_Page.firstElementChild)
-//     }
-
-//     Container_Page.appendChild(clone);
-// }
-// /*************************************** */
-
-
-// /*Moverse entre paginas ********/
 
 const pageInicio= document.getElementById("inicio");
 const pageMaterias = document.getElementById("materias");
@@ -291,13 +260,19 @@ document.querySelector(".nav_reposive-icoClose").addEventListener("click",()=>{
     document.querySelector(".container_main").classList.toggle("responsive-lista");
 })
 
+
+
 /**************************************/
 
 
 
 /*Regresar al Menu principal*/
 
-document.querySelector(".container_person-close").addEventListener("click",()=> {
+document.querySelector("#userExit").addEventListener("click",()=>{
+    document.querySelector(".container_list-exit").classList.toggle("list_user-exit");
+})
+
+document.getElementById("cerrarSesion").addEventListener("click",()=> {
    window.open("index.html");
    window.close();
 })
@@ -344,7 +319,7 @@ function btnContinuarSesion(){
                 const temp =document.querySelectorAll(".btn_file");
 
                 for (let index = 0; index < temp.length; index++) {
-                    temp[index].style.background="#7EB2FD"
+                    temp[index].style.background="#69E0C3"
                     
                 }
 
@@ -400,10 +375,14 @@ const boxInscribirMateria = document.getElementById("inscribirMateria");
 
 function layoutEstrucutrado(){
     /*Estado */ 
+    let userDate= sessionStorage;
     const boxEficiencia = document.getElementById("box_Eficiencia");
     const boxUC = document.getElementById("box_U-C");
     const boxPG = document.getElementById("box_P-G");
     const boxAsingA = document.getElementById("box_Asig-A");
+    const boxUser = document.getElementById("box_user");
+    const boxCorreo = document.getElementById("box_Correo");
+
     /***************/
     /*Asignaturas */
     const boxInscrita = document.getElementById("box_Inscrita");
@@ -413,6 +392,8 @@ function layoutEstrucutrado(){
     const boxAprovada = document.getElementById("box_Aprovada");
     const boxEquivalecia = document.getElementById("box_Equivalencia");
     const boxTA = document.getElementById("box_Total-A");
+    const boxPA = document.getElementById("box_PA");
+
     /***************/
 
    
@@ -428,6 +409,10 @@ function layoutEstrucutrado(){
     boxUC.innerHTML=DataAcademica.UC.toFixed(2).replace(/\.?0+$/, '');
     boxPG.innerHTML=DataAcademica.promedioGeneral.toFixed(2).replace(/\.?0+$/, '');
     boxAsingA.innerHTML=DataAcademica.promedioAsigAprob.toFixed(2).replace(/\.?0+$/, '');
+    let userName = userDate.getItem("userName").split(" ");
+    boxUser.innerHTML= userName[0] +" "+userName[userName.length-2];
+    boxCorreo.innerHTML=userDate.getItem("userEmail");
+    
 
     /*Asignatura*/
     boxInscrita.innerHTML=DataAcademica.materiasInscritas.toFixed(2).replace(/\.?0+$/, '');
@@ -440,6 +425,7 @@ function layoutEstrucutrado(){
     for (let index = 0; index < asignaturasInscritas.length; index++) {
         appendMateria(asignaturasInscritas[index].nombre,asignaturasInscritas[index].codigo,mainMaterias,true)
         appendMateria(asignaturasInscritas[index].nombre,asignaturasInscritas[index].codigo,boxRetirarMateria,true)
+        tablaDeCalificaciones(asignaturasInscritas[index].nombre,asignaturasInscritas[index].codigo,asignaturasInscritas[index].uc,asignaturasInscritas[index].notaEstudiante,tablaCalificaciones)
         
     }
 
@@ -453,6 +439,19 @@ function layoutEstrucutrado(){
 
 }
 
+function tablaDeCalificaciones(name,id,uc,nota,lugar){
+    let div = document.createElement("DIV")
+    let content = `
+                        <h2 class="data_item1 data_item">${name}</h2>
+                        <h3 class="data_item2 data_item">${id}</h3>                     
+                        <h3 class="data_item3 data_item">${uc}</h3>
+                        <h3 class="data_item4 data_item">${nota}</h3>
+                    `
+    div.classList.add("tabla-date");
+    div.setAttribute("id",`${id}`);
+    div.innerHTML=content;
+    lugar.appendChild(div);
+}
 
 function appendMateria(name,id,lugar,ios){
     let box = document.createElement("DIV");
@@ -510,10 +509,14 @@ function materiaRetirada(nodo){
  function materiaInscribir(nodo){
      let id = nodo.parentNode.getAttribute("id")
      nodo.parentNode.remove();
-     let name=busqueda(id);
+     let name=busqueda(id,todasAsignaturas,true);
      appendMateria(name,id,mainMaterias,true);
      appendMateria(name,id,boxRetirarMateria,true);
      loopRetirar();
+     let index=busqueda(id,todasAsignaturas,false);
+
+     tablaDeCalificaciones(todasAsignaturas[index].nombre,todasAsignaturas[index].codigo,todasAsignaturas[index].uc,todasAsignaturas[index].notaEstudiante,tablaCalificaciones)
+
  }
 
 
@@ -527,10 +530,15 @@ function deleteMateria(id){
     
 }
 
-function busqueda(params) {
-    for (let index = 0; index < todasAsignaturas.length; index++) {
-        if(todasAsignaturas[index].codigo == params){
-            return todasAsignaturas[index].nombre;
+function busqueda(params,arr,boleano) {
+    for (let index = 0; index < arr.length; index++) {
+        if(arr[index].codigo == params){
+            if(boleano){
+                return arr[index].nombre;
+
+            }else{
+                return index;
+            }
         }
     }
 }
@@ -558,4 +566,13 @@ function loopInscribir(){
 
         });
       }
+}
+
+function personStatus(){
+    let cache = sessionStorage;
+    let divCi= document.querySelectorAll("#ci_list");
+
+    for(let i = 0;i < divCi.length;i++){
+        divCi[i].innerHTML= "V" + cache.getItem("userId");
+    }
 }

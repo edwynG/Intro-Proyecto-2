@@ -12,6 +12,7 @@
 
     <section class="container">
         <header class="container_header">
+           <section class="container_Subheader">
             <nav class="header_container-nav">
                 <div class="header_menu-resposive responsive">
                     <i class="fa-solid fa-bars"></i>
@@ -28,16 +29,52 @@
             </nav>
             <div class="header_container-person">
                 <h2 class="container_person-name"></h2>
-                <div class="container_person-close" title="Cerrar sesión">
-                    <i class="fa-solid fa-right-to-bracket"></i>
+                <div class="header_Notification">
+                    <i class="fa-solid fa-bell" id="Notificacion"></i>
+                </div>
+                <div class="container_person-close" id="userExit">
+                    <i class="fa-regular fa-user" ></i>
+                    <i class="fa-solid fa-sort-down"></i>
+                    
+                </div>
+                <div class="container_list-exit list_user-exit" >
+                    <ul class="lista_exit">
+                        <li class="item_list-exit" id="ci_list">N/A</li>
+                        <li class="divider"></li>
+                        <li class="item_list-exit item_exit">Cambiar contraseña</li>
+                        <li class="item_list-exit item_exit" id="cerrarSesion" title="Cerrar sesión" >Cerrar sesion</li>
+                    </ul>
                 </div>
             </div>
+           </section>
         </header>
         <main class="container_main" id="template_Inicio">
      
                 <section class="main_items main_item-1 main_item-container-1">
                     <h1 class="main_items-title">Estado</h1>
+                   
                     <div class="main_items-container">
+
+                        <div class="main_items-props">
+                            <div class="items_props-icon">
+                                <i class="fa-solid fa-user-shield"></i>
+                            </div>
+                            <div class="items_props-container">
+                                <span class="items_props-date" id="box_user">N/A</span>
+                                <h3 class="items_props-name">Usuario</h3>
+                            </div>
+                        </div>
+                        <div class="main_items-props">
+                            <div class="items_props-icon">
+                                <i class="fa-regular fa-envelope"></i>
+                            </div>
+                            <div class="items_props-container">
+                                <span class="items_props-date" id="box_Correo">N/A</span>
+                                <h3 class="items_props-name">Correo</h3>
+                            </div>
+                        </div>
+
+
                         <div class="main_items-props">
                             <div class="items_props-icon">
                                 <i class="fa-solid fa-book"></i>
@@ -143,8 +180,17 @@
                                 <h3 class="items_props-name">Total Aprobadas</h3>
                             </div>
                         </div>
+                        <div class="main_items-props main_item-prop-asig">
+                            <div class="items_props-icon">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div class="items_props-container">
+                                <span class="items_props-date" id="box_PA">N/A</span>
+                                <h3 class="items_props-name">Periodo Academico</h3>
+                            </div>
+                        </div>
                     </div>
-                        
+                    <div></div> 
                 </section>
                 <section class="main_items main_item-3">
                     
@@ -174,6 +220,32 @@
         
 
         <main class="container_main template" id="template_materias" >
+
+            <section class="tabla_notas container_items-procesoMaterias">
+                <h3 class="tabla_title">Calificaciones por materia</h3>
+                <div class="tabla_atribute" id="calificaciones">
+                   <div class="Fila_tabla">
+                        <div class="tabla_name tabla_columna"><h4>Materia</h4></div>
+                        <div class="tabla_id tabla_columna"><h4>Codigo</h4></div>
+                        <div class="tabla_UC tabla_columna"><h4>UC</h4></div>
+                        <div class="tabla_nota tabla_columna"><h4>Nota</h4></div>
+                   </div> 
+                   <div class="tabla-date" id="6201"> 
+                        <h2 class="data_item1 data_item">Algoritmos y Programación</h2>
+                        <h3 class="data_item2 data_item">6201</h3>                     
+                        <h3 class="data_item3 data_item">12.6</h3>
+                        <h3 class="data_item4 data_item">18</h3>
+                    </div> 
+
+
+                </div>
+            
+            </section>
+            <section class="tabla_notas img_materia-tabla container_items-procesoMaterias">
+               
+                
+            
+            </section>
             <!--INSCRIBIR-->
             <section class="container_items-procesoMaterias" id="inscribirMateria">
                 <h1 class="item_procesoMaterias-text">Inscribir Materias</h1>
