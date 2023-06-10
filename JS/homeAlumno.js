@@ -190,7 +190,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
             attrAprendizaje[i] = new Aprendizaje(objectsAprendizaje[i][0], objectsAprendizaje[i][1], objectsAprendizaje[i][2], objectsAprendizaje[i][3], objectsAprendizaje[i][4]);
         }
         if(dataAprendizaje.length > 0)
-            calcularExpedienteAcademico();
+           // calcularExpedienteAcademico();
             layoutEstrucutrado();
             loopInscribir();
             loopRetirar();
@@ -273,8 +273,8 @@ document.querySelector("#userExit").addEventListener("click",()=>{
 })
 
 document.getElementById("cerrarSesion").addEventListener("click",()=> {
-   window.open("index.html");
-   window.close();
+    window.open("index.html","_self");
+    window.close("homeAlumno.html");
 })
 
 /************************** */
@@ -393,12 +393,7 @@ function layoutEstrucutrado(){
     const boxEquivalecia = document.getElementById("box_Equivalencia");
     const boxTA = document.getElementById("box_Total-A");
     const boxPA = document.getElementById("box_PA");
-
     /***************/
-
-   
-   
-
     /*Data Academica*/
     const DataAcademica = calcularExpedienteAcademico();
     console.log(DataAcademica)
@@ -549,8 +544,8 @@ function loopRetirar(){
         retirar_materia[i].addEventListener('click', function(event) {
           let nodoSeleccionado = event.currentTarget;
             nodoSeleccionado=nodoSeleccionado.parentNode.getAttribute("id");
-           
             deleteMateria(nodoSeleccionado);
+            isRetirada();
         });
       }
 }
@@ -563,6 +558,7 @@ function loopInscribir(){
         inscribir_materia[i].addEventListener('click', function(event) {
           const nodoSeleccionado = event.currentTarget;
           materiaInscribir(nodoSeleccionado);
+          isInscrita();
 
         });
       }
@@ -575,4 +571,20 @@ function personStatus(){
     for(let i = 0;i < divCi.length;i++){
         divCi[i].innerHTML= "V" + cache.getItem("userId");
     }
+}
+
+function isRetirada(){
+        let inscritas = document.getElementById("box_Inscrita");
+        let retiradas = document.getElementById("box_Retirada");
+        let cantidadIns = parseInt(inscritas.textContent,10);
+        let cantidadRet = parseInt(retiradas.textContent,10);
+        inscritas.innerHTML=cantidadIns-1;
+        retiradas.innerHTML=cantidadRet+1;
+}
+
+function isInscrita(){
+    let inscritas = document.getElementById("box_Inscrita");
+    let cantidadIns = parseInt(inscritas.textContent,10);
+    inscritas.innerHTML=cantidadIns+1;
+
 }

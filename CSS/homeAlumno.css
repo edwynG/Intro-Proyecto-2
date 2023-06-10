@@ -445,7 +445,7 @@
 
 .items-proceso-Materias h2{
     font-weight: 400;
-    font-size: 19px;
+    font-size: 18px;
 }
 
 
@@ -490,7 +490,7 @@
 .file_items {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 12px;
     align-items: center;
 }
 
@@ -530,7 +530,20 @@
     display: none !important;
 }
 
-@media screen and (max-width:1149px) {
+@media screen and (min-width:1175px) {
+    .main_items-props {
+        max-width: 50%;
+    }
+}
+
+@media screen and (max-width:1175px) {
+    .main_items-props {
+        max-width:85%;
+    }
+}
+
+
+@media screen and (max-width:1155px) {
     .main_items-container { 
        height:auto;
     }
@@ -540,6 +553,9 @@
     .main_items{
         width: 100%;
         max-width: 100%;
+    }
+    .main_items-props {
+        max-width: 50%;
     }
 
     .container_items-procesoMaterias{
@@ -554,7 +570,7 @@
      }
 }
 
-@media screen and (max-width:530px) {
+@media screen and (max-width:700px) {
     .main_items-props {
        max-width: 100%;
     

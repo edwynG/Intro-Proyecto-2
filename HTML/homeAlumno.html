@@ -22,7 +22,7 @@
                         <i class="fa-solid fa-xmark"></i>
                     </div>
                     <li class="lista_items" id="inicio">Inicio</li>
-                    <li class="lista_items" id="materias">Materias</li>
+                    <li class="lista_items" id="materias">Asignaturas</li>
                     <li class="lista_items">Data Maestra</li>
                     <li class="lista_items">Perfil</li>
                 </ul>
@@ -108,7 +108,7 @@
                             </div>
                             <div class="items_props-container">
                                 <span class="items_props-date" id="box_Asig-A">N/A</span>
-                                <h3 class="items_props-name">Asignaturas aprovadas</h3>
+                                <h3 class="items_props-name">Promedio Asignaturas</h3>
                             </div>
                         </div>
                     </div>
@@ -180,31 +180,15 @@
                                 <h3 class="items_props-name">Total Aprobadas</h3>
                             </div>
                         </div>
-                        <div class="main_items-props main_item-prop-asig">
-                            <div class="items_props-icon">
-                                <i class="fa-solid fa-graduation-cap"></i>
-                            </div>
-                            <div class="items_props-container">
-                                <span class="items_props-date" id="box_PA">N/A</span>
-                                <h3 class="items_props-name">Periodo Academico</h3>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div></div> 
                 </section>
                 <section class="main_items main_item-3">
                     
-                    <h1 class="main_items-title">Materias</h1>
+                    <h1 class="main_items-title">Inscritas</h1>
                     <div class="main_item-container-3" id="main_Materias">
-                        <!-- <div class="main_items-props-materia">
-                          <h2>Matematica</h2>
-                          <span>N/A</span>
-                          BOTON CAMBIAR DE LUGAR
-                          <button display="block !important" onclick="retirarAsignatura(6301)"></button>
-                          <button display="block !important" onclick="inscribirAsignatura(1206)"></button>
-                          
-                                                  
-                        </div> -->
+                    
                     </div>
                 </section>
                 <section class="main_items main_item-4">
@@ -222,63 +206,30 @@
         <main class="container_main template" id="template_materias" >
 
             <section class="tabla_notas container_items-procesoMaterias">
-                <h3 class="tabla_title">Calificaciones por materia</h3>
+                <h3 class="tabla_title">Calificaciones por Asignatura</h3>
                 <div class="tabla_atribute" id="calificaciones">
                    <div class="Fila_tabla">
-                        <div class="tabla_name tabla_columna"><h4>Materia</h4></div>
+                        <div class="tabla_name tabla_columna"><h4>Asignatura</h4></div>
                         <div class="tabla_id tabla_columna"><h4>Codigo</h4></div>
                         <div class="tabla_UC tabla_columna"><h4>UC</h4></div>
                         <div class="tabla_nota tabla_columna"><h4>Nota</h4></div>
                    </div> 
-                   <div class="tabla-date" id="6201"> 
-                        <h2 class="data_item1 data_item">Algoritmos y Programación</h2>
-                        <h3 class="data_item2 data_item">6201</h3>                     
-                        <h3 class="data_item3 data_item">12.6</h3>
-                        <h3 class="data_item4 data_item">18</h3>
-                    </div> 
 
 
                 </div>
             
             </section>
             <section class="tabla_notas img_materia-tabla container_items-procesoMaterias">
-               
-                
             
             </section>
             <!--INSCRIBIR-->
             <section class="container_items-procesoMaterias" id="inscribirMateria">
-                <h1 class="item_procesoMaterias-text">Inscribir Materias</h1>
-<!-- 
-                <div class="items-proceso-Materias  contianer_item-inscribir">
-
-                    <h2>Matematica</h2>
-                    <span>N/A</span> 
-                    <label class="fa-solid fa-check icon_btn_materia" id="inscribirMateria" for="btn_inscribir"></label>
-                    <button onclick="inscribirAsignatura(id)"  id="btn_inscribir" hidden ></button>
-
-                </div>
-
-                <div id="" class="items-proceso-Materias  contianer_item-inscribir">
-
-                    <h2>Algoritmo</h2>
-                    <span>N/A</span>
-                    <label class="fa-solid fa-check icon_btn_materia" id="inscribirMateria"></label>
-
-                </div> -->
-                  
+                <h1 class="item_procesoMaterias-text">Inscribir Asignatura</h1>
             </section>
             <!--RETIRAR-->
             <section class="container_items-procesoMaterias" id="retirarMateria">
-                <h1 class="item_procesoMaterias-text">Retirar materias</h1>
+                <h1 class="item_procesoMaterias-text">Retirar Asignatura</h1>
 
-                <!-- <div id="" class="items-proceso-Materias   contianer_item-retirar">
-                    <h2>Matematica</h2>
-                    <span>N/A</span> 
-                    <label class="fa-solid fa-xmark icon_btn_materia" id="retirarMateria" for="btn_retirar"></label>
-                    <button onclick="retirarAsignatura(6201)" id="btn_retirar" hidden></button>
-                    
-                </div> -->
 
             </section>
        
