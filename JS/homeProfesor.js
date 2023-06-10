@@ -7,7 +7,7 @@ let codigosAsignaturasImpartidas = sessionStorage.getItem("userOtro").replaceAll
 codigosAsignaturasImpartidas = codigosAsignaturasImpartidas.replaceAll(']', '');
 codigosAsignaturasImpartidas = codigosAsignaturasImpartidas.split(",");
 
-let informacionProfesor = []; //[curso, [estudianteinfo, [actividadinfo]]]
+let informacionProfesor = []; //[asignatura, [estudianteinfo, [actividadinfo]]]
 
 //OTROS
 function clickButton(buttonId){

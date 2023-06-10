@@ -23,17 +23,19 @@
     <h3>Seleccionar archivo NotasActividades.txt</h3>
     <input type="file" name="notasxactividades" id="notasxactividades">
 
-
-    <!--FORMULARIO DE ASIGNATURASINFO-->
+    <h3>Asignaturas impartidas</h3>
+    <!--FORMULARIO DE ESTUDIANTES EN ASIGNATURA-->
+    <h3>Estudiante x</h3>
     <form action="" id="formAsignatura">
-
         <div>
-            <p>20</p>
+            <!--Se muestra la actual en caso de que tenga y se le da la opcion de cambiarla-->
+            <p>Nota: 20</p>
             <input name="notaAsignatura" type="text">
         </div>
 
         <div>
-            <p>Tipo de examen</p>
+            <!--Se muestra la actual en caso de que tenga y se le da la opcion de cambiarla-->
+            <p>Tipo de examen: Tipo de examen</p>
             <input name="tipoExamen" type="text">
         </div>
 
@@ -41,6 +43,29 @@
 
     </form>
     <button onclick="saveInfoAsignatura('29897058', '6201')">Guardar</button>
+
+    <!--FORMULARIO DE ESTUDIANTES EN ACTIVIDAD DE LA ASIGNATURA-->
+    <h3>Actividad y de estudiante x</h3>
+    <form action="" id="formActividad">
+        <div>
+            <p>Horas: 2 horas</p>
+            <input name="horas" type="text">
+        </div>
+
+        <div>
+            <p>Observaciones: El examen estuvo piola</p>
+            <input name="observaciones" type="text">
+        </div>
+
+        <div>
+            <p>Nota: 20</p>
+            <input name="notaEstudiante" type="text">
+        </div>
+
+        <input id="submitInfoActividad" type="submit" value="Submit" hidden>
+
+    </form>
+    <button onclick="saveInfoActividad('id_actividad', 'id_asignatura', 'id_alumno')">Guardar</button>
 
     <script src="../JS/homeProfesor.js"></script>
 </body>
