@@ -1,12 +1,12 @@
-//ID ASIGNATURA; ACTIVIDAD; REALIZACION T/F; TIEMPO EN REALIZAR; OBSERVACION; 
-6201;Examen escrito;true;2 horas;Evaluación efectiva
-6201;Quiz;true;2 horas;Indice de aprobados medio/bajo
-6201;Proyecto;2 semanas;true;Evaluación efectiva, nota promedio media/alta
-6301;Examen escrito;true;2 horas;Evaluación efectiva, índice alto de aprobados
-6301;Quiz;true;2 horas;Indice alto de aprobados
-6301;Proyecto;2 semanas;true;Evaluación efectiva, Índice alto de aprobados, buen desarrollo de estrategias
-6301;Tarea;1 semana;true;Evaluación efectiva, alto índice de notas
-8206;Examen escrito;true;2 horas;Contraste de notas, elevado índice de notas altas y bajas
-8206;Quiz;true;2 horas;Indice de aprobados medio/bajo
-6106;Examen escrito;true;2 horas;Contraste de notas, elevado indice de notas altas y bajas
-6106;Quiz;true;1 hora;Indice alto de aprobados, evaluación efectiva
+ID ACTIVIDAD; ID ASIGNATURA; NOMBRE; REALIZADA; HORAS; OBSERVACIONES
+1;6201;Examen escrito;true;2 horas;Evaluación efectiva
+2;6201;Quiz;true;2 horas;Indice de aprobados medio/bajo
+3;6201;Proyecto;2 semanas;true;Evaluación efectiva, nota promedio media/alta
+4;6301;Examen escrito;true;2 horas;Evaluación efectiva, índice alto de aprobados
+5;6301;Quiz;true;2 horas;Indice alto de aprobados
+6;6301;Proyecto;2 semanas;true;Evaluación efectiva, Índice alto de aprobados, buen desarrollo de estrategias
+7;6301;Tarea;1 semana;true;Evaluación efectiva, alto índice de notas
+8;8206;Examen escrito;true;2 horas;Contraste de notas, elevado índice de notas altas y bajas
+9;8206;Quiz;true;2 horas;Indice de aprobados medio/bajo
+10;6106;Examen escrito;true;2 horas;Contraste de notas, elevado indice de notas altas y bajas
+11;6106;Quiz;true;1 hora;Indice alto de aprobados, evaluación efectiva

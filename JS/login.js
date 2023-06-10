@@ -3,18 +3,22 @@ var objects = [];
 var attr = [];
 var infoForm = null;
 let newData = "";
+let typeOfUser; 
 
 //OTROS
 function clickButton(buttonId){
     document.getElementById(buttonId).click();
 }
-function initLogin(name){
+function openPage(name){
     window.open(`${name}.html`,"_self");   
 }
 
 //SESSION USER
-function sessionUser(id){
+function sessionUser(name, id, email, otro){
+    sessionStorage.setItem("userName", name.toString());
     sessionStorage.setItem("userId", id.toString());
+    sessionStorage.setItem("userEmail", email.toString());
+    sessionStorage.setItem("userOtro", otro.toString());
 }
 
 //SALIR DEL POPUP
@@ -33,12 +37,17 @@ function getData(form) {
 function validateUser(infoForm, attr){
     for(let i = 0; i < attr.length; i++){
         if(infoForm["emailIn"] === attr[i][2]){
-            sessionUser(attr[i][1]);
-            initLogin("homeAlumno")
+            sessionUser(attr[i][0], attr[i][1], attr[i][2], attr[i][3]);
+            if(infoForm["profeIn"] == "false"){
+                openPage("homeAlumno")
+            }else if(infoForm["profeIn"] == "true"){
+                openPage("homeProfesor")
+            }
+            
             return
         }
     }
-    initLogin("SignIn")
+    openPage("SignIn")
     alert("Datos incorrectos");
     return
 }
@@ -65,10 +74,15 @@ function mergeData(){
     for (let i in infoForm){
         newData += infoForm[i].toString() + ";";
     }
+    if(infoForm["profeUp"] == "false"){
+        typeOfUser = 'Alumno';
+    }else if(infoForm["profeUp"] == "true"){
+        typeOfUser = 'Profesor';
+    }
 }
 
-function download(nombre){
-    let filename = nombre + ".txt";
+function download(){
+    let filename = typeOfUser + ".txt";
     let text = newData;
     let blob = new Blob([text], {type:'text/plain'});
     let link = document.createElement("a");
@@ -81,7 +95,6 @@ function download(nombre){
         document.body.removeChild(link);
         window.URL.revokeObjectURL(link.href);
     }, 100);
-    initLogin("index")
 }
 
 //LEER ARCHIVO 
