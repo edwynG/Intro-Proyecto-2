@@ -254,7 +254,6 @@ function saveInfoAsignatura(id_alumno, id_asignatura){
     download(dataAprendizaje, 'Aprendizaje');
 }
 
-
 //CAMBIAR HORAS, OBSERVACIONES Y NOTA
 function saveInfoActividad(id_actividad, id_asignatura, id_alumno){
     clickButton("submitInfoActividad");
@@ -304,3 +303,56 @@ function saveInfoActividad(id_actividad, id_asignatura, id_alumno){
 
     download(dataNotasActvidades, 'NotasActividades');
 }
+
+/*EDWYN */
+
+/******************************/
+
+/****Extraer data de sesionStorge*/
+function personStatus(){
+    let cache = sessionStorage;
+    let divCi= document.querySelectorAll("#ci_list");
+
+    for(let i = 0;i < divCi.length;i++){
+        divCi[i].innerHTML= "V" + cache.getItem("userId");
+    }
+}
+
+/*************************/
+
+ /*boton evento para cerrar ventana emergente */
+ function cerrarCargaDeArchivo(){
+    let temp =document.getElementById("contenedor_load-file");
+    temp.style.display="none";
+}
+
+ document.getElementById("btn_result").addEventListener("click",cerrarCargaDeArchivo);
+
+ /*-> alogritmo para nav responsive<--*/
+//abrir nav resposive
+document.querySelector(".header_menu-resposive").addEventListener("click", ()=>{
+    document.querySelector(".nav_lista").classList.toggle("responsive-lista");
+    document.querySelector(".container_main").classList.toggle("responsive-lista");
+})
+
+//cerrar nav en reposive
+document.querySelector(".nav_reposive-icoClose").addEventListener("click",()=>{
+    document.querySelector(".nav_lista").classList.toggle("responsive-lista");
+    document.querySelector(".container_main").classList.toggle("responsive-lista");
+})
+
+/**************************************/
+
+
+/*Regresar al Menu principal*/
+
+document.querySelector("#userExit").addEventListener("click",()=>{
+    document.querySelector(".container_list-exit").classList.toggle("list_user-exit");
+})
+
+document.getElementById("cerrarSesion").addEventListener("click",()=> {
+    window.open("index.html","_self");
+    window.close("homeAlumno.html");
+})
+
+/************************** */

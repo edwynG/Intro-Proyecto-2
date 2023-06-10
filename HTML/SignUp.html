@@ -25,39 +25,35 @@
 
                     <div class="Formulario__input-icon">
                         <i class="fa-solid fa-user" id="formulario_icono"></i>
-                        <input name="nameUp" class="Formulario__input" type="text" placeholder="Nombre y Apellido" required>
+                        <input name="nameUp" class="Formulario__input" type="text" placeholder="Nombre y Apellido" required="">
                     </div>
 
                     <div class="Formulario__input-icon">
                         <i class="fa-sharp fa-solid fa-key" id="formulario_icono"></i>
-                        <input name="ciUp" class="Formulario__input" type="text" placeholder="Cedula" required>
+                        <input name="ciUp" class="Formulario__input" type="text" placeholder="Cedula" required="">
                     </div>
 
                     <div class="Formulario__input-icon">
                         <i class="fa-solid fa-envelope" id="formulario_icono"></i>
-                        <input name="emailUp" class="Formulario__input" type="email" placeholder="Email" required>
+                        <input name="emailUp" class="Formulario__input" type="email" placeholder="Email" required="">
                     </div>
 
                     <div class="Formulario__input-icon">
                         <i class="fa-sharp fa-solid fa-key" id="formulario_icono"></i>
-                        <input name="passwordUp" class="Formulario__input" type="password" placeholder="Password" required>
+                        <input name="passwordUp" class="Formulario__input" type="password" placeholder="Password" required="">
                     </div>
 
                     <div class="Formulario__input-icon for_input-box-item">
-                        <div class="for_input-box-item">
-                            <label for="profe" class="input_checkbox-text">Eres profesor?</label>
-    
+                        <div class="for_input-box-item">    
                             <select name="profeUp" id="profe" class="SelecOptions">
-                                <option value="false">No</option>
-                                <option value="true">Si</option>
+                                <option value="false">Soy alumno</option>
+                                <option value="true">Soy profesor</option>
                             </select>
                         </div>
-                            <div class="for_input-box-item">
-                                <label for="prepa" class="input_checkbox-text">Eres preparador?</label>
-        
+                            <div class="for_input-box-item">        
                                 <select name="prepaUp" id="prepa" class="SelecOptions">
-                                    <option value="false">No</option>
-                                    <option value="true">Si</option>
+                                    <option value="false">No soy preparador</option>
+                                    <option value="true">Soy preparador</option>
                                 </select>
                             </div>
                     </div>
@@ -65,16 +61,15 @@
                     <input id="submitUp" class="formulario__button" type="submit" value="Submit" hidden>
 
                 </form>
-
-                <br>
-                <p class="File_parrafo">Selecciona el archivo Alumno.txt / Profesor.txt</p>
+                
                 <label for="readFile" class="formulario__button">Siguiente</label>
-                <input id="readFile" type="file" name="readFileUp" hidden>
+                <p class="File_parrafo">Selecciona el archivo Alumno.txt / Profesor.txt</p>
+                <input id="readFile" type="file" name="readFileUp" hidden="">
 
                 <input id="writeFile" type="button" value="write" onclick="download()" hidden>
 
                 <p class="formulario__text">¿Ya estas registrado? <span id="modePage"><a href="SignIn.html">Incia sesion</a> </span></p>
-            </div>
+            
         <div></div>
     </section>
     <script src="../JS/login.js"></script>

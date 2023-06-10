@@ -35,21 +35,18 @@
                     </div>
 
                     <div class="for_input-box-item">
-                        <label for="profe" class="input_checkbox-text">Eres profesor?</label>
-
-                        <select name="profeIn" id="profe" class="SelecOptions">
-                            <option value="false">No</option>
-                            <option value="true">Si</option>
+                        <select name="profeIn" id="profe" class="SelecOptions" style="min-width:230px;">
+                            <option value="false">Soy alumno</option>
+                            <option value="true">Soy profesor</option>
                         </select>
                     </div>
 
                     <input id="submitIn" class="formulario__button" type="submit" value="Submit" hidden>
 
                 </form>
-
-                <br>
-                <p class="File_parrafo">Selecciona el archivo Alumno.txt / Profesor.txt</p>
+                
                 <label for="readFile" class="formulario__button">Siguiente</label>
+                <p class="File_parrafo">Selecciona el archivo Alumno.txt / Profesor.txt</p>
                 <input type="file" name="readFileIn" id="readFile" hidden>
                 
                 <p class="formulario__text">¿No estas registrado? <span id="modePage"><a href="SignUp.html">Registrarse</a> </span></p>

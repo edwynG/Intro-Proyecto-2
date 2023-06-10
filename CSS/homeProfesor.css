@@ -1,0 +1,15 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.hidden{
+    display: none;
+}
+
+.load_file-profe {
+    width: 480px !important;
+    gap: 20px !important;
+
+}

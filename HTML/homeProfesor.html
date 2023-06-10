@@ -5,23 +5,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/homeAlumno.css">
+    <link rel="stylesheet" href="../CSS/homeProfesor.css">
+
     <link rel="stylesheet" href="../SRC/icon/css/all.css">
-    <title>Monitor de Rendimiento Academico</title>
+
+    <title>Monitor de Rendimiento Académico</title>
 </head>
 <body>
+    <section class="container">
+        <header class="container_header">
+           <section class="container_Subheader">
+            <nav class="header_container-nav">
+                <div class="header_menu-resposive responsive">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <ul class="nav_lista responsive-lista">
+                    <div class="nav_reposive-icoClose responsive-lis">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <li class="lista_items" id="inicio">Inicio</li>
+                    <li class="lista_items" id="materias">Asignaturas</li>
+                    <li class="lista_items">Data maestra</li>
+                    <li class="lista_items">Perfil</li>
+                </ul>
+            </nav>
+            <div class="header_container-person">
+                <h2 class="container_person-name"></h2>
+                <div class="header_Notification">
+                    <i class="fa-solid fa-bell" id="Notificacion"></i>
+                </div>
+                <div class="container_person-close" id="userExit">
+                    <i class="fa-regular fa-user" ></i>
+                    <i class="fa-solid fa-sort-down"></i>
+                    
+                </div>
+                <div class="container_list-exit list_user-exit" >
+                    <ul class="lista_exit">
+                        <li class="item_list-exit" id="ci_list">N/A</li>
+                        <li class="divider"></li>
+                        <li class="item_list-exit item_exit">Cambiar contraseña</li>
+                        <li class="item_list-exit item_exit" id="cerrarSesion" title="Cerrar sesión" >Cerrar sesión</li>
+                    </ul>
+                </div>
+            </div>
+           </section>
+        </header>
+        <main class="container_inicio"></main>
 
-    <!--INPUTS PARA CARGAR ARCHIVOS-->
-    <h3>Seleccionar archivo Asignatura.txt</h3>
-    <input type="file" name="asignatura" id="asignatura">
+        <main class="container_Cursos hidden"></main>
 
-    <h3>Seleccionar archivo Aprendizaje.txt</h3>
-    <input type="file" name="aprendizaje" id="aprendizaje">
+    </section>
 
-    <h3>Seleccionar archivo Actividad.txt</h3>
-    <input type="file" name="actividades" id="actividades">
 
-    <h3>Seleccionar archivo NotasActividades.txt</h3>
-    <input type="file" name="notasxactividades" id="notasxactividades">
 
     <h3>Asignaturas impartidas</h3>
     <!--FORMULARIO DE ESTUDIANTES EN ASIGNATURA-->
@@ -41,9 +76,42 @@
 
         <input id="submitInfoAsignatura" type="submit" value="Submit" hidden>
 
+        <button onclick="saveInfoAsignatura('29897058', '6201')">Guardar</button>
     </form>
-    <button onclick="saveInfoAsignatura('29897058', '6201')">Guardar</button>
+    
+    <!--INPUTS PARA CARGAR ARCHIVOS-->
+    <div class="contenedor_load-file" id="contenedor_load-file">
+        <div class="load_file load_file-profe">
 
+            <div class="file_items  file_item-title">
+                <h1>¡Cargue archivos!</h1> 
+            </div>
+            <div class="file_items">
+
+                <h3>Seleccionar archivo asignatura.txt</h3>
+               <label for="asignatura" class="btn_file">Cargar file 1</label>
+               <input type="file" name="asignatura" id="asignatura" class="items_file-inputs" hidden>
+
+
+               <h3>Seleccionar archivo Aprendizaje.txt</h3>
+               <label for="aprendizaje" class="btn_file">Cargar file 2</label>
+               <input type="file" name="aprendizaje" id="aprendizaje" class="items_file-inputs" hidden>
+
+                <h3>Seleccionar archivo Actividad.txt</h3>
+                <label  for="actividades" class="btn_file">Cargar file 3</label>
+                <input type="file" name="actividades" id="actividades" class="items_file-inputs" hidden>
+
+                <h3>Seleccionar archivo NotasActividades.txt</h3>
+                <label  for="notasxactividades" class="btn_file">Cargar file 4</label>
+                <input type="file" name="notasxactividades" id="notasxactividades" hidden>
+            </div>
+            <div class="file_items resultadoCarga" id="resultadoCarga">
+                <button class="btn_file btn_result" id="btn_result" style="border:none;">Continuar</button>
+            </div>
+
+        </div>
+    </div>
+    
     <!--FORMULARIO DE ESTUDIANTES EN ACTIVIDAD DE LA ASIGNATURA-->
     <h3>Actividad y de estudiante x</h3>
     <form action="" id="formActividad">
