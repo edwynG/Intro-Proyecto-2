@@ -7,6 +7,16 @@ var retirar_materia = document.getElementById("retirar_Materia");
 var inscribir_materia=document.getElementById("inscribir_Materia")
 var tablaCalificaciones =document.getElementById("calificaciones");
 
+//OTROS
+function replaceChars(object){
+    object = JSON.stringify(Object.values(object)).replaceAll('"', '');
+    object = object.replaceAll(',', ';');
+    object = object.replaceAll('[', '');
+    object = object.replaceAll(']', '');
+    return object;
+}
+
+
 //CLASES
 class Asignatura {
 	constructor(nombre, codigo, uc){
@@ -18,12 +28,14 @@ class Asignatura {
 }
 
 class Aprendizaje {
-	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen){
+	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen, seccion, periodo){
 		this.id_alumno = id_alumno;
 		this.id_asignatura = id_asignatura;
 		this.estado = estado;
 		this.nota = nota;
 		this.tipo_examen = tipo_examen;
+        this.seccion = seccion;
+		this.periodo = periodo;
 	}
 }
 
@@ -113,10 +125,12 @@ function calcularExpedienteAcademico(){
         
         todasAsignaturas.push(attrAsignatura[i]);
         
+        
     }
-
+    todasAsignaturas.shift();
     return expedienteAcademico;
 }
+
 
 //RETIRAR ASIGNATURA
 function retirarAsignatura(idAsignatura){
@@ -129,11 +143,7 @@ function retirarAsignatura(idAsignatura){
             attrAprendizaje[i]["estado"] = 'Retirada';
             
         }
-        aux = JSON.stringify(Object.values(attrAprendizaje[i])).replaceAll('"', '');
-        aux = aux.replaceAll(',', ';');
-        aux = aux.replaceAll('[', '');
-        aux = aux.replaceAll(']', '');
-        
+        aux = replaceChars(attrAprendizaje[i]);
         dataAprendizaje += aux;
         dataAprendizaje += "\n";
     }
@@ -141,24 +151,22 @@ function retirarAsignatura(idAsignatura){
 
 }
 
+
 //INSCRIBIR ASIGNATURA
 function inscribirAsignatura(idAsignatura){
     dataAprendizaje = "";
-    attrAprendizaje.push(new Aprendizaje(sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0", "Tipo de examen"));
+    attrAprendizaje.push(new Aprendizaje(sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0", "Tipo de examen", "C1", "01-2023"));
     let aux = "";
 
     for(let i = 0; i < attrAprendizaje.length; i++){
-        aux = JSON.stringify(Object.values(attrAprendizaje[i])).replaceAll('"', '');
-        aux = aux.replaceAll(',', ';');
-        aux = aux.replaceAll('[', '');
-        aux = aux.replaceAll(']', '');
-        
+        aux = replaceChars(attrAprendizaje[i]);
         dataAprendizaje += aux;
         dataAprendizaje += "\n";
     }
     download(dataAprendizaje, 'Aprendizaje');
     
 }
+
 
 //LEER ARCHIVO 
 document.getElementById("asignatura").addEventListener("change", function() {
@@ -187,7 +195,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
         let objectsAprendizaje = [];
         for(let i = 0; i < dataAprendizaje.length; i++){
             objectsAprendizaje[i] = dataAprendizaje[i].split(";");
-            attrAprendizaje[i] = new Aprendizaje(objectsAprendizaje[i][0], objectsAprendizaje[i][1], objectsAprendizaje[i][2], objectsAprendizaje[i][3], objectsAprendizaje[i][4]);
+            attrAprendizaje[i] = new Aprendizaje(objectsAprendizaje[i][0], objectsAprendizaje[i][1], objectsAprendizaje[i][2], objectsAprendizaje[i][3], objectsAprendizaje[i][4], objectsAprendizaje[i][5], objectsAprendizaje[i][6]);
         }
         if(dataAprendizaje.length > 0)
            // calcularExpedienteAcademico();
@@ -267,6 +275,12 @@ document.querySelector(".nav_reposive-icoClose").addEventListener("click",()=>{
 
 
 /*Regresar al Menu principal*/
+function sessionUser(name, id, email, otro){
+    sessionStorage.setItem("userName", name.toString());
+    sessionStorage.setItem("userId", id.toString());
+    sessionStorage.setItem("userEmail", email.toString());
+    sessionStorage.setItem("userOtro", otro.toString());
+}
 
 document.querySelector("#userExit").addEventListener("click",()=>{
     document.querySelector(".container_list-exit").classList.toggle("list_user-exit");
@@ -275,7 +289,14 @@ document.querySelector("#userExit").addEventListener("click",()=>{
 document.getElementById("cerrarSesion").addEventListener("click",()=> {
     window.open("index.html","_self");
     window.close("homeAlumno.html");
-})
+    sessionUser("none", "none", "none", "none");
+});
+
+// document.querySelector(".container_person-close").addEventListener("click",()=> {
+//    window.open("index.html");
+//    window.close();
+//    sessionUser("none", "none", "none", "none");
+// });
 
 /************************** */
 
@@ -588,3 +609,4 @@ function isInscrita(){
     inscritas.innerHTML=cantidadIns+1;
 
 }
+/************************************** */

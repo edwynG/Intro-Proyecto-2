@@ -3,11 +3,23 @@ var dataAsignatura = "", objectsAsignatura = [];
 var dataAprendizaje = "", objectsAprendizaje = [];
 var dataActividades = "", objectsActividades = [];
 var dataNotasActvidades = "", objectsNotasActvidades = [];
-let codigosAsignaturasImpartidas = sessionStorage.getItem("userOtro").replaceAll('[', '');
-codigosAsignaturasImpartidas = codigosAsignaturasImpartidas.replaceAll(']', '');
-codigosAsignaturasImpartidas = codigosAsignaturasImpartidas.split(",");
 
-let informacionProfesor = []; //[curso, [estudianteinfo, [actividadinfo]]]
+//OBTENER CODIGO, SECCION, PERIODO DE ASIGNATURAS IMPARTIDAS
+let codigosAsignaturasImpartidas = [];
+let seccionesAsignaturasImpartidas = [];
+let periodosAsignaturasImpartidas = [];
+let userOtro = sessionStorage.getItem("userOtro").replaceAll('[', '');
+userOtro = userOtro.replaceAll(']', '');
+userOtro = userOtro.split(".");
+for(let i = 0; i < userOtro.length; i++){
+    let aux = userOtro[i].split(":");
+    codigosAsignaturasImpartidas.push(aux[0]);
+    seccionesAsignaturasImpartidas.push(aux[1]);
+    periodosAsignaturasImpartidas.push(aux[2]);
+}
+
+//[ASIGNATURA, [ESTUDIANTEINFO, [ACTIVIDADINFO]]]
+let informacionProfesor = []; 
 
 //OTROS
 function clickButton(buttonId){
@@ -34,6 +46,15 @@ function download(text, nameFile){
     }, 100);
 }
 
+function replaceChars(object){
+    object = JSON.stringify(Object.values(object)).replaceAll('"', '');
+    object = object.replaceAll(',', ';');
+    object = object.replaceAll('[', '');
+    object = object.replaceAll(']', '');
+    return object;
+}
+
+
 //CLASES
 class Asignatura {
 	constructor(nombre, codigo, uc){
@@ -45,12 +66,14 @@ class Asignatura {
 }
 
 class Aprendizaje {
-	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen){
+	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen, seccion, periodo){
 		this.id_alumno = id_alumno;
 		this.id_asignatura = id_asignatura;
 		this.estado = estado;
 		this.nota = nota;
 		this.tipo_examen = tipo_examen;
+        this.seccion = seccion;
+		this.periodo = periodo;
 	}
 }
 
@@ -67,13 +90,14 @@ class Actividad {
 }
 
 class NotasActividades {
-	constructor(id_asignatura, id_actividad, id_alumno, nota){
-		this.id_asignatura = id_asignatura;
+	constructor(id_actividad, id_asignatura, id_alumno, nota){
 		this.id_actividad = id_actividad;
+        this.id_asignatura = id_asignatura;
 		this.id_alumno = id_alumno;
 		this.nota = nota;
 	}
 }
+
 
 //OBTENER INFORMACION DEL PROFESOR
 function obtenerInformacionProfesor(){
@@ -85,7 +109,7 @@ function obtenerInformacionProfesor(){
             let infoEstudiantesAsignatura = [];
 
             for(let j = 0; j < objectsAprendizaje.length; j++){
-                if(objectsAprendizaje[j]["id_asignatura"] == objectsAsignatura[i]["codigo"]){
+                if(objectsAprendizaje[j]["id_asignatura"] == objectsAsignatura[i]["codigo"] && seccionesAsignaturasImpartidas.includes(objectsAprendizaje[j]["seccion"])){
 
                     //ACTIVIDADES DE LA ASIGNATURA
                     let actividadesAsignatura = [];
@@ -111,6 +135,7 @@ function obtenerInformacionProfesor(){
     }
     return informacionProfesor;
 }
+
 
 //LEER ARCHIVOS
 document.getElementById("asignatura").addEventListener("change", function() {
@@ -138,7 +163,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
         let arrayAprendizaje = [];
         for(let i = 0; i < dataAprendizaje.length; i++){
             arrayAprendizaje[i] = dataAprendizaje[i].split(";");
-            objectsAprendizaje[i] = new Aprendizaje(arrayAprendizaje[i][0], arrayAprendizaje[i][1], arrayAprendizaje[i][2], arrayAprendizaje[i][3], arrayAprendizaje[i][4]);
+            objectsAprendizaje[i] = new Aprendizaje(arrayAprendizaje[i][0], arrayAprendizaje[i][1], arrayAprendizaje[i][2], arrayAprendizaje[i][3], arrayAprendizaje[i][4], arrayAprendizaje[i][5], arrayAprendizaje[i][6]);
         }
         
     }
@@ -179,6 +204,7 @@ document.getElementById("notasxactividades").addEventListener("change", function
     fr.readAsText(this.files[0]);
 });
 
+
 //LEER FORMULARIOS
 var infoFormAsignatura;
 let formAsignatura = document.getElementById("formAsignatura");
@@ -189,14 +215,24 @@ if(formAsignatura != null){
     });
 }
 
+var infoFormActividad;
+let formActividad = document.getElementById("formActividad");
+if(formActividad != null){
+    formActividad.addEventListener("submit", function (e) {
+        e.preventDefault();
+        infoFormActividad = getData(e.target);
+    });
+}
+
+
 //CAMBIAR NOTA Y TIPO DE EXAMEN
 function saveInfoAsignatura(id_alumno, id_asignatura){
     clickButton("submitInfoAsignatura");
     
-    //ENCONTRAR APRENDIZAJE MODIFICADO EN ARRAY
+    //ENCONTRAR MODIFICADO EN ARRAY
     let newAprendizaje = objectsAprendizaje.find(aprendizaje => (aprendizaje['id_alumno'] === id_alumno) && (aprendizaje['id_asignatura'] === id_asignatura));
     
-    //MODIFICAR VALORES EN OBJECTSAPRENDIZAJE
+    //MODIFICAR VALORES EN OBJECT
     let i = objectsAprendizaje.indexOf(newAprendizaje);
     if(infoFormAsignatura["notaAsignatura"]){
         newAprendizaje["nota"] = infoFormAsignatura["notaAsignatura"];
@@ -206,15 +242,11 @@ function saveInfoAsignatura(id_alumno, id_asignatura){
     }
     objectsAprendizaje[i] = newAprendizaje;
     
-    //MODIFICAR DATAAPRENDIZAJE, ARRAYAPRENDIZAJE
+    //MODIFICAR TXT
     dataAprendizaje = "";
     let aux = "";
     for(let i = 0; i < objectsAprendizaje.length; i++){
-        aux = JSON.stringify(Object.values(objectsAprendizaje[i])).replaceAll('"', '');
-        aux = aux.replaceAll(',', ';');
-        aux = aux.replaceAll('[', '');
-        aux = aux.replaceAll(']', '');
-        
+        aux = replaceChars(objectsAprendizaje[i]);
         dataAprendizaje += aux;
         dataAprendizaje += "\n";
     }
@@ -222,7 +254,55 @@ function saveInfoAsignatura(id_alumno, id_asignatura){
     download(dataAprendizaje, 'Aprendizaje');
 }
 
+//CAMBIAR HORAS, OBSERVACIONES Y NOTA
+function saveInfoActividad(id_actividad, id_asignatura, id_alumno){
+    clickButton("submitInfoActividad");
+    
+    //ENCONTRAR MODIFICADO EN ARRAY
+    let newActividad = objectsActividades.find(actividad => actividad['id_actividad'] === id_actividad);
+    let newNotaActividad = objectsNotasActvidades.find(nota => (nota['id_actividad'] === id_actividad) && (nota['id_asignatura'] === id_asignatura) && (nota['id_alumno'] === id_alumno));
+    
+    //MODIFICAR VALORES EN OBJECT
+    let i = objectsActividades.indexOf(newActividad);
+    let j = objectsNotasActvidades.indexOf(newNotaActividad);
 
+    if(infoFormActividad["horas"]){
+        newActividad["horas"] = infoFormActividad["horas"];
+    }
+    if(infoFormActividad["observaciones"]){
+        newActividad["observaciones"] = infoFormActividad["observaciones"];
+    }
+    if(infoFormActividad["notaEstudiante"]){
+        newNotaActividad["nota"] = infoFormActividad["notaEstudiante"];
+    }
+    
+    objectsActividades[i] = newActividad;
+    objectsNotasActvidades[j] = newNotaActividad;
+    
+    //MODIFICAR TXT ACTIVIDAD
+    dataActividades = "";
+    let aux = "";
+    for(let i = 0; i < objectsActividades.length; i++){
+        delete objectsActividades[i]['notaEstudiante'];
+        aux = replaceChars(objectsActividades[i]);
+        dataActividades += aux;
+        dataActividades += "\n";
+    }
+
+    download(dataActividades, 'Actividad');
+
+    //MODIFICAR TXT NOTASACTIVIDADES
+    dataNotasActvidades = "";
+    aux = "";
+
+    for(let i = 0; i < objectsNotasActvidades.length; i++){
+        aux = replaceChars(objectsNotasActvidades[i]);
+        dataNotasActvidades += aux;
+        dataNotasActvidades += "\n";
+    }
+
+    download(dataNotasActvidades, 'NotasActividades');
+}
 
 /*EDWYN */
 
