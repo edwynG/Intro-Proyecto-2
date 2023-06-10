@@ -459,7 +459,7 @@ function appendMateria(name,id,lugar,ios){
                             <span>${id}</span> 
                         
                         </div>
-                        <label class="fa-solid fa-xmark icon_btn_materia" id="retirar_Materia" onclick="retirarAsignatura(${id})"></label>
+                        <label class="fa-solid fa-xmark icon_btn_materia" id="retirar_Materia" onclick="retirarAsignatura(${id}); isRetirada();"></label>
                        
                     `
 
@@ -473,7 +473,7 @@ function appendMateria(name,id,lugar,ios){
                             <h2>${name}</h2>
                             <span>${id}</span> 
                         </div>
-                        <label class="fa-solid fa-check icon_btn_materia" id="inscribir_Materia" onclick="inscribirAsignatura(${id})"></label>
+                        <label class="fa-solid fa-check icon_btn_materia" id="inscribir_Materia" onclick="inscribirAsignatura(${id}); isInscrita();"></label>
                         
 
                     `
@@ -545,7 +545,7 @@ function loopRetirar(){
           let nodoSeleccionado = event.currentTarget;
             nodoSeleccionado=nodoSeleccionado.parentNode.getAttribute("id");
             deleteMateria(nodoSeleccionado);
-            isRetirada();
+           
         });
       }
 }
@@ -558,7 +558,7 @@ function loopInscribir(){
         inscribir_materia[i].addEventListener('click', function(event) {
           const nodoSeleccionado = event.currentTarget;
           materiaInscribir(nodoSeleccionado);
-          isInscrita();
+          
 
         });
       }
