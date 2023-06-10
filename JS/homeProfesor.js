@@ -45,12 +45,14 @@ class Asignatura {
 }
 
 class Aprendizaje {
-	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen){
+	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen, seccion, periodo){
 		this.id_alumno = id_alumno;
 		this.id_asignatura = id_asignatura;
 		this.estado = estado;
 		this.nota = nota;
 		this.tipo_examen = tipo_examen;
+        this.seccion = seccion;
+		this.periodo = periodo;
 	}
 }
 
@@ -67,9 +69,9 @@ class Actividad {
 }
 
 class NotasActividades {
-	constructor(id_asignatura, id_actividad, id_alumno, nota){
-		this.id_asignatura = id_asignatura;
+	constructor(id_actividad, id_asignatura, id_alumno, nota){
 		this.id_actividad = id_actividad;
+        this.id_asignatura = id_asignatura;
 		this.id_alumno = id_alumno;
 		this.nota = nota;
 	}
@@ -138,7 +140,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
         let arrayAprendizaje = [];
         for(let i = 0; i < dataAprendizaje.length; i++){
             arrayAprendizaje[i] = dataAprendizaje[i].split(";");
-            objectsAprendizaje[i] = new Aprendizaje(arrayAprendizaje[i][0], arrayAprendizaje[i][1], arrayAprendizaje[i][2], arrayAprendizaje[i][3], arrayAprendizaje[i][4]);
+            objectsAprendizaje[i] = new Aprendizaje(arrayAprendizaje[i][0], arrayAprendizaje[i][1], arrayAprendizaje[i][2], arrayAprendizaje[i][3], arrayAprendizaje[i][4], arrayAprendizaje[i][5], arrayAprendizaje[i][6]);
         }
         
     }

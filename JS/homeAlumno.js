@@ -16,12 +16,14 @@ class Asignatura {
 }
 
 class Aprendizaje {
-	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen){
+	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen, seccion, periodo){
 		this.id_alumno = id_alumno;
 		this.id_asignatura = id_asignatura;
 		this.estado = estado;
 		this.nota = nota;
 		this.tipo_examen = tipo_examen;
+        this.seccion = seccion;
+		this.periodo = periodo;
 	}
 }
 
@@ -112,7 +114,6 @@ function calcularExpedienteAcademico(){
         todasAsignaturas.push(attrAsignatura[i]);
         
     }
-
     return expedienteAcademico;
 }
 
@@ -184,7 +185,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
         let objectsAprendizaje = [];
         for(let i = 0; i < dataAprendizaje.length; i++){
             objectsAprendizaje[i] = dataAprendizaje[i].split(";");
-            attrAprendizaje[i] = new Aprendizaje(objectsAprendizaje[i][0], objectsAprendizaje[i][1], objectsAprendizaje[i][2], objectsAprendizaje[i][3], objectsAprendizaje[i][4]);
+            attrAprendizaje[i] = new Aprendizaje(objectsAprendizaje[i][0], objectsAprendizaje[i][1], objectsAprendizaje[i][2], objectsAprendizaje[i][3], objectsAprendizaje[i][4], objectsAprendizaje[i][5], objectsAprendizaje[i][6]);
         }
         if(dataAprendizaje.length > 0)
             calcularExpedienteAcademico();

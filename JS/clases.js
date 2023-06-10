@@ -46,12 +46,14 @@ class Periodo {
 }
 
 class Aprendizaje {
-	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen){
+	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen, seccion, periodo){
 		this.id_alumno = id_alumno;
 		this.id_asignatura = id_asignatura;
 		this.estado = estado;
 		this.nota = nota;
 		this.tipo_examen = tipo_examen;
+		this.seccion = seccion;
+		this.periodo = periodo;
 	}
 }
 
@@ -76,8 +78,8 @@ class Actividad {
 
 class NotaActividades {
 	constructor(id_asignatura, id_actividad, id_alumno, nota){
-		this.id_asignatura = id_asignatura;
 		this.id_actividad = id_actividad;
+		this.id_asignatura = id_asignatura;
 		this.id_alumno = id_alumno;
 		this.nota = nota;
 	}
