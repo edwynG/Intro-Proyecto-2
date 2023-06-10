@@ -72,7 +72,8 @@ if(signUpForm != null){
 function mergeData(){
     newData = data + "\n";
     for (let i in infoForm){
-        newData += infoForm[i].toString() + ";";
+        if(i !== 'profeUp' && i != 'passwordUp')
+            newData += infoForm[i].toString() + ";";
     }
     if(infoForm["profeUp"] == "false"){
         typeOfUser = 'Alumno';

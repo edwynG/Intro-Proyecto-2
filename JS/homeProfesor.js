@@ -109,7 +109,7 @@ function obtenerInformacionProfesor(){
             let infoEstudiantesAsignatura = [];
 
             for(let j = 0; j < objectsAprendizaje.length; j++){
-                if(objectsAprendizaje[j]["id_asignatura"] == objectsAsignatura[i]["codigo"] && seccionesAsignaturasImpartidas.includes(objectsAprendizaje[j]["seccion"])){
+                if(objectsAprendizaje[j]["id_asignatura"] == objectsAsignatura[i]["codigo"] && seccionesAsignaturasImpartidas.includes(objectsAprendizaje[j]["seccion"]) && periodosAsignaturasImpartidas.includes(objectsAprendizaje[j]["periodo"])){
 
                     //ACTIVIDADES DE LA ASIGNATURA
                     let actividadesAsignatura = [];
@@ -133,6 +133,7 @@ function obtenerInformacionProfesor(){
             informacionProfesor.push([objectsAsignatura[i], infoEstudiantesAsignatura]);
         }  
     }
+    debugger
     return informacionProfesor;
 }
 
