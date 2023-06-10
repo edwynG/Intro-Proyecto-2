@@ -4,6 +4,15 @@ var dataAsignatura = "", attrAsignatura = [];
 var dataAprendizaje = "", attrAprendizaje = [];
 var asignaturasInscritas = [], todasAsignaturas = [];
 
+//OTROS
+function replaceChars(object){
+    object = JSON.stringify(Object.values(object)).replaceAll('"', '');
+    object = object.replaceAll(',', ';');
+    object = object.replaceAll('[', '');
+    object = object.replaceAll(']', '');
+    return object;
+}
+
 
 //CLASES
 class Asignatura {
@@ -113,9 +122,12 @@ function calcularExpedienteAcademico(){
         
         todasAsignaturas.push(attrAsignatura[i]);
         
+        
     }
+    todasAsignaturas.shift();
     return expedienteAcademico;
 }
+
 
 //RETIRAR ASIGNATURA
 function retirarAsignatura(idAsignatura){
@@ -127,11 +139,7 @@ function retirarAsignatura(idAsignatura){
             attrAprendizaje[i]["estado"] = 'Retirada';
             
         }
-        aux = JSON.stringify(Object.values(attrAprendizaje[i])).replaceAll('"', '');
-        aux = aux.replaceAll(',', ';');
-        aux = aux.replaceAll('[', '');
-        aux = aux.replaceAll(']', '');
-        
+        aux = replaceChars(attrAprendizaje[i]);
         dataAprendizaje += aux;
         dataAprendizaje += "\n";
     }
@@ -139,24 +147,22 @@ function retirarAsignatura(idAsignatura){
 
 }
 
+
 //INSCRIBIR ASIGNATURA
 function inscribirAsignatura(idAsignatura){
     dataAprendizaje = "";
-    attrAprendizaje.push(new Aprendizaje(sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0", "Tipo de examen"));
+    attrAprendizaje.push(new Aprendizaje(sessionStorage.getItem("userId"), idAsignatura.toString(), "Inscrita", "0", "Tipo de examen", "C1", "01-2023"));
     let aux = "";
 
     for(let i = 0; i < attrAprendizaje.length; i++){
-        aux = JSON.stringify(Object.values(attrAprendizaje[i])).replaceAll('"', '');
-        aux = aux.replaceAll(',', ';');
-        aux = aux.replaceAll('[', '');
-        aux = aux.replaceAll(']', '');
-        
+        aux = replaceChars(attrAprendizaje[i]);
         dataAprendizaje += aux;
         dataAprendizaje += "\n";
     }
     download(dataAprendizaje, 'Aprendizaje');
     
 }
+
 
 //LEER ARCHIVO 
 document.getElementById("asignatura").addEventListener("change", function() {
@@ -313,10 +319,17 @@ function inscribirMateria(materia,codigo,op){
 /**************************************************** */
 
 /*Regresar al Menu principal*/
+function sessionUser(name, id, email, otro){
+    sessionStorage.setItem("userName", name.toString());
+    sessionStorage.setItem("userId", id.toString());
+    sessionStorage.setItem("userEmail", email.toString());
+    sessionStorage.setItem("userOtro", otro.toString());
+}
 
 document.querySelector(".container_person-close").addEventListener("click",()=> {
    window.open("index.html");
    window.close();
+   sessionUser("none", "none", "none", "none");
 })
 
 /************************** */
