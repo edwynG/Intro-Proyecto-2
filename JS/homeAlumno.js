@@ -60,16 +60,16 @@ class Expediente {
         this.materiasInscritas = 0;
         this.materiasRetiradas = 0;
         this.materiasAplazadas = 0;
-        this.materiasPorEQ = 0;
         this.materiasAprobadas = 0;
+        this.materiasPorEQ = 0;
         this.materiasCursadas = 0;
 	}
 }
 
 
 //CALCULAR EXPEDIENTE ACADEMICO
+let expedienteAcademico = new Expediente();
 function calcularExpedienteAcademico(){
-    let expedienteAcademico = new Expediente();
     let contGeneral = 0;
     let contAprobadas = 0;
     let aprendizajeEstudiante = [];
@@ -77,19 +77,14 @@ function calcularExpedienteAcademico(){
     for(let i = 0; i < attrAprendizaje.length; i++){
         //MATERIAS RELACIONADAS AL ESTUDIANTE
         if(attrAprendizaje[i]["id_alumno"] === sessionStorage.getItem("userId")){
-            aprendizajeEstudiante.push(attrAprendizaje[i]);
+            if(attrAprendizaje[i]["estado"] != "Retirada")
+                aprendizajeEstudiante.push(attrAprendizaje[i]);
             expedienteAcademico['promedioGeneral'] += Number(attrAprendizaje[i]["nota"]);
             contGeneral++;
 
             //ESTADOS DE MATERIAS
-            if(attrAprendizaje[i]["estado"] === "Aprobada"){
-                expedienteAcademico['promedioAsigAprob'] += Number(attrAprendizaje[i]["nota"]);
-                //tuvo que haber sido inscrita para estar en este estado
-                expedienteAcademico['materiasInscritas']++;
-                expedienteAcademico['materiasAprobadas']++;
-                contAprobadas++;
-            }
-            else if(attrAprendizaje[i]["estado"] === "Inscrita"){
+            
+            if(attrAprendizaje[i]["estado"] === "Inscrita"){
                 expedienteAcademico['materiasInscritas']++;
             }
             else if(attrAprendizaje[i]["estado"] === "Retirada"){
@@ -97,17 +92,25 @@ function calcularExpedienteAcademico(){
                 expedienteAcademico['materiasInscritas']++;
                 expedienteAcademico['materiasRetiradas']++;
             }
+            else if(attrAprendizaje[i]["estado"] === "Aprobada"){
+                expedienteAcademico['promedioAsigAprob'] += Number(attrAprendizaje[i]["nota"]);
+                //tuvo que haber sido inscrita para estar en este estado
+                expedienteAcademico['materiasInscritas']++;
+                expedienteAcademico['materiasAprobadas']++;
+                expedienteAcademico['materiasCursadas']++;
+                contAprobadas++;
+            }
             else if(attrAprendizaje[i]["estado"] === "Aplazada"){
                 //tuvo que haber sido inscrita para estar en este estado
                 expedienteAcademico['materiasInscritas']++;
                 expedienteAcademico['materiasAplazadas']++;
+                expedienteAcademico['materiasCursadas']++;
             }
             else if(attrAprendizaje[i]["estado"] === "PorEQ"){
                 expedienteAcademico['materiasPorEQ']++;
+                expedienteAcademico['materiasCursadas']++;
             }
-            else if(attrAprendizaje[i]["estado"] === "Cursada"){
-                //tuvo que haber sido inscrita para estar en este estado
-                expedienteAcademico['materiasInscritas']++;
+            else if(attrAprendizaje[i]["estado"] === "Cursada" || attrAprendizaje[i]["nota"] != undefined){             
                 expedienteAcademico['materiasCursadas']++;
             }
         }  
@@ -177,6 +180,36 @@ function inscribirAsignatura(idAsignatura){
     }
     download(dataAprendizaje, 'Aprendizaje');
     
+}
+
+//DESCARGAR KARDEX
+function descargarKardex(){
+    let historialAcademico = "";
+    for(let i = 0; i < asignaturasInscritas.length; i++){
+        historialAcademico += asignaturasInscritas[i]['nombre'] + " | Nota " + asignaturasInscritas[i]['notaEstudiante'] + "\n";
+    }
+    let kardex = 
+    "DATOS------------------------------------------ \n" + 
+    "Nombre: " + sessionStorage.getItem("userName") + "\n" + 
+    "Cedula: " + sessionStorage.getItem("userId") + "\n" + 
+    "Correo: " + sessionStorage.getItem("userEmail") + "\n" + 
+    "PROMEDIOS--------------------------------------- \n" + 
+    "Promedio general: " + expedienteAcademico["promedioGeneral"].toString() + "\n" + 
+    "Promedio asignaturas aprobadas: " + expedienteAcademico["promedioAsigAprob"].toString() + "\n" +
+    "Unidades de credito: " + expedienteAcademico["UC"].toString() + "\n" +
+    "Eficiencia: " + expedienteAcademico["eficiencia"].toString() + "\n" +
+    "RESUMEN------------------------------------------ \n" + 
+    "Asignaturas inscritas: " + expedienteAcademico["materiasInscritas"].toString() + "\n" +
+    "Asignaturas retiradas: " + expedienteAcademico["materiasRetiradas"].toString() + "\n" +
+    "Asignaturas aplazadas: " + expedienteAcademico["materiasAplazadas"].toString() + "\n" +
+    "Asignaturas por equivalencia: " + expedienteAcademico["materiasPorEQ"].toString() + "\n" +
+    "Asignaturas aprobadas: " + expedienteAcademico["materiasAprobadas"].toString() + "\n" +
+    "Asignaturas cursadas: " + expedienteAcademico["materiasCursadas"].toString() + "\n" +
+    "HISTORIAL ACADEMICO------------------------------ \n" + historialAcademico +
+    "NOTA--------------------------------------------- \n" + 
+    "Las normas de permanencia se calculan dinámicamente durante todo el semestre, y no es definitivo hasta tanto todas las materias esten retiradas o calificadas";
+    
+    download(kardex, 'Kardex');
 }
 
 
