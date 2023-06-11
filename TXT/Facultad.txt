@@ -1,12 +1,12 @@
-ID UNIVERSIDAD; NOMBRE
-1;Facultad de Ciencias
-1;Facultad de Agronomía
-1;Facultad de Arquitectura y Urbanismo
-1;Facultad de Ciencias Económicas y Sociales
-1;Facultad de Farmacia
-1;Facultad de Humanidades y Educación
-1;Facultad de Ingeniería
-1;Facultad de Ciencias Jurídicas y Políticas
-1;Facultad de Medicina
-1;Facultad de Odontología
-1;Facultad de Veterinaria
+ID; ID UNIVERSIDAD; NOMBRE
+1;1;Facultad de Ciencias
+2;1;Facultad de Agronomía
+3;1;Facultad de Arquitectura y Urbanismo
+4;1;Facultad de Ciencias Económicas y Sociales
+5;1;Facultad de Farmacia
+6;1;Facultad de Humanidades y Educación
+7;1;Facultad de Ingeniería
+8;1;Facultad de Ciencias Jurídicas y Políticas
+9;1;Facultad de Medicina
+10;1;Facultad de Odontología
+11;1;Facultad de Veterinaria

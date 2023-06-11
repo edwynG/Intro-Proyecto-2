@@ -137,19 +137,29 @@ function obtenerInformacionProfesor(){
     return informacionProfesor;
 }
 
+//OTROS
+function textToObject(data, object, type){
+    data = data.split(/[\r\n]+/g);
+    let array = [];
+    for(let i = 0; i < data.length; i++){
+        array[i] = data[i].split(";");
+        if(type == "Asignatura")
+            object[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
+        else if(type == "Aprendizaje")
+            object[i] = new Aprendizaje(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6]);
+        else if(type == "Actividad")
+            object[i] = new Actividad(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5]);
+        else if(type == "NotasActividades")
+            object[i] = new NotasActividades(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5]);
+    }
+}
 
 //LEER ARCHIVOS
 document.getElementById("asignatura").addEventListener("change", function() {
     var fr = new FileReader();
     fr.onload = function(){
-        
         dataAsignatura = fr.result;
-        dataAsignatura = dataAsignatura.split(/[\r\n]+/g);
-        let arrayAsignatura = [];
-        for(let i = 0; i < dataAsignatura.length; i++){
-            arrayAsignatura[i] = dataAsignatura[i].split(";");
-            objectsAsignatura[i] = new Asignatura(arrayAsignatura[i][0], arrayAsignatura[i][1], arrayAsignatura[i][2]);
-        }
+        textToObject(dataAsignatura, objectsAsignatura, "Asignatura")
         
     }
     fr.readAsText(this.files[0]);
@@ -160,12 +170,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
     fr.onload = function(){
         
         dataAprendizaje = fr.result;
-        dataAprendizaje = dataAprendizaje.split(/[\r\n]+/g);
-        let arrayAprendizaje = [];
-        for(let i = 0; i < dataAprendizaje.length; i++){
-            arrayAprendizaje[i] = dataAprendizaje[i].split(";");
-            objectsAprendizaje[i] = new Aprendizaje(arrayAprendizaje[i][0], arrayAprendizaje[i][1], arrayAprendizaje[i][2], arrayAprendizaje[i][3], arrayAprendizaje[i][4], arrayAprendizaje[i][5], arrayAprendizaje[i][6]);
-        }
+        textToObject(dataAprendizaje, objectsAprendizaje, "Aprendizaje");
         
     }
     fr.readAsText(this.files[0]);
@@ -176,12 +181,7 @@ document.getElementById("actividades").addEventListener("change", function() {
     fr.onload = function(){
         
         dataActividades = fr.result;
-        dataActividades = dataActividades.split(/[\r\n]+/g);
-        let arrayActividades = [];
-        for(let i = 0; i < dataActividades.length; i++){
-            arrayActividades[i] = dataActividades[i].split(";");
-            objectsActividades[i] = new Actividad(arrayActividades[i][0], arrayActividades[i][1], arrayActividades[i][2], arrayActividades[i][3], arrayActividades[i][4], arrayActividades[i][5]);
-        }
+        textToObject(dataActividades, objectsActividades, "Actividad");
         
     }
     fr.readAsText(this.files[0]);
@@ -192,12 +192,8 @@ document.getElementById("notasxactividades").addEventListener("change", function
     fr.onload = function(){
         
         dataNotasActvidades = fr.result;
-        dataNotasActvidades = dataNotasActvidades.split(/[\r\n]+/g);
-        let arrayNotasActvidades = [];
-        for(let i = 0; i < dataNotasActvidades.length; i++){
-            arrayNotasActvidades[i] = dataNotasActvidades[i].split(";");
-            objectsNotasActvidades[i] = new NotasActividades(arrayNotasActvidades[i][0], arrayNotasActvidades[i][1], arrayNotasActvidades[i][2], arrayNotasActvidades[i][3]);
-        }
+        textToObject(dataNotasActvidades, objectsNotasActvidades, "NotasActividades");
+
         if(dataNotasActvidades.length > 0)
             obtenerInformacionProfesor();
         

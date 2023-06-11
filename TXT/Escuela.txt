@@ -1,7 +1,7 @@
-ID FACULTAD; NOMBRE; CANTIDAD CARRERAS
-1;Escuela de Computación;1
-1;Escuela de Biología;1
-1;Escuela de Matemáticas;1
-1;Escuela de Física;1
-1;Escuela de Química;1
-1;Escuela de Geoquímica;1
+ID; ID FACULTAD; NOMBRE; CANTIDAD CARRERAS
+1;1;Escuela de Computación;1
+2;1;Escuela de Biología;1
+3;1;Escuela de Matemáticas;1
+4;1;Escuela de Física;1
+5;1;Escuela de Química;1
+6;1;Escuela de Geoquímica;1

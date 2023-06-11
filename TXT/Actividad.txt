@@ -1,4 +1,4 @@
-ID ACTIVIDAD; ID ASIGNATURA; NOMBRE; REALIZACION T/F; HORAS; OBSERVACION
+ID; ID ASIGNATURA; NOMBRE; REALIZACION T/F; HORAS; OBSERVACION
 1;6201;Examen escrito 1;true;2 horas;Evaluación efectiva
 2;6201;Examen escrito 2;true;2 horas;Evaluación efectiva
 3;6201;Quiz;true;2 horas;Indice de aprobados medio/bajo

@@ -1,7 +1,7 @@
-ID ESCUELA; NOMBRE; NRO ESTUDIANTES; 
-1;Computación;340
-2;Biología;204
-3;Matemáticas;129
-4;Física;130
-5;Química;150
-6;Geoquímiica;110
+ID; ID ESCUELA; NOMBRE; NRO ESTUDIANTES; 
+1;1;Computación;340
+2;2;Biología;204
+3;3;Matemáticas;129
+4;4;Física;130
+5;5;Química;150
+6;6;Geoquímiica;110

@@ -16,6 +16,18 @@ function replaceChars(object){
     return object;
 }
 
+function textToObject(data, object, type){
+    data = data.split(/[\r\n]+/g);
+    let array = [];
+    for(let i = 0; i < data.length; i++){
+        array[i] = data[i].split(";");
+        if(type == "Asignatura")
+            object[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
+        else if(type == "Aprendizaje")
+            object[i] = new Aprendizaje(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6]);
+    }
+}
+
 
 //CLASES
 class Asignatura {
@@ -174,12 +186,7 @@ document.getElementById("asignatura").addEventListener("change", function() {
     fr.onload = function(){
         
         dataAsignatura = fr.result;
-        dataAsignatura = dataAsignatura.split(/[\r\n]+/g);
-        let objectsAsignatura = [];
-        for(let i = 0; i < dataAsignatura.length; i++){
-            objectsAsignatura[i] = dataAsignatura[i].split(";");
-            attrAsignatura[i] = new Asignatura(objectsAsignatura[i][0], objectsAsignatura[i][1], objectsAsignatura[i][2]);
-        }
+        textToObject(dataAsignatura, attrAsignatura, "Asignatura");
         
     }
     fr.readAsText(this.files[0]);
@@ -191,12 +198,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
     fr.onload = function(){
         
         dataAprendizaje = fr.result;
-        dataAprendizaje = dataAprendizaje.split(/[\r\n]+/g);
-        let objectsAprendizaje = [];
-        for(let i = 0; i < dataAprendizaje.length; i++){
-            objectsAprendizaje[i] = dataAprendizaje[i].split(";");
-            attrAprendizaje[i] = new Aprendizaje(objectsAprendizaje[i][0], objectsAprendizaje[i][1], objectsAprendizaje[i][2], objectsAprendizaje[i][3], objectsAprendizaje[i][4], objectsAprendizaje[i][5], objectsAprendizaje[i][6]);
-        }
+        textToObject(dataAprendizaje, attrAprendizaje, "Aprendizaje");
         if(dataAprendizaje.length > 0)
            // calcularExpedienteAcademico();
             layoutEstrucutrado();
