@@ -142,11 +142,6 @@ function textToObject(data, object, type){
     }
 }
 
-//ORGANIZAR DATA
-function instituciones(){
-    
-}
-
 //LEER ARCHIVOS
 document.getElementById("universidad").addEventListener("change", function() {
     var fr = new FileReader();
