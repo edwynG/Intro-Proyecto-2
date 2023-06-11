@@ -8,8 +8,9 @@ var dataPeriodo = "", objectsPeriodo = [];
 var dataPensum = "", objectsPensum = [];
 var dataAsignatura = "", objectsAsignatura = [];
 var dataHorario = "", objectsHorario = [];
-var dataEstudiante = "", objectsEstudiante = [];
+var dataAlumno = "", objectsAlumno = [];
 var dataProfesor = "", objectsProfesor = [];
+
 
 //CLASES
 class Universidad {
@@ -30,7 +31,7 @@ class Facultad {
 }
 
 class Escuela {
-	constructor(id, id_facultad, nombre){
+	constructor(id, id_facultad, nombre, nro_carreras){
 		this.id = id;
 		this.id_facultad = id_facultad;
 		this.nombre = nombre;
@@ -39,7 +40,7 @@ class Escuela {
 }
 
 class Carrera {
-	constructor(id, id_escuela, nombre){
+	constructor(id, id_escuela, nombre, nro_est){
 		this.id = id;
 		this.id_escuela = id_escuela;
 		this.nombre = nombre;
@@ -95,7 +96,7 @@ class Persona {
 	}
 }
 
-class Estudiante extends Persona{
+class Alumno extends Persona{
 	constructor(nombre, cedula, email, prepa){
 		super(nombre, cedula, email);
 		this.prepa = prepa;
@@ -109,14 +110,41 @@ class Profesor extends Persona{
 	}
 }
 
+
 //OTROS
-function textToObject(data, object){
+function textToObject(data, object, type){
     data = data.split(/[\r\n]+/g);
     let array = [];
     for(let i = 0; i < data.length; i++){
         array[i] = data[i].split(";");
-        object[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
+        if(type == "Universidad")
+            object[i] = new Universidad(array[i][0], array[i][1], array[i][2], array[i][3]);
+        else if(type == "Facultad")
+            object[i] = new Facultad(array[i][0], array[i][1], array[i][2]);
+        else if(type == "Escuela")
+            object[i] = new Escuela(array[i][0], array[i][1], array[i][2], array[i][3]);
+        else if(type == "Carrera")
+            object[i] = new Carrera(array[i][0], array[i][1], array[i][2], array[i][3]);
+        else if(type == "Aula")
+            object[i] = new Aula(array[i][0], array[i][1]);
+        else if(type == "Periodo")
+            object[i] = new Periodo(array[i][0], array[i][1], array[i][2]);
+        else if(type == "Pensum")
+            object[i] = new Pensum(array[i][0], array[i][1], array[i][2]);
+        else if(type == "Asignatura")
+            object[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
+        else if(type == "Horario")
+            object[i] = new Horario(array[i][0], array[i][1], array[i][2], array[i][3]);
+        else if(type == "Alumno")
+            object[i] = new Alumno(array[i][0], array[i][1], array[i][2], array[i][3]);
+        else if(type == "Profesor")
+            object[i] = new Profesor(array[i][0], array[i][1], array[i][2], array[i][3]);
     }
+}
+
+//ORGANIZAR DATA
+function instituciones(){
+    
 }
 
 //LEER ARCHIVOS
@@ -125,7 +153,7 @@ document.getElementById("universidad").addEventListener("change", function() {
     fr.onload = function(){
         
         dataUniversidad = fr.result;
-        textToObject(dataUniversidad, objectsUniversidad)
+        textToObject(dataUniversidad, objectsUniversidad, "Universidad");
     }
     fr.readAsText(this.files[0]);
 });
@@ -135,12 +163,7 @@ document.getElementById("facultad").addEventListener("change", function() {
     fr.onload = function(){
         
         dataFacultad = fr.result;
-        dataFacultad = dataFacultad.split(/[\r\n]+/g);
-        let array = [];
-        for(let i = 0; i < dataFacultad.length; i++){
-            array[i] = dataFacultad[i].split(";");
-            objectsFacultad[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
-        }
+        textToObject(dataFacultad, objectsFacultad, "Facultad");
         
     }
     fr.readAsText(this.files[0]);
@@ -151,12 +174,7 @@ document.getElementById("escuela").addEventListener("change", function() {
     fr.onload = function(){
         
         dataEscuela = fr.result;
-        dataEscuela = dataEscuela.split(/[\r\n]+/g);
-        let array = [];
-        for(let i = 0; i < dataEscuela.length; i++){
-            array[i] = dataEscuela[i].split(";");
-            objectsEscuela[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
-        }
+        textToObject(dataEscuela, objectsEscuela, "Escuela");
         
     }
     fr.readAsText(this.files[0]);
@@ -167,12 +185,7 @@ document.getElementById("carrera").addEventListener("change", function() {
     fr.onload = function(){
         
         dataCarrera = fr.result;
-        dataCarrera = dataCarrera.split(/[\r\n]+/g);
-        let array = [];
-        for(let i = 0; i < dataCarrera.length; i++){
-            array[i] = dataCarrera[i].split(";");
-            objectsCarrera[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
-        }
+        textToObject(dataCarrera, objectsCarrera, "Carrera");
         
     }
     fr.readAsText(this.files[0]);
@@ -183,28 +196,73 @@ document.getElementById("aula").addEventListener("change", function() {
     fr.onload = function(){
         
         dataAula = fr.result;
-        dataAula = dataAula.split(/[\r\n]+/g);
-        let array = [];
-        for(let i = 0; i < dataAula.length; i++){
-            array[i] = dataAula[i].split(";");
-            objectsAula[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
-        }
+        textToObject(dataAula, objectsAula, "Aula");
         
     }
     fr.readAsText(this.files[0]);
 });
 
-document.getElementById("aula").addEventListener("change", function() {
+document.getElementById("periodo").addEventListener("change", function() {
     var fr = new FileReader();
     fr.onload = function(){
         
-        dataAula = fr.result;
-        dataAula = dataAula.split(/[\r\n]+/g);
-        let array = [];
-        for(let i = 0; i < dataAula.length; i++){
-            array[i] = dataAula[i].split(";");
-            objectsAula[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
-        }
+        dataPeriodo = fr.result;
+        textToObject(dataPeriodo, objectsPeriodo, "Periodo");
+        
+    }
+    fr.readAsText(this.files[0]);
+});
+
+document.getElementById("pensum").addEventListener("change", function() {
+    var fr = new FileReader();
+    fr.onload = function(){
+        
+        dataPensum = fr.result;
+        textToObject(dataPensum, objectsPensum, "Pensum");
+        
+    }
+    fr.readAsText(this.files[0]);
+});
+
+document.getElementById("asignatura").addEventListener("change", function() {
+    var fr = new FileReader();
+    fr.onload = function(){
+        
+        dataAsignatura = fr.result;
+        textToObject(dataAsignatura, objectsAsignatura, "Asignatura");
+        
+    }
+    fr.readAsText(this.files[0]);
+});
+
+document.getElementById("horario").addEventListener("change", function() {
+    var fr = new FileReader();
+    fr.onload = function(){
+        
+        dataHorario = fr.result;
+        textToObject(dataHorario, objectsHorario, "Horario");
+        
+    }
+    fr.readAsText(this.files[0]);
+});
+
+document.getElementById("alumno").addEventListener("change", function() {
+    var fr = new FileReader();
+    fr.onload = function(){
+        
+        dataAlumno = fr.result;
+        textToObject(dataAlumno, objectsAlumno, "Alumno");
+        
+    }
+    fr.readAsText(this.files[0]);
+});
+
+document.getElementById("profesor").addEventListener("change", function() {
+    var fr = new FileReader();
+    fr.onload = function(){
+        
+        dataProfesor = fr.result;
+        textToObject(dataProfesor, objectsProfesor, "Profesor");
         
     }
     fr.readAsText(this.files[0]);

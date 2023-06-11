@@ -113,7 +113,7 @@ class Persona {
 	}
 }
 
-class Estudiante extends Persona{
+class Alumno extends Persona{
 	constructor(nombre, cedula, email, prepa){
 		super(nombre, cedula, email);
 		this.prepa = prepa;
