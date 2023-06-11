@@ -1,6 +1,6 @@
-NOMBRE; RIF; DIRECCION
-Universidad Central de Venezuela;G-20000062‐7;Ciudad Universitaria de Caracas, Parroquia San Pedro, Municipio Libertador, Distrito Capital, Venezuela
-Universidad Simón Bolivar;G-20000063-5;Valle de Sartenejas, Municipio Baruta, Estado Miranda, Venezuela
-Universidad Católica Andrés Bello;J-00012255-5;Avenida Teherán, Urbanización Montalban, Distrito Capital, Venezuela
-Universidad Metropolitana;J-000654778;Autopista Petare-Guarenas, Distribuidor Metropolitano, Distrito Capital, Venezuela
-Universidad de los Andes;G-20000040-6;Casco Central de Mérida, Avenida 3 Independencia, Diagonal Plaza Bolívar, Mérida, Venezuela
+ID; NOMBRE; RIF; DIRECCION
+1;Universidad Central de Venezuela;G-20000062‐7;Ciudad Universitaria de Caracas, Parroquia San Pedro, Municipio Libertador, Distrito Capital, Venezuela
+2;Universidad Simón Bolivar;G-20000063-5;Valle de Sartenejas, Municipio Baruta, Estado Miranda, Venezuela
+3;Universidad Católica Andrés Bello;J-00012255-5;Avenida Teherán, Urbanización Montalban, Distrito Capital, Venezuela
+4;Universidad Metropolitana;J-000654778;Autopista Petare-Guarenas, Distribuidor Metropolitano, Distrito Capital, Venezuela
+5;Universidad de los Andes;G-20000040-6;Casco Central de Mérida, Avenida 3 Independencia, Diagonal Plaza Bolívar, Mérida, Venezuela

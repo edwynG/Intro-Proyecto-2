@@ -19,8 +19,28 @@
     --colorDivider:#e0e0e0;
 }
 
+a{
+    text-decoration:none;
+}
+
+.lista_items a {
+    color: var(--colorSecundario);
+}
+
 .responsive{
     display: none;
+}
+
+.btn_kardex {
+    border: none;
+    padding: 15px 30px;
+    text-align: center;
+    background: var(--colorHome);
+    color: var(--colorSecundario);
+    font-weight: 500;
+    border-radius: 5px;
+    width: 190px;
+    cursor: pointer;
 }
 
 .container_Subheader{
@@ -191,11 +211,11 @@
     min-width: 265px;
     border-radius: var(--borderRadius);
     box-shadow: var(--boxShadow);
-    padding: 12px;
+    padding: 15px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     justify-content: space-evenly;
     width: 100%;
 }
@@ -227,7 +247,7 @@
 .main_items-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 18px;
     align-items: center;
     justify-content: center;
     height: 100%;
@@ -264,7 +284,7 @@
 
 .main_items-props {
     flex-grow: 1;
-    min-width: 222px;
+    min-width: 225px;
     max-width: 90%;
     display: flex;
     border-radius: 13px;
@@ -316,6 +336,7 @@
 .lista_items {
     cursor: pointer;
     font-weight: 300;
+    color: var(--colorSecundario);
 }
 
 .container_items-procesoMaterias {
@@ -530,20 +551,21 @@
     display: none !important;
 }
 
-@media screen and (min-width:1175px) {
+@media screen and (min-width:1185px) {
     .main_items-props {
         max-width: 50%;
     }
 }
 
-@media screen and (max-width:1175px) {
+@media screen and (max-width:1185px) {
     .main_items-props {
-        max-width:85%;
+        max-width: 85%;
+        min-width: 260px;
     }
 }
 
 
-@media screen and (max-width:1155px) {
+@media screen and (max-width: 1175px) {
     .main_items-container { 
        height:auto;
     }

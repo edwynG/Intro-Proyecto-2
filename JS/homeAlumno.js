@@ -16,6 +16,18 @@ function replaceChars(object){
     return object;
 }
 
+function textToObject(data, object, type){
+    data = data.split(/[\r\n]+/g);
+    let array = [];
+    for(let i = 0; i < data.length; i++){
+        array[i] = data[i].split(";");
+        if(type == "Asignatura")
+            object[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
+        else if(type == "Aprendizaje")
+            object[i] = new Aprendizaje(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6]);
+    }
+}
+
 
 //CLASES
 class Asignatura {
@@ -48,36 +60,31 @@ class Expediente {
         this.materiasInscritas = 0;
         this.materiasRetiradas = 0;
         this.materiasAplazadas = 0;
-        this.materiasPorEQ = 0;
         this.materiasAprobadas = 0;
+        this.materiasPorEQ = 0;
         this.materiasCursadas = 0;
 	}
 }
 
 
 //CALCULAR EXPEDIENTE ACADEMICO
+let expedienteAcademico = new Expediente();
+let aprendizajeEstudiante = [];
 function calcularExpedienteAcademico(){
-    let expedienteAcademico = new Expediente();
     let contGeneral = 0;
     let contAprobadas = 0;
-    let aprendizajeEstudiante = [];
 
     for(let i = 0; i < attrAprendizaje.length; i++){
         //MATERIAS RELACIONADAS AL ESTUDIANTE
         if(attrAprendizaje[i]["id_alumno"] === sessionStorage.getItem("userId")){
-            aprendizajeEstudiante.push(attrAprendizaje[i]);
+            if(attrAprendizaje[i]["estado"] != "Retirada")
+                aprendizajeEstudiante.push(attrAprendizaje[i]);
             expedienteAcademico['promedioGeneral'] += Number(attrAprendizaje[i]["nota"]);
             contGeneral++;
 
             //ESTADOS DE MATERIAS
-            if(attrAprendizaje[i]["estado"] === "Aprobada"){
-                expedienteAcademico['promedioAsigAprob'] += Number(attrAprendizaje[i]["nota"]);
-                //tuvo que haber sido inscrita para estar en este estado
-                expedienteAcademico['materiasInscritas']++;
-                expedienteAcademico['materiasAprobadas']++;
-                contAprobadas++;
-            }
-            else if(attrAprendizaje[i]["estado"] === "Inscrita"){
+            
+            if(attrAprendizaje[i]["estado"] === "Inscrita"){
                 expedienteAcademico['materiasInscritas']++;
             }
             else if(attrAprendizaje[i]["estado"] === "Retirada"){
@@ -85,17 +92,25 @@ function calcularExpedienteAcademico(){
                 expedienteAcademico['materiasInscritas']++;
                 expedienteAcademico['materiasRetiradas']++;
             }
+            else if(attrAprendizaje[i]["estado"] === "Aprobada"){
+                expedienteAcademico['promedioAsigAprob'] += Number(attrAprendizaje[i]["nota"]);
+                //tuvo que haber sido inscrita para estar en este estado
+                expedienteAcademico['materiasInscritas']++;
+                expedienteAcademico['materiasAprobadas']++;
+                expedienteAcademico['materiasCursadas']++;
+                contAprobadas++;
+            }
             else if(attrAprendizaje[i]["estado"] === "Aplazada"){
                 //tuvo que haber sido inscrita para estar en este estado
                 expedienteAcademico['materiasInscritas']++;
                 expedienteAcademico['materiasAplazadas']++;
+                expedienteAcademico['materiasCursadas']++;
             }
             else if(attrAprendizaje[i]["estado"] === "PorEQ"){
                 expedienteAcademico['materiasPorEQ']++;
+                expedienteAcademico['materiasCursadas']++;
             }
-            else if(attrAprendizaje[i]["estado"] === "Cursada"){
-                //tuvo que haber sido inscrita para estar en este estado
-                expedienteAcademico['materiasInscritas']++;
+            else if(attrAprendizaje[i]["estado"] === "Cursada" || attrAprendizaje[i]["nota"] != undefined){             
                 expedienteAcademico['materiasCursadas']++;
             }
         }  
@@ -113,7 +128,7 @@ function calcularExpedienteAcademico(){
 
                 //CALCULAR UC DE ASIGNATURAS APROBADAS
                 if(aprendizajeEstudiante[j]["estado"] === "Aprobada"){
-                    expedienteAcademico['UC'] += Number(attrAsignatura[i]["uc"]);
+                    expedienteAcademico["UC"] += Number(attrAsignatura[i]["uc"]);
                 }
                 attrAsignatura[i]["notaEstudiante"] = aprendizajeEstudiante[j]["nota"];
                 
@@ -124,8 +139,6 @@ function calcularExpedienteAcademico(){
         }
         
         todasAsignaturas.push(attrAsignatura[i]);
-        
-        
     }
     todasAsignaturas.shift();
     return expedienteAcademico;
@@ -167,6 +180,46 @@ function inscribirAsignatura(idAsignatura){
     
 }
 
+//DESCARGAR KARDEX
+function descargarKardex(){
+    let historialAcademico = "Periodo | Codigo | Seccion | Nombre | UC | Nota | Tipo Examen \n";
+    for(let i = 0; i < asignaturasInscritas.length; i++){
+        historialAcademico += 
+        aprendizajeEstudiante[i]["periodo"] + " | " + 
+        asignaturasInscritas[i]["codigo"] + " | " + 
+        aprendizajeEstudiante[i]["seccion"] + " | " + 
+        asignaturasInscritas[i]["nombre"] + " | " + 
+        asignaturasInscritas[i]["uc"] + " | " + 
+        aprendizajeEstudiante[i]["nota"] + " | " + 
+        aprendizajeEstudiante[i]["tipo_examen"] + " | " + 
+        "\n";
+    }
+    let kardex = 
+    "UNIVERSIDAD CENTRAL DE VENEZUELA FACULTAD DE CIENCIAS DIVISIÓN DE CONTROL DE ESTUDIOS \n" + 
+    "DATOS------------------------------------------ \n" + 
+    "Licenciatura en computación \n" + 
+    "Nombre: " + sessionStorage.getItem("userName") + "\n" + 
+    "Cedula: " + sessionStorage.getItem("userId") + "\n" + 
+    "Correo: " + sessionStorage.getItem("userEmail") + "\n" + 
+    "PROMEDIOS--------------------------------------- \n" + 
+    "Promedio general: " + expedienteAcademico["promedioGeneral"].toString() + "\n" + 
+    "Promedio asignaturas aprobadas: " + expedienteAcademico["promedioAsigAprob"].toString() + "\n" +
+    "Unidades de credito: " + expedienteAcademico["UC"].toString() + "\n" +
+    "Eficiencia: " + expedienteAcademico["eficiencia"].toString() + "\n" +
+    "RESUMEN------------------------------------------ \n" + 
+    "Asignaturas inscritas: " + expedienteAcademico["materiasInscritas"].toString() + "\n" +
+    "Asignaturas retiradas: " + expedienteAcademico["materiasRetiradas"].toString() + "\n" +
+    "Asignaturas aplazadas: " + expedienteAcademico["materiasAplazadas"].toString() + "\n" +
+    "Asignaturas por equivalencia: " + expedienteAcademico["materiasPorEQ"].toString() + "\n" +
+    "Asignaturas aprobadas: " + expedienteAcademico["materiasAprobadas"].toString() + "\n" +
+    "Asignaturas cursadas: " + expedienteAcademico["materiasCursadas"].toString() + "\n" +
+    "HISTORIAL ACADEMICO------------------------------ \n" + historialAcademico +
+    "NOTA--------------------------------------------- \n" + 
+    "Las normas de permanencia se calculan dinámicamente durante todo el semestre, y no es definitivo hasta tanto todas las materias esten retiradas o calificadas";
+    
+    download(kardex, 'Kardex');
+}
+
 
 //LEER ARCHIVO 
 document.getElementById("asignatura").addEventListener("change", function() {
@@ -174,12 +227,7 @@ document.getElementById("asignatura").addEventListener("change", function() {
     fr.onload = function(){
         
         dataAsignatura = fr.result;
-        dataAsignatura = dataAsignatura.split(/[\r\n]+/g);
-        let objectsAsignatura = [];
-        for(let i = 0; i < dataAsignatura.length; i++){
-            objectsAsignatura[i] = dataAsignatura[i].split(";");
-            attrAsignatura[i] = new Asignatura(objectsAsignatura[i][0], objectsAsignatura[i][1], objectsAsignatura[i][2]);
-        }
+        textToObject(dataAsignatura, attrAsignatura, "Asignatura");
         
     }
     fr.readAsText(this.files[0]);
@@ -191,12 +239,7 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
     fr.onload = function(){
         
         dataAprendizaje = fr.result;
-        dataAprendizaje = dataAprendizaje.split(/[\r\n]+/g);
-        let objectsAprendizaje = [];
-        for(let i = 0; i < dataAprendizaje.length; i++){
-            objectsAprendizaje[i] = dataAprendizaje[i].split(";");
-            attrAprendizaje[i] = new Aprendizaje(objectsAprendizaje[i][0], objectsAprendizaje[i][1], objectsAprendizaje[i][2], objectsAprendizaje[i][3], objectsAprendizaje[i][4], objectsAprendizaje[i][5], objectsAprendizaje[i][6]);
-        }
+        textToObject(dataAprendizaje, attrAprendizaje, "Aprendizaje");
         if(dataAprendizaje.length > 0)
            // calcularExpedienteAcademico();
             layoutEstrucutrado();
