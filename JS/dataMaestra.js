@@ -111,6 +111,7 @@ class Profesor extends Persona{
 	}
 }
 
+
 //OTROS
 function textToObject(data, object, type){
     data = data.split(/[\r\n]+/g);
@@ -141,6 +142,105 @@ function textToObject(data, object, type){
             object[i] = new Profesor(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4]);
     }
 }
+
+
+//ORGANIZAR UNIVERSIDAD, FACULTAD, ESCUELA, CARRERA, PENSUM
+function instituciones(){
+    //UNIVERSIDADES
+    let instituciones = [];
+    for(let i = 0; i < objectsUniversidad.length; i++){
+
+        //FACULTAD
+        let facultad = [];
+        for(let j = 0; j < objectsFacultad.length; j++){
+            if(objectsFacultad[j]["id_universidad"] == objectsUniversidad[i]["id"]){
+
+                //ESCUELA
+                let escuela = [];
+                for(let k = 0; k < objectsEscuela.length; k++){
+                    if(objectsEscuela[k]["id_facultad"] == objectsFacultad[j]["id"]){
+                        
+                        let carrera = [];
+                        for(let l = 0; l < objectsCarrera.length; l++){
+                            if(objectsCarrera[l]["id_escuela"] == objectsEscuela[k]["id"]){
+                                debugger
+                                
+                                let pensum = [];
+                                for(let m = 0; m < objectsPensum.length; m++){
+                                    if(objectsPensum[m]["id_carrera"] == objectsCarrera[l]["id"]){
+
+                                        pensum.push(objectsPensum[m]);
+                                        
+                                    }  
+                                }
+                                carrera.push(objectsCarrera[l], pensum);
+                                
+                            }  
+                        }
+                        
+                        escuela.push([objectsEscuela[k], carrera]);  
+                    } 
+                }
+                facultad.push([objectsFacultad[j], escuela]);
+            } 
+        }
+
+        instituciones.push([objectsUniversidad[i], facultad]);
+    }
+    instituciones.shift();
+    debugger
+    return instituciones;
+}
+
+
+//ORGANIZAR HORARIO DE ASIGNATURA
+function horarioXAsignatura(){
+    let asignaturas = [];
+    for(let i = 0; i < objectsAsignatura.length; i++){
+
+        let horario = [];
+        for(let j = 0; j < objectsHorario.length; j++){
+            if(objectsHorario[j]["id_asignatura"] == objectsAsignatura[i]["codigo"]){
+                horario.push(objectsHorario[j]);
+            } 
+        }
+
+        asignaturas.push([objectsAsignatura[i], horario]);
+    }
+    asignaturas.shift();
+    return asignaturas;
+}
+
+
+//ORGANIZAR ALUMNOS Y PROFESORES
+function alumnoYProfesor(){
+    for(let i = 0; i < objectsAlumno.length; i++){
+        objectsAlumno[i]["universidad"] = "UCV";
+    }
+    for(let i = 0; i < objectsProfesor.length; i++){
+        objectsProfesor[i]["universidad"] = "UCV";
+    }
+    return {objectsAlumno, objectsProfesor};
+}
+
+
+//ORGANIZAR AULAS
+function aula(){
+    for(let i = 0; i < objectsAula.length; i++){
+        objectsAula[i]["universidad"] = "UCV";
+    }
+    return objectsAula;
+}
+
+
+//ORGANIZAR PERIODOS
+function periodos(){
+    for(let i = 0; i < objectsPeriodo.length; i++){
+        objectsPeriodo[i]["universidad"] = "UCV";
+    }
+    return objectsPeriodo;
+}
+
 
 //LEER ARCHIVOS
 document.getElementById("universidad").addEventListener("change", function() {
@@ -214,6 +314,7 @@ document.getElementById("pensum").addEventListener("change", function() {
         
         dataPensum = fr.result;
         textToObject(dataPensum, objectsPensum, "Pensum");
+        instituciones();
         
     }
     fr.readAsText(this.files[0]);
@@ -236,6 +337,7 @@ document.getElementById("horario").addEventListener("change", function() {
         
         dataHorario = fr.result;
         textToObject(dataHorario, objectsHorario, "Horario");
+        horarioXAsignatura();
         
     }
     fr.readAsText(this.files[0]);
@@ -258,6 +360,7 @@ document.getElementById("profesor").addEventListener("change", function() {
         
         dataProfesor = fr.result;
         textToObject(dataProfesor, objectsProfesor, "Profesor");
+        alumnoYProfesor()
         
     }
     fr.readAsText(this.files[0]);
