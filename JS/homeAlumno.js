@@ -69,10 +69,10 @@ class Expediente {
 
 //CALCULAR EXPEDIENTE ACADEMICO
 let expedienteAcademico = new Expediente();
+let aprendizajeEstudiante = [];
 function calcularExpedienteAcademico(){
     let contGeneral = 0;
     let contAprobadas = 0;
-    let aprendizajeEstudiante = [];
 
     for(let i = 0; i < attrAprendizaje.length; i++){
         //MATERIAS RELACIONADAS AL ESTUDIANTE
@@ -184,12 +184,22 @@ function inscribirAsignatura(idAsignatura){
 
 //DESCARGAR KARDEX
 function descargarKardex(){
-    let historialAcademico = "";
+    let historialAcademico = "Periodo | Codigo | Seccion | Nombre | UC | Nota | Tipo Examen \n";
     for(let i = 0; i < asignaturasInscritas.length; i++){
-        historialAcademico += asignaturasInscritas[i]['nombre'] + " | Nota " + asignaturasInscritas[i]['notaEstudiante'] + "\n";
+        historialAcademico += 
+        aprendizajeEstudiante[i]["periodo"] + " | " + 
+        asignaturasInscritas[i]["codigo"] + " | " + 
+        aprendizajeEstudiante[i]["seccion"] + " | " + 
+        asignaturasInscritas[i]["nombre"] + " | " + 
+        asignaturasInscritas[i]["uc"] + " | " + 
+        aprendizajeEstudiante[i]["nota"] + " | " + 
+        aprendizajeEstudiante[i]["tipo_examen"] + " | " + 
+        "\n";
     }
     let kardex = 
+    "UNIVERSIDAD CENTRAL DE VENEZUELA FACULTAD DE CIENCIAS DIVISIÓN DE CONTROL DE ESTUDIOS \n" + 
     "DATOS------------------------------------------ \n" + 
+    "Licenciatura en computación \n" + 
     "Nombre: " + sessionStorage.getItem("userName") + "\n" + 
     "Cedula: " + sessionStorage.getItem("userId") + "\n" + 
     "Correo: " + sessionStorage.getItem("userEmail") + "\n" + 
