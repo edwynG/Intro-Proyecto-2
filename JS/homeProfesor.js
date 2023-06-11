@@ -133,7 +133,6 @@ function obtenerInformacionProfesor(){
             informacionProfesor.push([objectsAsignatura[i], infoEstudiantesAsignatura]);
         }  
     }
-    debugger
     return informacionProfesor;
 }
 

@@ -89,27 +89,27 @@ class Pensum {
 }
 
 class Persona {
-	constructor(nombre, cedula, email){
+	constructor(nombre, cedula, email, password){
 		this.nombre = nombre;
 		this.cedula = cedula; 
 		this.email = email;
+        this.password = password;
 	}
 }
 
 class Alumno extends Persona{
-	constructor(nombre, cedula, email, prepa){
-		super(nombre, cedula, email);
+	constructor(nombre, cedula, email, password, prepa){
+		super(nombre, cedula, email, password);
 		this.prepa = prepa;
 	}
 }
 
 class Profesor extends Persona{
-	constructor(nombre, cedula, email, asignaturas){
-		super(nombre, cedula, email);
+	constructor(nombre, cedula, email, password, asignaturas){
+		super(nombre, cedula, email, password);
 		this.asignaturas = asignaturas;
 	}
 }
-
 
 //OTROS
 function textToObject(data, object, type){
@@ -136,9 +136,9 @@ function textToObject(data, object, type){
         else if(type == "Horario")
             object[i] = new Horario(array[i][0], array[i][1], array[i][2], array[i][3]);
         else if(type == "Alumno")
-            object[i] = new Alumno(array[i][0], array[i][1], array[i][2], array[i][3]);
+            object[i] = new Alumno(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4]);
         else if(type == "Profesor")
-            object[i] = new Profesor(array[i][0], array[i][1], array[i][2], array[i][3]);
+            object[i] = new Profesor(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4]);
     }
 }
 

@@ -128,7 +128,7 @@ function calcularExpedienteAcademico(){
 
                 //CALCULAR UC DE ASIGNATURAS APROBADAS
                 if(aprendizajeEstudiante[j]["estado"] === "Aprobada"){
-                    expedienteAcademico['UC'] += Number(attrAsignatura[i]["uc"]);
+                    expedienteAcademico["UC"] += Number(attrAsignatura[i]["uc"]);
                 }
                 attrAsignatura[i]["notaEstudiante"] = aprendizajeEstudiante[j]["nota"];
                 
@@ -139,8 +139,6 @@ function calcularExpedienteAcademico(){
         }
         
         todasAsignaturas.push(attrAsignatura[i]);
-        
-        
     }
     todasAsignaturas.shift();
     return expedienteAcademico;
@@ -470,8 +468,8 @@ function layoutEstrucutrado(){
     boxUC.innerHTML=DataAcademica.UC.toFixed(2).replace(/\.?0+$/, '');
     boxPG.innerHTML=DataAcademica.promedioGeneral.toFixed(2).replace(/\.?0+$/, '');
     boxAsingA.innerHTML=DataAcademica.promedioAsigAprob.toFixed(2).replace(/\.?0+$/, '');
-    let userName = userDate.getItem("userName").split(" ");
-    boxUser.innerHTML= userName[0] +" "+userName[userName.length-2];
+    let userName = userDate.getItem("userName");
+    boxUser.innerHTML= userName;
     boxCorreo.innerHTML=userDate.getItem("userEmail");
     
 

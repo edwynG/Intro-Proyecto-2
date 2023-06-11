@@ -106,23 +106,24 @@ class Pensum {
 }
 
 class Persona {
-	constructor(nombre, cedula, email){
+	constructor(nombre, cedula, email, password){
 		this.nombre = nombre;
 		this.cedula = cedula; 
 		this.email = email;
+		this.password = password;
 	}
 }
 
 class Alumno extends Persona{
-	constructor(nombre, cedula, email, prepa){
-		super(nombre, cedula, email);
+	constructor(nombre, cedula, email, password, prepa){
+		super(nombre, cedula, email, password);
 		this.prepa = prepa;
 	}
 }
 
 class Profesor extends Persona{
-	constructor(nombre, cedula, email, asignaturas){
-		super(nombre, cedula, email);
+	constructor(nombre, cedula, email, password, asignaturas){
+		super(nombre, cedula, email, password);
 		this.asignaturas = asignaturas;
 	}
 }

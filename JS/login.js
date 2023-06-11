@@ -36,8 +36,8 @@ function getData(form) {
 
 function validateUser(infoForm, attr){
     for(let i = 0; i < attr.length; i++){
-        if(infoForm["emailIn"] === attr[i][2]){
-            sessionUser(attr[i][0], attr[i][1], attr[i][2], attr[i][3]);
+        if(infoForm["emailIn"] === attr[i][2] && infoForm["passwordIn"] === attr[i][3]){
+            sessionUser(attr[i][0], attr[i][1], attr[i][2], attr[i][4]);
             if(infoForm["profeIn"] == "false"){
                 openPage("homeAlumno")
             }else if(infoForm["profeIn"] == "true"){
@@ -55,6 +55,7 @@ function validateUser(infoForm, attr){
 let signInForm = document.getElementById("signInForm");
 if(signInForm != null){
     signInForm.addEventListener("submit", function (e) {
+        
         e.preventDefault();
         infoForm = getData(e.target);
     });
@@ -72,8 +73,14 @@ if(signUpForm != null){
 function mergeData(){
     newData = data + "\n";
     for (let i in infoForm){
-        if(i !== 'profeUp' && i != 'passwordUp')
+        if(i == 'prepaUp' && infoForm["profeUp"] == "true")
+            newData += "[]";
+        else if(i == 'prepaUp' && infoForm["profeUp"] == "false")
+            newData += infoForm[i].toString();  
+        else if(i !== 'profeUp')
             newData += infoForm[i].toString() + ";";
+        
+        
     }
     if(infoForm["profeUp"] == "false"){
         typeOfUser = 'Alumno';
