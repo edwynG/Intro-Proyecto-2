@@ -271,7 +271,7 @@ function saveInfoAsignatura(id_alumno, id_asignatura){
     clickButton("submitInfoAsignatura");
     
     //ENCONTRAR MODIFICADO EN ARRAY
-    let newAprendizaje = objectsAprendizaje.find(aprendizaje => (aprendizaje['id_alumno'] === id_alumno) && (aprendizaje['id_asignatura'] === id_asignatura));
+    let newAprendizaje = objectsAprendizaje.find(aprendizaje => (aprendizaje['id_alumno'] == id_alumno) && (aprendizaje['id_asignatura'] == id_asignatura));
     
     //MODIFICAR VALORES EN OBJECT
     let i = objectsAprendizaje.indexOf(newAprendizaje);
@@ -301,8 +301,8 @@ function saveInfoActividad(id_actividad, id_asignatura, id_alumno){
     clickButton("submitInfoActividad");
     
     //ENCONTRAR MODIFICADO EN ARRAY
-    let newActividad = objectsActividades.find(actividad => actividad['id_actividad'] === id_actividad);
-    let newNotaActividad = objectsNotasActvidades.find(nota => (nota['id_actividad'] === id_actividad) && (nota['id_asignatura'] === id_asignatura) && (nota['id_alumno'] === id_alumno));
+    let newActividad = objectsActividades.find(actividad => actividad['id_actividad'] == id_actividad);
+    let newNotaActividad = objectsNotasActvidades.find(nota => (nota['id_actividad'] == id_actividad) && (nota['id_asignatura'] == id_asignatura) && (nota['id_alumno'] == id_alumno));
     
     //MODIFICAR VALORES EN OBJECT
     let i = objectsActividades.indexOf(newActividad);
