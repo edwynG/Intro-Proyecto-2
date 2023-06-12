@@ -3,56 +3,18 @@ var dataAsignatura = "", objectsAsignatura = [];
 var dataAprendizaje = "", objectsAprendizaje = [];
 var dataActividades = "", objectsActividades = [];
 var dataNotasActvidades = "", objectsNotasActvidades = [];
+var dataProfesor = "", objectsProfesor = [];
+
+//[ASIGNATURA, [ESTUDIANTEINFO, [ACTIVIDADINFO]]]
+let informacionProfesor = []; 
+let asignaturasLibres = [];
 
 //OBTENER CODIGO, SECCION, PERIODO DE ASIGNATURAS IMPARTIDAS
 let codigosAsignaturasImpartidas = [];
 let seccionesAsignaturasImpartidas = [];
 let periodosAsignaturasImpartidas = [];
-let userOtro = sessionStorage.getItem("userOtro").replaceAll('[', '');
-userOtro = userOtro.replaceAll(']', '');
-userOtro = userOtro.split(".");
-for(let i = 0; i < userOtro.length; i++){
-    let aux = userOtro[i].split(":");
-    codigosAsignaturasImpartidas.push(aux[0]);
-    seccionesAsignaturasImpartidas.push(aux[1]);
-    periodosAsignaturasImpartidas.push(aux[2]);
-}
-
-//[ASIGNATURA, [ESTUDIANTEINFO, [ACTIVIDADINFO]]]
-let informacionProfesor = []; 
-
-//OTROS
-function clickButton(buttonId){
-    document.getElementById(buttonId).click();
-}
-
-function getData(form) {
-    var formData = new FormData(form);
-    return Object.fromEntries(formData);
-}
-
-function download(text, nameFile){
-    let filename = nameFile + ".txt";
-    let blob = new Blob([text], {type:'text/plain'});
-    let link = document.createElement("a");
-    link.download = filename;
-    link.href = window.URL.createObjectURL(blob);
-    document.body.appendChild(link);
-    link.click();
-
-    setTimeout(() => {
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(link.href);
-    }, 100);
-}
-
-function replaceChars(object){
-    object = JSON.stringify(Object.values(object)).replaceAll('"', '');
-    object = object.replaceAll(',', ';');
-    object = object.replaceAll('[', '');
-    object = object.replaceAll(']', '');
-    return object;
-}
+debugger
+obtenerCodigoSeccionPeriodo(sessionStorage.getItem("userOtro"), codigosAsignaturasImpartidas, seccionesAsignaturasImpartidas, periodosAsignaturasImpartidas); 
 
 
 //CLASES
@@ -98,6 +60,91 @@ class NotasActividades {
 	}
 }
 
+class Persona {
+	constructor(nombre, cedula, email, password){
+		this.nombre = nombre;
+		this.cedula = cedula; 
+		this.email = email;
+		this.password = password;
+	}
+}
+
+class Alumno extends Persona{
+	constructor(nombre, cedula, email, password, prepa){
+		super(nombre, cedula, email, password);
+		this.prepa = prepa;
+	}
+}
+
+class Profesor extends Persona{
+	constructor(nombre, cedula, email, password, asignaturas){
+		super(nombre, cedula, email, password);
+		this.asignaturas = asignaturas;
+	}
+}
+
+
+//OTROS
+function clickButton(buttonId){
+    document.getElementById(buttonId).click();
+}
+
+function getData(form) {
+    var formData = new FormData(form);
+    return Object.fromEntries(formData);
+}
+
+function download(text, nameFile){
+    let filename = nameFile + ".txt";
+    let blob = new Blob([text], {type:'text/plain'});
+    let link = document.createElement("a");
+    link.download = filename;
+    link.href = window.URL.createObjectURL(blob);
+    document.body.appendChild(link);
+    link.click();
+
+    setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(link.href);
+    }, 100);
+}
+
+function replaceChars(object){
+    object = JSON.stringify(Object.values(object)).replaceAll('"', '');
+    object = object.replaceAll(',', ';');
+    object = object.replaceAll('[', '');
+    object = object.replaceAll(']', '');
+    return object;
+}
+
+function textToObject(data, object, type){
+    data = data.split(/[\r\n]+/g);
+    let array = [];
+    for(let i = 0; i < data.length; i++){
+        array[i] = data[i].split(";");
+        if(type == "Asignatura")
+            object[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
+        else if(type == "Aprendizaje")
+            object[i] = new Aprendizaje(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6]);
+        else if(type == "Actividad")
+            object[i] = new Actividad(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5]);
+        else if(type == "NotasActividades")
+            object[i] = new NotasActividades(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5]);
+        else if(type == "Profesor")
+            object[i] = new Profesor(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4]);
+    }
+}
+
+function obtenerCodigoSeccionPeriodo(toChange, codigos, secciones, periodos){
+    toChange = toChange.split(".");
+    for(let i = 0; i < toChange.length; i++){
+        let aux = toChange[i].split(":");
+        codigos.push(aux[0]);
+        secciones.push(aux[1]);
+        periodos.push(aux[2]);
+    }
+}
+
 
 //OBTENER INFORMACION DEL PROFESOR
 function obtenerInformacionProfesor(){
@@ -137,22 +184,6 @@ function obtenerInformacionProfesor(){
     return informacionProfesor;
 }
 
-//OTROS
-function textToObject(data, object, type){
-    data = data.split(/[\r\n]+/g);
-    let array = [];
-    for(let i = 0; i < data.length; i++){
-        array[i] = data[i].split(";");
-        if(type == "Asignatura")
-            object[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
-        else if(type == "Aprendizaje")
-            object[i] = new Aprendizaje(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6]);
-        else if(type == "Actividad")
-            object[i] = new Actividad(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5]);
-        else if(type == "NotasActividades")
-            object[i] = new NotasActividades(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5]);
-    }
-}
 
 //LEER ARCHIVOS
 document.getElementById("asignatura").addEventListener("change", function() {
@@ -196,6 +227,19 @@ document.getElementById("notasxactividades").addEventListener("change", function
 
         if(dataNotasActvidades.length > 0)
             obtenerInformacionProfesor();
+        
+    }
+    fr.readAsText(this.files[0]);
+});
+
+document.getElementById("profesor").addEventListener("change", function() {
+    var fr = new FileReader();
+    fr.onload = function(){
+        
+        dataProfesor = fr.result;
+        textToObject(dataProfesor, objectsProfesor, "Profesor");
+        if(dataProfesor.length > 0)
+            obtenerAsignaturasLibres();
         
     }
     fr.readAsText(this.files[0]);
@@ -251,6 +295,7 @@ function saveInfoAsignatura(id_alumno, id_asignatura){
     download(dataAprendizaje, 'Aprendizaje');
 }
 
+
 //CAMBIAR HORAS, OBSERVACIONES Y NOTA
 function saveInfoActividad(id_actividad, id_asignatura, id_alumno){
     clickButton("submitInfoActividad");
@@ -300,6 +345,42 @@ function saveInfoActividad(id_actividad, id_asignatura, id_alumno){
 
     download(dataNotasActvidades, 'NotasActividades');
 }
+
+
+//INSCRIBIR ASIGNATURA A IMPARTIR
+function inscribirAsignatura(id_asignatura){
+    dataProfesor = "";
+    let aux = "";
+    for(let i = 0; i < objectsProfesor.length; i++){
+        
+        if(objectsProfesor[i]["cedula"] == sessionStorage.getItem("userId")){
+            objectsProfesor[i]["asignaturas"] += '.' + id_asignatura + ':C1:01-2023]';
+            
+        }
+        aux = replaceChars(objectsProfesor[i]);
+        dataProfesor += aux;
+        dataProfesor += "\n";
+    }
+    download(dataProfesor, 'Profesor');
+}
+
+function obtenerAsignaturasLibres(){
+    let codigosOcupados = [];
+    let seccionesOcupados = [];
+    let periodosOcupados = [];
+    let asignaturasLibres = [];
+    
+    for(let i = 1; i < objectsProfesor.length; i++){
+        obtenerCodigoSeccionPeriodo(objectsProfesor[i]["asignaturas"], codigosOcupados, seccionesOcupados, periodosOcupados);
+    }
+    for(let i = 1; i < objectsAsignatura.length; i++){
+        if(!(codigosOcupados.includes(objectsAsignatura[i]["codigo"]))){
+            asignaturasLibres.push(objectsAsignatura[i]);
+        }
+    }
+    return asignaturasLibres;
+}
+
 
 /*EDWYN */
 

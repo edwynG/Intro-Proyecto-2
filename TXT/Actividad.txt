@@ -1,4 +1,4 @@
-ID; ID ASIGNATURA; NOMBRE; REALIZACION T/F; HORAS; OBSERVACION
+ID; ID ASIGNATURA; NOMBRE; REALIZADA; HORAS; OBSERVACION
 1;6201;Examen escrito 1;true;2 horas;Evaluación efectiva
 2;6201;Examen escrito 2;true;2 horas;Evaluación efectiva
 3;6201;Quiz;true;2 horas;Indice de aprobados medio/bajo
@@ -16,3 +16,7 @@ ID; ID ASIGNATURA; NOMBRE; REALIZACION T/F; HORAS; OBSERVACION
 15;6106;Examen escrito 2;true;2 horas;Elevado indice de notas altas y bajas
 16;6106;Quiz 1;true;1 hora;Indice alto de aprobados. Evaluación efectiva
 17;6106;Quiz 2;true;1 hora;Indice alto de aprobados. Evaluación efectiva
+18;6107;Examen escrito 1;true;2 horas;Evaluación efectiva
+19;6107;Examen escrito 2;true;2 horas;Evaluación efectiva
+20;6107;Quiz;true;2 horas;Indice de aprobados medio/bajo
+21;6107;Proyecto;2 semanas;true;Evaluación efectiva nota promedio media/alta

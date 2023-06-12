@@ -74,7 +74,7 @@ function mergeData(){
     newData = data + "\n";
     for (let i in infoForm){
         if(i == 'prepaUp' && infoForm["profeUp"] == "true")
-            newData += "[]";
+            newData += " ";
         else if(i == 'prepaUp' && infoForm["profeUp"] == "false")
             newData += infoForm[i].toString();  
         else if(i !== 'profeUp')

@@ -290,6 +290,8 @@ document.getElementById("aula").addEventListener("change", function() {
         
         dataAula = fr.result;
         textToObject(dataAula, objectsAula, "Aula");
+        if(dataAula.length > 0)
+            aula();
         
     }
     fr.readAsText(this.files[0]);
@@ -301,6 +303,8 @@ document.getElementById("periodo").addEventListener("change", function() {
         
         dataPeriodo = fr.result;
         textToObject(dataPeriodo, objectsPeriodo, "Periodo");
+        if(dataPeriodo.length > 0)
+            periodos();
         
     }
     fr.readAsText(this.files[0]);
@@ -312,7 +316,8 @@ document.getElementById("pensum").addEventListener("change", function() {
         
         dataPensum = fr.result;
         textToObject(dataPensum, objectsPensum, "Pensum");
-        instituciones();
+        if(dataPensum.length > 0)
+            instituciones();
         
     }
     fr.readAsText(this.files[0]);
@@ -335,7 +340,8 @@ document.getElementById("horario").addEventListener("change", function() {
         
         dataHorario = fr.result;
         textToObject(dataHorario, objectsHorario, "Horario");
-        horarioXAsignatura();
+        if(dataProfesor.length > 0)
+            horarioXAsignatura();
         
     }
     fr.readAsText(this.files[0]);
@@ -358,7 +364,8 @@ document.getElementById("profesor").addEventListener("change", function() {
         
         dataProfesor = fr.result;
         textToObject(dataProfesor, objectsProfesor, "Profesor");
-        alumnoYProfesor()
+        if(dataProfesor.length > 0)
+            alumnoYProfesor();
         
     }
     fr.readAsText(this.files[0]);

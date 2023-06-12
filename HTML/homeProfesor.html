@@ -104,6 +104,10 @@
                 <h3>Seleccionar archivo NotasActividades.txt</h3>
                 <label  for="notasxactividades" class="btn_file">Cargar file 4</label>
                 <input type="file" name="notasxactividades" id="notasxactividades" hidden>
+
+                <h3>Seleccionar archivo Profesor.txt</h3>
+                <label  for="profesor" class="btn_file">Cargar file 5</label>
+                <input type="file" name="profesor" id="profesor" hidden>
             </div>
             <div class="file_items resultadoCarga" id="resultadoCarga">
                 <button class="btn_file btn_result" id="btn_result" style="border:none;">Continuar</button>
@@ -134,6 +138,9 @@
 
     </form>
     <button onclick="saveInfoActividad('1', '6201', '29897058')">Guardar</button>
+
+    <h3>Inscribir asignatura *salen todas las asignaturasLibres()*</h3>
+    <button onclick="inscribirAsignatura('6107')">Inscribir</button>
 
     <script src="../JS/homeProfesor.js"></script>
 </body>
