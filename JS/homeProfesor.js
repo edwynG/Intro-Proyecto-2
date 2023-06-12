@@ -195,6 +195,9 @@ document.getElementById("notasxactividades").addEventListener("change", function
 
         if(dataNotasActvidades.length > 0)
             obtenerInformacionProfesor();
+            initLayout();
+           
+
         
     }
     fr.readAsText(this.files[0]);
@@ -226,7 +229,7 @@ function saveInfoAsignatura(id_alumno, id_asignatura){
     clickButton("submitInfoAsignatura");
     
     //ENCONTRAR MODIFICADO EN ARRAY
-    let newAprendizaje = objectsAprendizaje.find(aprendizaje => (aprendizaje['id_alumno'] === id_alumno) && (aprendizaje['id_asignatura'] === id_asignatura));
+    let newAprendizaje = objectsAprendizaje.find(aprendizaje => (aprendizaje['id_alumno'] == id_alumno) && (aprendizaje['id_asignatura'] == id_asignatura));
     
     //MODIFICAR VALORES EN OBJECT
     let i = objectsAprendizaje.indexOf(newAprendizaje);
@@ -255,8 +258,8 @@ function saveInfoActividad(id_actividad, id_asignatura, id_alumno){
     clickButton("submitInfoActividad");
     
     //ENCONTRAR MODIFICADO EN ARRAY
-    let newActividad = objectsActividades.find(actividad => actividad['id_actividad'] === id_actividad);
-    let newNotaActividad = objectsNotasActvidades.find(nota => (nota['id_actividad'] === id_actividad) && (nota['id_asignatura'] === id_asignatura) && (nota['id_alumno'] === id_alumno));
+    let newActividad = objectsActividades.find(actividad => actividad['id_actividad'] == id_actividad);
+    let newNotaActividad = objectsNotasActvidades.find(nota => (nota['id_actividad'] == id_actividad) && (nota['id_asignatura'] == id_asignatura) && (nota['id_alumno'] == id_alumno));
     
     //MODIFICAR VALORES EN OBJECT
     let i = objectsActividades.indexOf(newActividad);
@@ -352,3 +355,294 @@ document.getElementById("cerrarSesion").addEventListener("click",()=> {
 })
 
 /************************** */
+
+/*Cerrar modal de ajuste de actividades */
+
+document.getElementById("close_notas-icon").addEventListener("click",()=>{
+    document.getElementById("modal_Ajuste-actividades").classList.toggle("hidden")
+})
+
+/*Cerrar modal de ajuste de nota general */
+
+document.getElementById("close_notaGeneral-icon").addEventListener("click",()=>{
+    document.getElementById("container_Ajuste-general").classList.toggle("hidden")
+
+})
+
+/**************************** */
+
+/*Inicioo*/
+function initLayout(){
+
+    for(let i = 0;i < informacionProfesor.length;i++){
+        let listaCursos = document.getElementById("cursos_impartidos");
+        let curso_name= informacionProfesor[i][0].nombre;
+        let curso_id = informacionProfesor[i][0].codigo;
+        crearListaCurso(curso_name,curso_id,listaCursos);
+
+    }
+}
+
+function crearListaCurso(params,id,lugar) {
+    let div = document.createElement("LI");
+    let content = `${params}`
+    div.classList.add("curso_item");
+    div.setAttribute("id",id)
+    div.setAttribute("onclick",`deleteLista();crearEspecificaciones(${id});deleteMoment();selec();`)
+
+    div.innerHTML=content;
+    lugar.appendChild(div);
+}
+
+function deleteLista(){
+    let temp = document.querySelectorAll(".curso_item-temp");
+
+    for (let i = 0; i < temp.length; i++) {
+       temp[i].remove()
+        
+    }
+}
+
+
+function crearEspecificaciones(id){
+    let Especificaciones_estudiante= document.getElementById("Especificaciones_curso");
+    let Especificaciones_asignatura= document.getElementById("Especificaciones_curso-asignatura");
+    let Especificaciones_seccion= document.getElementById("Especificaciones_curso-seccion");
+    let Especificaciones_periodo= document.getElementById("Especificaciones_curso-periodo");
+    let Especificaciones_codigo= document.getElementById("Especificaciones_curso-codigo");
+
+    let temp = busqueda(id);
+    let arrayEstudiante = informacionProfesor[temp][1];
+    let arrayCurso = informacionProfesor[temp][0];
+
+
+    for (let i = 0; i < arrayEstudiante.length; i++) {
+       let tempCI = arrayEstudiante[i][0].id_alumno;
+       let tempSeccion = arrayEstudiante[i][0].seccion;
+       crearEstudiante(tempCI,tempSeccion,Especificaciones_estudiante);
+        
+    }
+    Especificaciones_asignatura.innerHTML=arrayCurso.nombre;
+    Especificaciones_seccion.innerHTML=arrayEstudiante[0][0].seccion;
+    Especificaciones_periodo.innerHTML=arrayEstudiante[0][0].periodo;
+    Especificaciones_codigo.innerHTML=arrayCurso.codigo;
+
+
+}
+
+
+function crearEstudiante(ci,seccion,lugar){
+    let div = document.createElement("DIV");
+    let content = `
+                        <h2 class="list_estudiante-CI">${ci}</h2>
+                        <h2 class="list_estudiante-${seccion}">C1</h2>
+                        <button class="list_btn-actividades" onclick="TablaActividade(${ci}); addselec();tablaCali();">Acividades</button>
+                  `
+    div.classList.add("curso_estudiantes");
+    div.classList.add("curso_item-temp");
+
+    div.innerHTML=content;
+    lugar.appendChild(div);
+}
+
+function TablaActividade(id){
+         deleteTabla();
+        let asignatura =busquedaEstudiante(id,true);
+        let alumno= busquedaEstudiante(id,false);
+        let estudiante= informacionProfesor[asignatura][1][alumno];
+        let CI=estudiante[0].id_alumno;
+        
+        for (let i = 0; i < estudiante[1].length; i++) {
+            let actividad=estudiante[1][i]
+            let  acti = actividad.nombre;
+            let ob =actividad.observaciones;
+            let reali=actividad.realizada;
+            let  time = actividad.horas;
+            let nota = actividad.notaEstudiante;
+            let id_acti = actividad.id_actividad
+            
+            crearTablaNotas(acti,ob,reali,time,nota,id_acti,CI);
+
+
+        }
+
+        document.getElementById("calificaciones_title").innerHTML=CI;
+        ConfigActividades(estudiante[0].id_asignatura,CI)
+        
+    }
+
+
+function busquedaEstudiante(int,k){
+    for (let index = 0; index < informacionProfesor.length; index++) {
+
+      if(k){
+        for (let j = 0; j < informacionProfesor[index][1].length; j++) {
+            if(informacionProfesor[index][1][j][0].id_alumno == int){
+                return index;
+            }
+            
+           }
+      }else{
+        for (let j = 0; j < informacionProfesor[index][1].length; j++) {
+            if(informacionProfesor[index][1][j][0].id_alumno == int){
+                return j;
+            }
+            
+           }
+      }
+        
+    }
+
+    return -1;
+}
+
+
+function busqueda(int){
+    for (let index = 0; index < informacionProfesor.length; index++) {
+        if(informacionProfesor[index][0].codigo == int){
+            return index;
+        }
+        
+    }
+
+    return -1;
+}
+
+function deleteMoment(){
+    document.getElementById("especificaciones_curso-itemA").classList.remove("hidden")
+    document.getElementById("Especificaciones_curso").classList.remove("hidden")
+    document.getElementById("moment_date-curso").classList.add("hidden")
+}
+
+
+function crearTablaNotas(actividad,ob,apro,hora,nota,num,ci){
+    let lugar=document.getElementById("calificaciones");
+    console.log(apro)
+    if(apro){
+        apro="si";
+    }else{
+        apro="No";
+    }
+    let div = document.createElement("DIV")
+    
+    let content = `
+                <h2 class="curso_data-item1 curso_data-item" id="selecActividad">${actividad}</h2>
+                <h3 class="curso_data-item2 curso_data-item ${ci}">${ob}</h3>                     
+                <h3 class="curso_data-item3 curso_data-item">${apro}</h3>
+                <h3 class="curso_data-item4 curso_data-item  ${ci}">${hora}</h3>
+                <h3 class="curso_data-item5 curso_data-item"  ${ci}>${nota}</h3>
+    `
+    div.innerHTML=content;
+    div.setAttribute("id",num)
+    div.classList.add("tabla-date");
+    div.classList.add("tabla-date");
+
+    div.setAttribute("name","temp");
+    lugar.appendChild(div)
+
+   
+}
+
+function deleteTabla(){
+    let temp = document.querySelectorAll(`[name="temp"]`);
+    for (let i = 0; i < temp.length; i++) {
+        temp[i].remove();
+        
+    }
+}
+
+
+const selec =  ()=>{
+    document.getElementById("container_3-h1").classList.remove("hidden");
+    document.querySelector(".tabla_calificaciones").classList.add("hidden");
+
+        
+}
+
+const addselec =  ()=>{
+    document.getElementById("container_3-h1").classList.add("hidden")
+
+        
+}
+
+const tablaCali= ()=>{
+    document.querySelector(".tabla_calificaciones").classList.remove("hidden")
+
+}
+
+
+
+function ConfigActividades(codigo,ci){
+    let temp = document.querySelectorAll("#selecActividad");
+    let id_actividad;
+   for (let i = 0; i < temp.length; i++) {
+    temp[i].addEventListener("click",(e)=>{
+        let t = e.currentTarget;
+        id_actividad = t.parentNode.getAttribute("id");
+        generarbtnCofig(id_actividad,codigo,ci);
+        
+    })
+    
+    }
+}
+
+function generarbtnCofig(actividad,codigo,ci){
+    let btn_guardar_cofig= document.getElementById("btn_ajusteNotas");
+    btn_guardar_cofig.setAttribute("onclick",`saveInfoActividad(${actividad}, ${codigo}, ${ci});AjusteActividad(${ci},${actividad})`)
+    document.getElementById("modal_Ajuste-actividades").classList.remove("hidden")
+    
+
+}
+
+function busquedaPorActividad(int){
+    for (let index = 0; index < informacionProfesor.length; index++) {
+    
+        for (let j = 0; j < informacionProfesor[index][1].length; j++) {
+
+            for (let k = 0; k <  informacionProfesor[index][1][j][1].length; k++) {
+   
+                if(informacionProfesor[index][1][j][1][k].id_actividad == int){
+                            return k;
+                        }
+                
+            }
+            
+        }
+      
+        
+    }
+    
+        return -1;
+    
+}
+
+
+function AjusteActividad(id,tip) {
+    let asignatura =busquedaEstudiante(id,true);
+    let alumno= busquedaEstudiante(id,false);
+    let tipo=busquedaPorActividad(tip)
+    let estudiante= informacionProfesor[asignatura][1][alumno][1][tipo];
+    
+    let inputNota = document.getElementById("ajustesNotas_input");
+    let inputObs = document.getElementById("ajustesObservaciones_input");
+    let inputHora = document.getElementById("ajusteshoras_input");
+
+
+    console.log(estudiante)
+
+   
+
+    estudiante.notaEstudiante=inputNota.value;
+    estudiante.horas=inputHora.value;
+    estudiante.observaciones=inputObs.value;
+    
+    console.log(estudiante.notaEstudiante);
+    console.log(estudiante.horas)
+    console.log(estudiante.observaciones)
+   
+    
+
+        
+    
+
+}

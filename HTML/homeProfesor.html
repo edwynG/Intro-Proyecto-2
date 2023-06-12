@@ -37,7 +37,7 @@
                 <div class="container_person-close" id="userExit">
                     <i class="fa-regular fa-user" ></i>
                     <i class="fa-solid fa-sort-down"></i>
-                    
+
                 </div>
                 <div class="container_list-exit list_user-exit" >
                     <ul class="lista_exit">
@@ -50,90 +50,160 @@
             </div>
            </section>
         </header>
-        <main class="container_inicio"></main>
+        <main class="container_inicio hidden">
 
-        <main class="container_Cursos hidden"></main>
+        </main>
+
+        <main class="container_Cursos">
+            <section class="container_items container_item-1" >
+                <h2 class="list_tilte">Cursos</h2>
+                <div class="divider divider-pro"></div>
+                <ul class="cursos_list" id="cursos_impartidos">
+                    
+
+                </ul>
+
+            </section>
+            <section class="container_items container_item-2" >
+
+                <div class="moment_date-curso" id="moment_date-curso">
+                    <h1 class="moment_data-title">Seleccione un curso</h1>
+                   <div class="content_img-date">
+                    <img class="moment_data-img" src="../SRC/img/3908138.jpg" alt="Selecciona un curso">
+                   </div>
+                </div>
+
+                <div class="items_A items_A-1 hidden" id="especificaciones_curso-itemA">
+                   <div class="A1_item-1">
+                        <h1 class="curso_nombre" id="Especificaciones_curso-asignatura">Matematica discretas I</h1>
+                        <h3 class="curso_seccion" id="Especificaciones_curso-seccion">C1</h3>
+                   </div>
+                    <div class="A1_item-2">
+                        <h3 class="curso_periodo-Academico" id="Especificaciones_curso-periodo">01-2023</h3>
+                        <h3 class="curso_codigo" id="Especificaciones_curso-codigo">2342</h3>
+                    </div>
+                </div>
+                <div class="items_A items_A-2 hidden" id="Especificaciones_curso">
+
+                </div>
+
+            </section>
+            <div class="container_items background_img">
+
+            </div>
+            <div class="container_items container_item-3 ">
+                <h1 id="container_3-h1" class="hidden">Seleccione a un estudiante</h1>
+               <section class="tabla_calificaciones hidden">
+                    <h2 class="tabla_atribute-title" id="calificaciones_title">12340294</h2>
+                    <div class="tabla_atribute" id="calificaciones">
+                        <div class="Fila_tabla">
+                            <div class="curso_tabla-activi cursos_columna"><h4>Actividad</h4></div>
+                            <div class="curso_tabla-obr cursos_columna"><h4>Observaciones</h4></div>
+                            <div class="curso_tabla-realiza cursos_columna"><h4>Realizada</h4></div>
+                            <div class="curso_tabla-hora cursos_columna"><h4>Hora</h4></div>
+                            <div class="curso_tabla-nota cursos_columna"><h4>Nota</h4></div>
+
+                        </div>
+
+                    </div>
+               </section>
+            </div>
+        </main>
 
     </section>
 
+ <!--INPUTS PARA CARGAR ARCHIVOS-->
+ <div class="contenedor_load-file " id="contenedor_load-file">
+    <div class="load_file load_file-profe">
+
+        <div class="file_items  file_item-title">
+            <h1>¡Cargue archivos!</h1>
+        </div>
+        <div class="file_items">
+
+            <h3>Seleccionar archivo Asignatura.txt</h3>
+           <label for="asignatura" class="btn_file">Cargar file 1</label>
+           <input type="file" name="asignatura" id="asignatura" class="items_file-inputs" hidden>
 
 
-    <h3>Asignaturas impartidas</h3>
-    <!--FORMULARIO DE ESTUDIANTES EN ASIGNATURA-->
-    <h3>Estudiante x</h3>
-    <form action="" id="formAsignatura">
-        <div>
-            <!--Se muestra la actual en caso de que tenga y se le da la opcion de cambiarla-->
-            <p>Nota: 20</p>
-            <input name="notaAsignatura" type="text">
+           <h3>Seleccionar archivo Aprendizaje.txt</h3>
+           <label for="aprendizaje" class="btn_file">Cargar file 2</label>
+           <input type="file" name="aprendizaje" id="aprendizaje" class="items_file-inputs" hidden>
+
+            <h3>Seleccionar archivo Actividad.txt</h3>
+            <label  for="actividades" class="btn_file">Cargar file 3</label>
+            <input type="file" name="actividades" id="actividades" class="items_file-inputs" hidden>
+
+            <h3>Seleccionar archivo NotasActividades.txt</h3>
+            <label  for="notasxactividades" class="btn_file">Cargar file 4</label>
+            <input type="file" name="notasxactividades" id="notasxactividades" hidden>
+        </div>
+        <div class="file_items resultadoCarga" id="resultadoCarga">
+            <button class="btn_file btn_result" id="btn_result" style="border:none;">Continuar</button>
         </div>
 
-        <div>
-            <!--Se muestra la actual en caso de que tenga y se le da la opcion de cambiarla-->
-            <p>Tipo de examen: Tipo de examen</p>
-            <input name="tipoExamen" type="text">
-        </div>
-
-        <input id="submitInfoAsignatura" type="submit" value="Submit" hidden>
-
-        <button onclick="saveInfoAsignatura('29897058', '6201')">Guardar</button>
-    </form>
-    
-    <!--INPUTS PARA CARGAR ARCHIVOS-->
-    <div class="contenedor_load-file" id="contenedor_load-file">
-        <div class="load_file load_file-profe">
-
-            <div class="file_items  file_item-title">
-                <h1>¡Cargue archivos!</h1> 
-            </div>
-            <div class="file_items">
-
-                <h3>Seleccionar archivo Asignatura.txt</h3>
-               <label for="asignatura" class="btn_file">Cargar file 1</label>
-               <input type="file" name="asignatura" id="asignatura" class="items_file-inputs" hidden>
-
-
-               <h3>Seleccionar archivo Aprendizaje.txt</h3>
-               <label for="aprendizaje" class="btn_file">Cargar file 2</label>
-               <input type="file" name="aprendizaje" id="aprendizaje" class="items_file-inputs" hidden>
-
-                <h3>Seleccionar archivo Actividad.txt</h3>
-                <label  for="actividades" class="btn_file">Cargar file 3</label>
-                <input type="file" name="actividades" id="actividades" class="items_file-inputs" hidden>
-
-                <h3>Seleccionar archivo NotasActividades.txt</h3>
-                <label  for="notasxactividades" class="btn_file">Cargar file 4</label>
-                <input type="file" name="notasxactividades" id="notasxactividades" hidden>
-            </div>
-            <div class="file_items resultadoCarga" id="resultadoCarga">
-                <button class="btn_file btn_result" id="btn_result" style="border:none;">Continuar</button>
-            </div>
-
-        </div>
     </div>
-    
-    <!--FORMULARIO DE ESTUDIANTES EN ACTIVIDAD DE LA ASIGNATURA-->
-    <h3>Actividad y de estudiante x</h3>
-    <form action="" id="formActividad">
-        <div>
-            <p>Horas: 2 horas</p>
-            <input name="horas" type="text">
+</div>
+
+
+
+    <div class="container_Ajuste-general hidden" id="container_Ajuste-general">
+        <div class="ajustes_notas-close">
+            <i class="fa-solid fa-xmark" id="close_notaGeneral-icon"></i>
         </div>
+        <h3 class="ajustes_notas-title">Asignaturas impartidas</h3>
+        <!--FORMULARIO DE ESTUDIANTES EN ASIGNATURA-->
+        <h3 class="ajustes_notas-title">Edwyn guzman</h3>
+        <form action="" class="formActividad" id="formAsignatura">
+            <div class="input_ajuste">
+                <!--Se muestra la actual en caso de que tenga y se le da la opcion de cambiarla-->
+                <i class="fa-regular fa-flag" id="ajuste_imput-icon"></i>
+                <input class="input_ajuste-input" name="notaAsignatura" type="text" placeholder="Nota">
+            </div>
 
-        <div>
-            <p>Observaciones: El examen estuvo piola</p>
-            <input name="observaciones" type="text">
-        </div>
+            <div class="input_ajuste">
+                <!--Se muestra la actual en caso de que tenga y se le da la opcion de cambiarla-->
+                <i class="fa-regular fa-file-lines" id="ajuste_imput-icon"></i>
+                <input class="input_ajuste-input" name="tipoExamen" type="text" placeholder="Tipo de actividad">
+            </div>
 
-        <div>
-            <p>Nota: 20</p>
-            <input name="notaEstudiante" type="text">
-        </div>
+            <input id="submitInfoAsignatura" type="submit" value="Submit" hidden>
 
-        <input id="submitInfoActividad" type="submit" value="Submit" hidden>
+            <button class="ajuste_nota-btn" onclick="saveInfoAsignatura('29897058', '6201')">Guardar</button>
+        </form>
+    </div>
 
-    </form>
-    <button onclick="saveInfoActividad('1', '6201', '29897058')">Guardar</button>
+
+
+   <div class="container_ajuste-notas hidden" id="modal_Ajuste-actividades">
+    <div class="ajustes_notas-close">
+        <i class="fa-solid fa-xmark" id="close_notas-icon"></i>
+    </div>
+     <!--FORMULARIO DE ESTUDIANTES EN ACTIVIDAD DE LA ASIGNATURA-->
+     <h3 class="ajustes_notas-title">Nota de la actividad</h3>
+     <form action="" class="formActividad" id="formActividad">
+
+         <div class="input_ajuste">
+            <i class="fa-regular fa-clock" id="ajuste_imput-icon"></i>
+             <input class="input_ajuste-input" name="horas" type="text" placeholder="Hora" id="ajusteshoras_input" >
+         </div>
+
+         <div class="input_ajuste">
+            <i class="fa-regular fa-eye" id="ajuste_imput-icon"></i>
+             <input class="input_ajuste-input" name="observaciones" type="text" placeholder="Observaciones" id="ajustesObservaciones_input" >
+         </div>
+
+         <div class="input_ajuste">
+            <i class="fa-regular fa-flag" id="ajuste_imput-icon"></i>
+             <input class="input_ajuste-input" name="notaEstudiante" type="text" placeholder="Nota" id="ajustesNotas_input" >
+         </div>
+
+         <input id="submitInfoActividad" type="submit" value="Submit" hidden>
+
+     </form>
+     <button class="ajuste_nota-btn"  id="btn_ajusteNotas">Guardar</button>
+     <!-- onclick="saveInfoActividad('1', '6201', '29897058')" -->
+   </div>
 
     <script src="../JS/homeProfesor.js"></script>
 </body>

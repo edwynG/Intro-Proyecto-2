@@ -41,6 +41,7 @@ a{
     border-radius: 5px;
     width: 190px;
     cursor: pointer;
+    letter-spacing: 1px;
 }
 
 .container_Subheader{
