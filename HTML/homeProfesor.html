@@ -50,11 +50,59 @@
             </div>
            </section>
         </header>
-        <main class="container_inicio hidden">
-
+        <main class="container_inicio container_Cursos">
+            <section class="container_seccion-A container_seccion-items1">
+                <div class="list-cursos-A list_estudiante-A ">
+                    <div class="retroceder-list-icon">
+                        <i class="fa-solid fa-arrow-left" id="retroceder_icon"></i>
+                    </div>
+                    <h1 class="list_title-cursos">Estudiante de <span>MAtematica</span></h1>
+                    <div class="table_cursos-A">
+                        <div class="list_date-A">
+                            <h3 class="item_ci">Cedula</h3>
+                            <h3 class="item_aprobado">Aprovado</h3>
+                            <h3 class="item_nota">Nota</h3>
+                        </div>
+                        <div class="cursos_items">
+                           <div class="student_list">
+                            <h3 class="student_name">Edwyn Guzman</h3>
+                            <h3 class="student_apro">Si</h3>
+                            <h3 class="student_nota">19</h3>
+                           </div>
+                           <div class="student_list">
+                            <h3 class="student_name">Edwyn Guzman</h3>
+                            <h3 class="student_apro">Si</h3>
+                            <h3 class="student_nota">19</h3>
+                           </div>
+                           <div class="student_list">
+                            <h3 class="student_name">Edwyn Guzman</h3>
+                            <h3 class="student_apro">Si</h3>
+                            <h3 class="student_nota">19</h3>
+                           </div>
+                           <div class="student_list">
+                            <h3 class="student_name">Edwyn Guzman</h3>
+                            <h3 class="student_apro">Si</h3>
+                            <h3 class="student_nota">19</h3>
+                           </div>
+                        </div>
+                    </div>
+               </div>
+               <div class="list-cursos-A hidden">
+                    <h1 class="list_title-cursos">Lista de Cursos Impartidos</h1>
+                    <ul class="cursos_items">
+                        <li class="cursos_item-li">Matematica</li>
+                        <li class="cursos_item-li">Computacion</li>
+                        <li class="cursos_item-li">Ing de sistemas</li>
+                        <li class="cursos_item-li">Discretas</li>
+                    </ul>
+               </div>
+            </section>
+            <section class="container_seccion-A container_seccion-items2"></section>
+            <section class="container_seccion-A  container_seccion-items3"></section>
+            <section class="container_seccion-A  container_seccion-items4"></section>
         </main>
 
-        <main class="container_Cursos">
+        <main class="container_Cursos hidden">
             <section class="container_items container_item-1" >
                 <h2 class="list_tilte">Cursos</h2>
                 <div class="divider divider-pro"></div>
@@ -65,6 +113,12 @@
 
             </section>
             <section class="container_items container_item-2" >
+
+                <div class="moment_date-curso hidden" id="moment_date-curso-error">
+                   <div class="content_img-date-error">
+                    <img class="moment_data-img" src="../SRC/img/5203299.jpg" alt="Selecciona un curso">
+                   </div>
+                </div>
 
                 <div class="moment_date-curso" id="moment_date-curso">
                     <h1 class="moment_data-title">Seleccione un curso</h1>
@@ -113,7 +167,7 @@
     </section>
 
  <!--INPUTS PARA CARGAR ARCHIVOS-->
- <div class="contenedor_load-file " id="contenedor_load-file">
+ <div class="contenedor_load-file hidden" id="contenedor_load-file">
     <div class="load_file load_file-profe">
 
         <div class="file_items  file_item-title">
@@ -208,9 +262,10 @@
      <!-- onclick="saveInfoActividad('1', '6201', '29897058')" -->
    </div>
 
-    <h3>Inscribir asignatura *salen todas las asignaturasLibres()*</h3>
-    <button onclick="inscribirAsignatura('6107')">Inscribir</button>
-
+    <div class="hidden">
+        <h3>Inscribir asignatura *salen todas las asignaturasLibres()*</h3>
+        <button onclick="inscribirAsignatura('6107')">Inscribir</button>
+    </div>
     <script src="../JS/homeProfesor.js"></script>
 </body>
 </html>

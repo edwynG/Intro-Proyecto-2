@@ -126,6 +126,14 @@ ul{
     min-height: 35px;
 }
 
+.content_img-date-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 215px;
+    width: 38%;
+}
+
 .curso_data-item1 {
     width: 22%;
     cursor: pointer;
@@ -394,6 +402,8 @@ h3.curso_codigo {
     text-align: center;
 }
 
+
+
 h2#calificaciones_title {
     font-weight: 600;
     text-align: center;
@@ -403,6 +413,107 @@ h2#calificaciones_title {
     padding: 6px 10px;
     font-size: 17px;
     cursor: pointer;
+}
+
+
+.container_seccion-A {
+    width: 49%;
+    min-height: 300px;
+    border-radius: var(--borderRadius);
+    outline: 1px solid;
+}
+
+.list_estudiante-A {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    padding: 10px;
+}
+
+
+
+
+
+.item_nota {
+    width: 20%;
+}
+
+.item_ci {
+    width: 50%;
+}
+
+.student_name {
+    width: 50%;
+}
+
+.student_apro {
+    width: 30%;
+}
+
+.student_nota {
+    width: 20%;
+}
+
+.item_aprobado {
+    width: 30%;
+}
+
+.student_list {
+    display: flex;
+    height: 30px;
+    align-items: center;
+}
+
+.cursos_items {
+    display: flex;
+    flex-direction: column;
+}
+
+.retroceder-list-icon {
+    font-size: 20px;
+    padding: 0px 5px;
+    height: 35px;
+}
+
+
+.list_date-A {
+    display: flex;
+    padding: 0px;
+}
+
+.container_seccion-items1 {
+    width: 40%;
+}
+
+#retroceder_icon {
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.list_title-cursos {
+    padding: 8px 5px;
+}
+
+main.container_inicio {
+    justify-content: center;
+}
+
+.container_seccion-items4 {
+    width: 40%;
+}
+
+.container_seccion-items3 {
+    width: 50%;
+}
+
+#retroceder_icon:hover{
+    transition:background-color .4s ease-in-out ;
+    background-color: var(--fondoOpacity);
+}
+
+.table_cursos-A {
+    padding: 5px 5px;
 }
 
 #close_notaGeneral-icon:hover{
@@ -415,6 +526,10 @@ h2#calificaciones_title {
     .background_img{
         display: none !important;
     }
+
+    .container_seccion-A {
+        min-width: 80%;
+    }
 }
 
 
@@ -422,5 +537,9 @@ h2#calificaciones_title {
     .content_img-date{
       
         width: 50%;
+    }
+
+    .container_seccion-A {
+        min-width: 100%;
     }
 }

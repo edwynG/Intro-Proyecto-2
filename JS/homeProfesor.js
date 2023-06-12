@@ -228,7 +228,7 @@ document.getElementById("notasxactividades").addEventListener("change", function
         if(dataNotasActvidades.length > 0)
             obtenerInformacionProfesor();
             initLayout();
-           
+            personStatus();
 
         
     }
@@ -492,8 +492,17 @@ function crearEspecificaciones(id){
     let Especificaciones_seccion= document.getElementById("Especificaciones_curso-seccion");
     let Especificaciones_periodo= document.getElementById("Especificaciones_curso-periodo");
     let Especificaciones_codigo= document.getElementById("Especificaciones_curso-codigo");
+    let error=document.getElementById("moment_date-curso-error");
+    let inicio =document.getElementById("moment_date-curso");
+    let case1 = document.getElementById("especificaciones_curso-itemA");
+    let case2 = document.getElementById("Especificaciones_curso");
 
     let temp = busqueda(id);
+   if(temp != -1){
+    inicio.classList.remove("hidden");
+    case1.classList.remove("hidden");
+    case2.classList.remove("hidden");
+    error.classList.add("hidden");
     let arrayEstudiante = informacionProfesor[temp][1];
     let arrayCurso = informacionProfesor[temp][0];
 
@@ -509,6 +518,13 @@ function crearEspecificaciones(id){
     Especificaciones_periodo.innerHTML=arrayEstudiante[0][0].periodo;
     Especificaciones_codigo.innerHTML=arrayCurso.codigo;
 
+   }else{
+    inicio.classList.add("hidden");
+    case1.classList.add("hidden");
+    case2.classList.add("hidden");
+    error.classList.remove("hidden");
+
+   }
 
 }
 
@@ -714,5 +730,6 @@ function AjusteActividad(id,tip) {
     estudiante.observaciones=inputObs.value;
     TablaActividade(id);
 
-
 }
+
+
