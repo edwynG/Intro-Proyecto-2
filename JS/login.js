@@ -120,14 +120,25 @@ document.getElementById("readFile").addEventListener("change", function() {
         let type = document.getElementById("readFile").name;
         if (type === "readFileIn"){
             clickButton("submitIn");
-            if(data != "" && infoForm != null)
-                validateUser(infoForm, attr)
+            if(data != "" && infoForm != null){
+                if(infoForm["emailIn"] != "" && infoForm["passwordIn"] != ""){
+                    validateUser(infoForm, attr)
+                }else{
+                    openPage("SignIn");
+                    alert("Debes llenar el formulario completo");
+                }
+            }  
 
         }else if(type === "readFileUp"){
             clickButton("submitUp");
             if(data != "" && infoForm != null){
-                mergeData();
-                clickButton("writeFile");
+                if(infoForm["nameUp"] != "" && infoForm["ciUp"] != "" && infoForm["emailUp"] != "" && infoForm["passwordUp"] != ""){
+                    mergeData();
+                    clickButton("writeFile");
+                }else{
+                    openPage("SignUp");
+                    alert("Debes llenar el formulario completo");
+                }
             }
         }
         

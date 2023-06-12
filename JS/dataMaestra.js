@@ -163,7 +163,6 @@ function instituciones(){
                         let carrera = [];
                         for(let l = 0; l < objectsCarrera.length; l++){
                             if(objectsCarrera[l]["id_escuela"] == objectsEscuela[k]["id"]){
-                                debugger
                                 
                                 let pensum = [];
                                 for(let m = 0; m < objectsPensum.length; m++){
@@ -188,7 +187,6 @@ function instituciones(){
         instituciones.push([objectsUniversidad[i], facultad]);
     }
     instituciones.shift();
-    debugger
     return instituciones;
 }
 

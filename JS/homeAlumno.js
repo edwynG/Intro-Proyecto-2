@@ -35,7 +35,7 @@ class Asignatura {
 		this.nombre = nombre;
 		this.codigo = codigo;
 		this.uc = uc;
-        this.notaEstudiante = -1;
+        this.notaEstudiante = 0;
 	}
 }
 

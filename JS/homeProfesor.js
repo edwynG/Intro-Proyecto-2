@@ -61,7 +61,7 @@ class Asignatura {
 		this.nombre = nombre;
 		this.codigo = codigo;
 		this.uc = uc;
-        this.notaEstudiante = -1;
+        this.notaEstudiante = 0;
 	}
 }
 
@@ -85,7 +85,7 @@ class Actividad {
 		this.realizada = realizada;
 		this.horas = horas;
 		this.observaciones = observaciones;
-        this.notaEstudiante = -1;
+        this.notaEstudiante = 0;
 	}
 }
 
@@ -119,9 +119,10 @@ function obtenerInformacionProfesor(){
                             //INFORMACION DEL ESTUDIANTE EN LAS ACTIVIDADES
                             let notaActividad = objectsNotasActvidades.find(nota => (nota["id_actividad"] == objectsActividades[k]["id_actividad"]) && (nota["id_alumno"] == objectsAprendizaje[j]["id_alumno"]) && (nota["id_asignatura"] == objectsAsignatura[i]["codigo"]));
                             if(notaActividad){
-                                objectsActividades[k]["notaEstudiante"] = notaActividad["nota"];
+                                let actividadConNota = new Actividad(objectsActividades[k]["id_actividad"], objectsActividades[k]["id_asignatura"], objectsActividades[k]["nombre"], objectsActividades[k]["realizada"], objectsActividades[k]["horas"], objectsActividades[k]["observaciones"]);
+                                actividadConNota["notaEstudiante"] = notaActividad["nota"];
 
-                                actividadesAsignatura.push(objectsActividades[k]);
+                                actividadesAsignatura.push(actividadConNota);
                             }
                             
                             
