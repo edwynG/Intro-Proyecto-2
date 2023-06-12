@@ -7,27 +7,6 @@ var retirar_materia = document.getElementById("retirar_Materia");
 var inscribir_materia=document.getElementById("inscribir_Materia")
 var tablaCalificaciones =document.getElementById("calificaciones");
 
-//OTROS
-function replaceChars(object){
-    object = JSON.stringify(Object.values(object)).replaceAll('"', '');
-    object = object.replaceAll(',', ';');
-    object = object.replaceAll('[', '');
-    object = object.replaceAll(']', '');
-    return object;
-}
-
-function textToObject(data, object, type){
-    data = data.split(/[\r\n]+/g);
-    let array = [];
-    for(let i = 0; i < data.length; i++){
-        array[i] = data[i].split(";");
-        if(type == "Asignatura")
-            object[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
-        else if(type == "Aprendizaje")
-            object[i] = new Aprendizaje(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6]);
-    }
-}
-
 
 //CLASES
 class Asignatura {
@@ -35,7 +14,7 @@ class Asignatura {
 		this.nombre = nombre;
 		this.codigo = codigo;
 		this.uc = uc;
-        this.notaEstudiante = -1;
+        this.notaEstudiante = 0;
 	}
 }
 
@@ -63,7 +42,46 @@ class Expediente {
         this.materiasAprobadas = 0;
         this.materiasPorEQ = 0;
         this.materiasCursadas = 0;
+        this.totalAprobadas = 0;
 	}
+}
+
+
+//OTROS
+function replaceChars(object){
+    object = JSON.stringify(Object.values(object)).replaceAll('"', '');
+    object = object.replaceAll(',', ';');
+    object = object.replaceAll('[', '');
+    object = object.replaceAll(']', '');
+    return object;
+}
+
+function textToObject(data, object, type){
+    data = data.split(/[\r\n]+/g);
+    let array = [];
+    for(let i = 0; i < data.length; i++){
+        array[i] = data[i].split(";");
+        if(type == "Asignatura")
+            object[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
+        else if(type == "Aprendizaje")
+            object[i] = new Aprendizaje(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6]);
+    }
+}
+
+function download(data, nameFile){
+    let filename = nameFile + ".txt";
+    let text = data;
+    let blob = new Blob([text], {type:'text/plain'});
+    let link = document.createElement("a");
+    link.download = filename;
+    link.href = window.URL.createObjectURL(blob);
+    document.body.appendChild(link);
+    link.click();
+
+    setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(link.href);
+    }, 100);
 }
 
 
@@ -77,13 +95,14 @@ function calcularExpedienteAcademico(){
     for(let i = 0; i < attrAprendizaje.length; i++){
         //MATERIAS RELACIONADAS AL ESTUDIANTE
         if(attrAprendizaje[i]["id_alumno"] === sessionStorage.getItem("userId")){
-            if(attrAprendizaje[i]["estado"] != "Retirada")
-                aprendizajeEstudiante.push(attrAprendizaje[i]);
             expedienteAcademico['promedioGeneral'] += Number(attrAprendizaje[i]["nota"]);
             contGeneral++;
+            //ASIGNATURAS INSCRITAS
+            if(attrAprendizaje[i]["estado"] != "Retirada"){
+                aprendizajeEstudiante.push(attrAprendizaje[i]);
+            }
 
             //ESTADOS DE MATERIAS
-            
             if(attrAprendizaje[i]["estado"] === "Inscrita"){
                 expedienteAcademico['materiasInscritas']++;
             }
@@ -110,7 +129,7 @@ function calcularExpedienteAcademico(){
                 expedienteAcademico['materiasPorEQ']++;
                 expedienteAcademico['materiasCursadas']++;
             }
-            else if(attrAprendizaje[i]["estado"] === "Cursada" || attrAprendizaje[i]["nota"] != undefined){             
+            else if(attrAprendizaje[i]["estado"] === "Cursada"){             
                 expedienteAcademico['materiasCursadas']++;
             }
         }  
@@ -118,6 +137,7 @@ function calcularExpedienteAcademico(){
     expedienteAcademico['promedioGeneral'] = expedienteAcademico['promedioGeneral']/contGeneral;
     expedienteAcademico['promedioAsigAprob'] = expedienteAcademico['promedioAsigAprob']/contAprobadas;
     expedienteAcademico['eficiencia'] = expedienteAcademico['materiasAprobadas']/expedienteAcademico['materiasInscritas'];
+    expedienteAcademico['totalAprobadas'] = expedienteAcademico['materiasAprobadas'] + expedienteAcademico['materiasPorEQ'];
 
 
     for(let i = 0; i < attrAsignatura.length; i++){
@@ -147,7 +167,6 @@ function calcularExpedienteAcademico(){
 
 //RETIRAR ASIGNATURA
 function retirarAsignatura(idAsignatura){
-    console.log("funciona el btn")
     dataAprendizaje = "";
     let aux = "";
     for(let i = 0; i < attrAprendizaje.length; i++){
@@ -182,7 +201,7 @@ function inscribirAsignatura(idAsignatura){
 
 //DESCARGAR KARDEX
 function descargarKardex(){
-    let historialAcademico = "Periodo | Codigo | Seccion | Nombre | UC | Nota | Tipo Examen \n";
+    let historialAcademico = "Periodo | Codigo | Seccion | Nombre | UC | Nota | Tipo Examen | Tipo \n";
     for(let i = 0; i < asignaturasInscritas.length; i++){
         historialAcademico += 
         aprendizajeEstudiante[i]["periodo"] + " | " + 
@@ -192,6 +211,7 @@ function descargarKardex(){
         asignaturasInscritas[i]["uc"] + " | " + 
         aprendizajeEstudiante[i]["nota"] + " | " + 
         aprendizajeEstudiante[i]["tipo_examen"] + " | " + 
+        "O | " + 
         "\n";
     }
     let kardex = 
@@ -213,6 +233,7 @@ function descargarKardex(){
     "Asignaturas por equivalencia: " + expedienteAcademico["materiasPorEQ"].toString() + "\n" +
     "Asignaturas aprobadas: " + expedienteAcademico["materiasAprobadas"].toString() + "\n" +
     "Asignaturas cursadas: " + expedienteAcademico["materiasCursadas"].toString() + "\n" +
+    "Total Aprobadas: " + expedienteAcademico["totalAprobadas"].toString() + "\n" +
     "HISTORIAL ACADEMICO------------------------------ \n" + historialAcademico +
     "NOTA--------------------------------------------- \n" + 
     "Las normas de permanencia se calculan dinámicamente durante todo el semestre, y no es definitivo hasta tanto todas las materias esten retiradas o calificadas";
@@ -251,23 +272,6 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
     fr.readAsText(this.files[0]);
 });
 
-
-//DESCARGAR ARCHIVO
-function download(data, nameFile){
-    let filename = nameFile + ".txt";
-    let text = data;
-    let blob = new Blob([text], {type:'text/plain'});
-    let link = document.createElement("a");
-    link.download = filename;
-    link.href = window.URL.createObjectURL(blob);
-    document.body.appendChild(link);
-    link.click();
-
-    setTimeout(() => {
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(link.href);
-    }, 100);
-}
 
 /*EDWYN*/
 

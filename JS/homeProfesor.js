@@ -3,23 +3,86 @@ var dataAsignatura = "", objectsAsignatura = [];
 var dataAprendizaje = "", objectsAprendizaje = [];
 var dataActividades = "", objectsActividades = [];
 var dataNotasActvidades = "", objectsNotasActvidades = [];
+var dataProfesor = "", objectsProfesor = [];
+
+//[ASIGNATURA, [ESTUDIANTEINFO, [ACTIVIDADINFO]]]
+let informacionProfesor = []; 
+let asignaturasLibres = [];
 
 //OBTENER CODIGO, SECCION, PERIODO DE ASIGNATURAS IMPARTIDAS
 let codigosAsignaturasImpartidas = [];
 let seccionesAsignaturasImpartidas = [];
 let periodosAsignaturasImpartidas = [];
-let userOtro = sessionStorage.getItem("userOtro").replaceAll('[', '');
-userOtro = userOtro.replaceAll(']', '');
-userOtro = userOtro.split(".");
-for(let i = 0; i < userOtro.length; i++){
-    let aux = userOtro[i].split(":");
-    codigosAsignaturasImpartidas.push(aux[0]);
-    seccionesAsignaturasImpartidas.push(aux[1]);
-    periodosAsignaturasImpartidas.push(aux[2]);
+debugger
+obtenerCodigoSeccionPeriodo(sessionStorage.getItem("userOtro"), codigosAsignaturasImpartidas, seccionesAsignaturasImpartidas, periodosAsignaturasImpartidas); 
+
+
+//CLASES
+class Asignatura {
+	constructor(nombre, codigo, uc){
+		this.nombre = nombre;
+		this.codigo = codigo;
+		this.uc = uc;
+        this.notaEstudiante = 0;
+	}
 }
 
-//[ASIGNATURA, [ESTUDIANTEINFO, [ACTIVIDADINFO]]]
-let informacionProfesor = []; 
+class Aprendizaje {
+	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen, seccion, periodo){
+		this.id_alumno = id_alumno;
+		this.id_asignatura = id_asignatura;
+		this.estado = estado;
+		this.nota = nota;
+		this.tipo_examen = tipo_examen;
+        this.seccion = seccion;
+		this.periodo = periodo;
+	}
+}
+
+class Actividad {
+	constructor(id_actividad, id_asignatura, nombre, realizada, horas, observaciones){
+		this.id_actividad = id_actividad;
+		this.id_asignatura = id_asignatura;
+		this.nombre = nombre; 
+		this.realizada = realizada;
+		this.horas = horas;
+		this.observaciones = observaciones;
+        this.notaEstudiante = 0;
+	}
+}
+
+class NotasActividades {
+	constructor(id_actividad, id_asignatura, id_alumno, nota){
+		this.id_actividad = id_actividad;
+        this.id_asignatura = id_asignatura;
+		this.id_alumno = id_alumno;
+		this.nota = nota;
+	}
+}
+
+class Persona {
+	constructor(nombre, cedula, email, password){
+		this.nombre = nombre;
+		this.cedula = cedula; 
+		this.email = email;
+		this.password = password;
+	}
+}
+
+class Alumno extends Persona{
+	constructor(nombre, cedula, email, password, prepa){
+		super(nombre, cedula, email, password);
+		this.prepa = prepa;
+	}
+}
+
+class Profesor extends Persona{
+	constructor(nombre, cedula, email, password, asignaturas){
+		super(nombre, cedula, email, password);
+		this.asignaturas = asignaturas;
+	}
+}
+
 
 //OTROS
 function clickButton(buttonId){
@@ -54,48 +117,32 @@ function replaceChars(object){
     return object;
 }
 
-
-//CLASES
-class Asignatura {
-	constructor(nombre, codigo, uc){
-		this.nombre = nombre;
-		this.codigo = codigo;
-		this.uc = uc;
-        this.notaEstudiante = -1;
-	}
+function textToObject(data, object, type){
+    data = data.split(/[\r\n]+/g);
+    let array = [];
+    for(let i = 0; i < data.length; i++){
+        array[i] = data[i].split(";");
+        if(type == "Asignatura")
+            object[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
+        else if(type == "Aprendizaje")
+            object[i] = new Aprendizaje(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6]);
+        else if(type == "Actividad")
+            object[i] = new Actividad(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5]);
+        else if(type == "NotasActividades")
+            object[i] = new NotasActividades(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5]);
+        else if(type == "Profesor")
+            object[i] = new Profesor(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4]);
+    }
 }
 
-class Aprendizaje {
-	constructor(id_alumno, id_asignatura, estado, nota, tipo_examen, seccion, periodo){
-		this.id_alumno = id_alumno;
-		this.id_asignatura = id_asignatura;
-		this.estado = estado;
-		this.nota = nota;
-		this.tipo_examen = tipo_examen;
-        this.seccion = seccion;
-		this.periodo = periodo;
-	}
-}
-
-class Actividad {
-	constructor(id_actividad, id_asignatura, nombre, realizada, horas, observaciones){
-		this.id_actividad = id_actividad;
-		this.id_asignatura = id_asignatura;
-		this.nombre = nombre; 
-		this.realizada = realizada;
-		this.horas = horas;
-		this.observaciones = observaciones;
-        this.notaEstudiante = -1;
-	}
-}
-
-class NotasActividades {
-	constructor(id_actividad, id_asignatura, id_alumno, nota){
-		this.id_actividad = id_actividad;
-        this.id_asignatura = id_asignatura;
-		this.id_alumno = id_alumno;
-		this.nota = nota;
-	}
+function obtenerCodigoSeccionPeriodo(toChange, codigos, secciones, periodos){
+    toChange = toChange.split(".");
+    for(let i = 0; i < toChange.length; i++){
+        let aux = toChange[i].split(":");
+        codigos.push(aux[0]);
+        secciones.push(aux[1]);
+        periodos.push(aux[2]);
+    }
 }
 
 
@@ -119,9 +166,10 @@ function obtenerInformacionProfesor(){
                             //INFORMACION DEL ESTUDIANTE EN LAS ACTIVIDADES
                             let notaActividad = objectsNotasActvidades.find(nota => (nota["id_actividad"] == objectsActividades[k]["id_actividad"]) && (nota["id_alumno"] == objectsAprendizaje[j]["id_alumno"]) && (nota["id_asignatura"] == objectsAsignatura[i]["codigo"]));
                             if(notaActividad){
-                                objectsActividades[k]["notaEstudiante"] = notaActividad["nota"];
+                                let actividadConNota = new Actividad(objectsActividades[k]["id_actividad"], objectsActividades[k]["id_asignatura"], objectsActividades[k]["nombre"], objectsActividades[k]["realizada"], objectsActividades[k]["horas"], objectsActividades[k]["observaciones"]);
+                                actividadConNota["notaEstudiante"] = notaActividad["nota"];
 
-                                actividadesAsignatura.push(objectsActividades[k]);
+                                actividadesAsignatura.push(actividadConNota);
                             }
                             
                             
@@ -136,22 +184,6 @@ function obtenerInformacionProfesor(){
     return informacionProfesor;
 }
 
-//OTROS
-function textToObject(data, object, type){
-    data = data.split(/[\r\n]+/g);
-    let array = [];
-    for(let i = 0; i < data.length; i++){
-        array[i] = data[i].split(";");
-        if(type == "Asignatura")
-            object[i] = new Asignatura(array[i][0], array[i][1], array[i][2]);
-        else if(type == "Aprendizaje")
-            object[i] = new Aprendizaje(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6]);
-        else if(type == "Actividad")
-            object[i] = new Actividad(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5]);
-        else if(type == "NotasActividades")
-            object[i] = new NotasActividades(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5]);
-    }
-}
 
 //LEER ARCHIVOS
 document.getElementById("asignatura").addEventListener("change", function() {
@@ -198,6 +230,19 @@ document.getElementById("notasxactividades").addEventListener("change", function
             initLayout();
            
 
+        
+    }
+    fr.readAsText(this.files[0]);
+});
+
+document.getElementById("profesor").addEventListener("change", function() {
+    var fr = new FileReader();
+    fr.onload = function(){
+        
+        dataProfesor = fr.result;
+        textToObject(dataProfesor, objectsProfesor, "Profesor");
+        if(dataProfesor.length > 0)
+            obtenerAsignaturasLibres();
         
     }
     fr.readAsText(this.files[0]);
@@ -253,6 +298,7 @@ function saveInfoAsignatura(id_alumno, id_asignatura){
     download(dataAprendizaje, 'Aprendizaje');
 }
 
+
 //CAMBIAR HORAS, OBSERVACIONES Y NOTA
 function saveInfoActividad(id_actividad, id_asignatura, id_alumno){
     clickButton("submitInfoActividad");
@@ -302,6 +348,42 @@ function saveInfoActividad(id_actividad, id_asignatura, id_alumno){
 
     download(dataNotasActvidades, 'NotasActividades');
 }
+
+
+//INSCRIBIR ASIGNATURA A IMPARTIR
+function inscribirAsignatura(id_asignatura){
+    dataProfesor = "";
+    let aux = "";
+    for(let i = 0; i < objectsProfesor.length; i++){
+        
+        if(objectsProfesor[i]["cedula"] == sessionStorage.getItem("userId")){
+            objectsProfesor[i]["asignaturas"] += '.' + id_asignatura + ':C1:01-2023]';
+            
+        }
+        aux = replaceChars(objectsProfesor[i]);
+        dataProfesor += aux;
+        dataProfesor += "\n";
+    }
+    download(dataProfesor, 'Profesor');
+}
+
+function obtenerAsignaturasLibres(){
+    let codigosOcupados = [];
+    let seccionesOcupados = [];
+    let periodosOcupados = [];
+    let asignaturasLibres = [];
+    
+    for(let i = 1; i < objectsProfesor.length; i++){
+        obtenerCodigoSeccionPeriodo(objectsProfesor[i]["asignaturas"], codigosOcupados, seccionesOcupados, periodosOcupados);
+    }
+    for(let i = 1; i < objectsAsignatura.length; i++){
+        if(!(codigosOcupados.includes(objectsAsignatura[i]["codigo"]))){
+            asignaturasLibres.push(objectsAsignatura[i]);
+        }
+    }
+    return asignaturasLibres;
+}
+
 
 /*EDWYN */
 
@@ -461,7 +543,7 @@ function TablaActividade(id){
             let nota = actividad.notaEstudiante;
             let id_acti = actividad.id_actividad
             
-            crearTablaNotas(acti,ob,reali,time,nota,id_acti,CI);
+            crearTablaNotas(acti,ob,reali,time,nota,id_acti);
 
 
         }
@@ -515,7 +597,7 @@ function deleteMoment(){
 }
 
 
-function crearTablaNotas(actividad,ob,apro,hora,nota,num,ci){
+function crearTablaNotas(actividad,ob,apro,hora,nota,num){
     let lugar=document.getElementById("calificaciones");
     console.log(apro)
     if(apro){
@@ -527,10 +609,10 @@ function crearTablaNotas(actividad,ob,apro,hora,nota,num,ci){
     
     let content = `
                 <h2 class="curso_data-item1 curso_data-item" id="selecActividad">${actividad}</h2>
-                <h3 class="curso_data-item2 curso_data-item ${ci}">${ob}</h3>                     
+                <h3 class="curso_data-item2 curso_data-item">${ob}</h3>                     
                 <h3 class="curso_data-item3 curso_data-item">${apro}</h3>
-                <h3 class="curso_data-item4 curso_data-item  ${ci}">${hora}</h3>
-                <h3 class="curso_data-item5 curso_data-item"  ${ci}>${nota}</h3>
+                <h3 class="curso_data-item4 curso_data-item">${hora}</h3>
+                <h3 class="curso_data-item5 curso_data-item" >${nota}</h3>
     `
     div.innerHTML=content;
     div.setAttribute("id",num)
@@ -627,22 +709,10 @@ function AjusteActividad(id,tip) {
     let inputObs = document.getElementById("ajustesObservaciones_input");
     let inputHora = document.getElementById("ajusteshoras_input");
 
-
-    console.log(estudiante)
-
-   
-
     estudiante.notaEstudiante=inputNota.value;
     estudiante.horas=inputHora.value;
     estudiante.observaciones=inputObs.value;
-    
-    console.log(estudiante.notaEstudiante);
-    console.log(estudiante.horas)
-    console.log(estudiante.observaciones)
-   
-    
+    TablaActividade(id);
 
-        
-    
 
 }

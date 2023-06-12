@@ -63,3 +63,14 @@ ID ALUMNO; ID ASIGNATURA; ESTADO; NOTA; TIPO DE EXAMEN; SECCION; PERIODO EN QUE 
 28025768;6301;Aprobada;16;Tipo de examen;C1;02-2019
 28025768;8206;Aprobada;16;Tipo de examen;C1;02-2019
 28025768;6106;Aprobada;15;Tipo de examen;C1;02-2019
+28025768;6107;Aprobada;14;Tipo de examen;C1;01-2020
+30124311;6201;Aprobada;14;Tipo de examen;C1;02-2022
+30124311;6301;Aprobada;13;Tipo de examen;C2;02-2022
+30124311;8206;Aprobada;14;Tipo de examen;C1;02-2022
+30124311;6106;Aprobada;15;Tipo de examen;C2;02-2022
+30124311;6107;Aprobada;14;Tipo de examen;C1;01-2023
+29756111;6201;Aprobada;14;Tipo de examen;C1;02-2022
+29756111;6301;Aprobada;13;Tipo de examen;C2;02-2022
+29756111;8206;Aprobada;14;Tipo de examen;C1;02-2022
+29756111;6106;Aprobada;15;Tipo de examen;C2;02-2022
+29756111;6107;Aprobada;14;Tipo de examen;C1;01-2023
