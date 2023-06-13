@@ -14,7 +14,7 @@ let asignaturasLibres = [];
 let codigosAsignaturasImpartidas = [];
 let seccionesAsignaturasImpartidas = [];
 let periodosAsignaturasImpartidas = [];
-debugger
+//debugger
 obtenerCodigoSeccionPeriodo(sessionStorage.getItem("userOtro"), codigosAsignaturasImpartidas, seccionesAsignaturasImpartidas, periodosAsignaturasImpartidas); 
 
 
