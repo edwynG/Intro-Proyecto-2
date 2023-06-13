@@ -60,7 +60,8 @@ a{
     height: 28px;
 }
 .icon_btn_materia:hover{
-    background: var(--fondoOpacity);
+    transition: background-color .45s ease;
+    background-color: var(--fondoOpacity);
 }
 
 #inscribir_Materia{
@@ -68,7 +69,7 @@ a{
 }
 
 #box_user {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .responsive-lis{
@@ -429,6 +430,10 @@ a{
     border: 1px solid black;
   } */
 
+#box_Correo {
+    font-size: 12px;
+}
+
 .img_materia-tabla{
     background-image: url("../SRC/img/5437683.jpg");
     background-size: contain;
@@ -454,6 +459,7 @@ a{
     justify-content: space-between;
     border-bottom: 1px solid #b3a9a4ad;
     padding: 5px 6px;
+    height: 40px;
 }
 
 
@@ -462,12 +468,13 @@ a{
     justify-content: space-between;
     width: 80%;
     gap: 35px;
+    align-items: center;
 }
 
 
 .items-proceso-Materias h2{
     font-weight: 400;
-    font-size: 18px;
+    font-size: 17px;
 }
 
 
@@ -508,6 +515,7 @@ a{
     color: white;
     font-weight: bold;
     cursor: pointer;
+    font-weight: 500;
 }
 .file_items {
     display: flex;
@@ -521,6 +529,7 @@ a{
     font-size: 15px;
     padding: 4px;
     color: var(--fondoOpacity);
+    font-weight: 500;
 }
 
 .file_item-title h1 {
@@ -543,7 +552,7 @@ a{
     height: 50px !important;
 }
 .btn_result {
-    width: 87% !important;
+    width: 185px !important;
     height: 99%;
     font-size: 16px;
 }

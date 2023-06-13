@@ -5,6 +5,7 @@ var dataActividades = "", objectsActividades = [];
 var dataNotasActvidades = "", objectsNotasActvidades = [];
 var dataProfesor = "", objectsProfesor = [];
 
+
 //[ASIGNATURA, [ESTUDIANTEINFO, [ACTIVIDADINFO]]]
 let informacionProfesor = []; 
 let asignaturasLibres = [];
@@ -229,8 +230,11 @@ document.getElementById("notasxactividades").addEventListener("change", function
             obtenerInformacionProfesor();
             initLayout();
             personStatus();
+             asignaturasLibres=  obtenerAsignaturasLibres();
 
-        
+            manejoAsignaturas();
+            listaDeCursosImpartidos();
+            document.getElementById("btn_result").classList.toggle("hidden");
     }
     fr.readAsText(this.files[0]);
 });
@@ -242,8 +246,8 @@ document.getElementById("profesor").addEventListener("change", function() {
         dataProfesor = fr.result;
         textToObject(dataProfesor, objectsProfesor, "Profesor");
         if(dataProfesor.length > 0)
-            obtenerAsignaturasLibres();
-        
+        obtenerAsignaturasLibres();
+        readyInfo();
     }
     fr.readAsText(this.files[0]);
 });
@@ -389,6 +393,17 @@ function obtenerAsignaturasLibres(){
 
 /******************************/
 
+function readyInfo(){
+        
+            document.getElementById("btn_result").removeAttribute("disabled");
+            document.querySelector(".file_item-title h1").style.color="#111";
+          let btn=  document.querySelectorAll(".btn_file")
+            for(let i=0;i <btn.length;i++){
+                btn[i].style.background="#69E0C3";
+            }
+}
+
+
 /****Extraer data de sesionStorge*/
 function personStatus(){
     let cache = sessionStorage;
@@ -455,9 +470,9 @@ document.getElementById("close_notaGeneral-icon").addEventListener("click",()=>{
 
 /*Inicioo*/
 function initLayout(){
-
+    let listaCursos = document.getElementById("cursos_impartidos");
+    listaCursos.innerHTML="";
     for(let i = 0;i < informacionProfesor.length;i++){
-        let listaCursos = document.getElementById("cursos_impartidos");
         let curso_name= informacionProfesor[i][0].nombre;
         let curso_id = informacionProfesor[i][0].codigo;
         crearListaCurso(curso_name,curso_id,listaCursos);
@@ -470,7 +485,7 @@ function crearListaCurso(params,id,lugar) {
     let content = `${params}`
     div.classList.add("curso_item");
     div.setAttribute("id",id)
-    div.setAttribute("onclick",`deleteLista();crearEspecificaciones(${id});deleteMoment();selec();`)
+    div.setAttribute("onclick",`deleteMoment();selec();deleteLista();crearEspecificaciones(${id});`)
 
     div.innerHTML=content;
     lugar.appendChild(div);
@@ -498,31 +513,37 @@ function crearEspecificaciones(id){
     let case2 = document.getElementById("Especificaciones_curso");
 
     let temp = busqueda(id);
-   if(temp != -1){
-    inicio.classList.remove("hidden");
-    case1.classList.remove("hidden");
-    case2.classList.remove("hidden");
-    error.classList.add("hidden");
+  
     let arrayEstudiante = informacionProfesor[temp][1];
     let arrayCurso = informacionProfesor[temp][0];
 
+    if( (arrayEstudiante != undefined) && (arrayCurso != undefined)){
+        inicio.classList.remove("hidden");
+        case1.classList.remove("hidden");
+        case2.classList.remove("hidden");
+        error.classList.add("hidden");
+        document.getElementById("moment_date-curso").classList.add("hidden");
+        document.getElementById("container_3-h1").innerHTML=`Seleccione a un estudiante`;
 
-    for (let i = 0; i < arrayEstudiante.length; i++) {
-       let tempCI = arrayEstudiante[i][0].id_alumno;
-       let tempSeccion = arrayEstudiante[i][0].seccion;
-       crearEstudiante(tempCI,tempSeccion,Especificaciones_estudiante);
-        
-    }
-    Especificaciones_asignatura.innerHTML=arrayCurso.nombre;
-    Especificaciones_seccion.innerHTML=arrayEstudiante[0][0].seccion;
-    Especificaciones_periodo.innerHTML=arrayEstudiante[0][0].periodo;
-    Especificaciones_codigo.innerHTML=arrayCurso.codigo;
+
+        for (let i = 0; i < arrayEstudiante.length; i++) {
+        let tempCI = arrayEstudiante[i][0].id_alumno;
+        let tempSeccion = arrayEstudiante[i][0].seccion;
+        crearEstudiante(tempCI,tempSeccion,Especificaciones_estudiante);
+            
+        }
+        Especificaciones_asignatura.innerHTML=arrayCurso.nombre;
+        Especificaciones_seccion.innerHTML=arrayEstudiante[0][0].seccion;
+        Especificaciones_periodo.innerHTML=arrayEstudiante[0][0].periodo;
+        Especificaciones_codigo.innerHTML=arrayCurso.codigo;
 
    }else{
     inicio.classList.add("hidden");
     case1.classList.add("hidden");
     case2.classList.add("hidden");
     error.classList.remove("hidden");
+    document.getElementById("container_3-h1").innerHTML=`Oops! al parecer no hay contenido de la asignatura ${id},porfavor espere a que haya información acerca del curso`;
+
 
    }
 
@@ -615,7 +636,6 @@ function deleteMoment(){
 
 function crearTablaNotas(actividad,ob,apro,hora,nota,num){
     let lugar=document.getElementById("calificaciones");
-    console.log(apro)
     if(apro){
         apro="si";
     }else{
@@ -729,7 +749,299 @@ function AjusteActividad(id,tip) {
     estudiante.horas=inputHora.value;
     estudiante.observaciones=inputObs.value;
     TablaActividade(id);
+    document.getElementById("modal_Ajuste-actividades").classList.toggle("hidden");
+    inputNota.value="";
+    inputObs.value="";
+    inputHora.value="";
 
 }
 
 
+/****interactividad inicio *****/
+
+ document.getElementById("cambioInicio").addEventListener("click",cambiar_A_Inicio);
+document.getElementById("cambioCurso").addEventListener("click",cambiar_A_Cursos);
+
+
+function cambiar_A_Inicio(){
+    let temp = document.getElementById("incioPage");
+    let temp2 = document.getElementById("cursosPage");
+
+   if(temp.classList.contains("hidden")){
+     temp.classList.remove("hidden");
+     temp2.classList.add("hidden");
+   }
+
+}
+
+function cambiar_A_Cursos(){
+    let temp = document.getElementById("cursosPage");
+    let temp2 = document.getElementById("incioPage");
+
+    if(temp.classList.contains("hidden")){
+        temp.classList.remove("hidden");
+        temp2.classList.add("hidden");
+
+      } 
+}
+
+
+
+function asignaturasDadas(){
+    let contenedorAsignaturas = document.getElementById("AsignaturasDadas");
+    contenedorAsignaturas.innerHTML="";
+
+    for (let i = 0; i < informacionProfesor.length; i++) {
+        let name =informacionProfesor[i][0].nombre;
+        let codex = informacionProfesor[i][0].codigo;
+        let div= document.createElement("DIV");
+        let content = ` 
+                        <div class="name_materias-proceso">
+                            <h2>${name}</h2>
+                            <span>${codex}</span> 
+                        </div>
+                        <i class="fa-regular fa-folder-closed"></i>
+                        `
+        div.classList.add("contianer_item-inscribir")
+        div.classList.add("items-proceso-Materias")
+        div.setAttribute("id",`${codex}`)
+        div.innerHTML=content;
+        contenedorAsignaturas.appendChild(div);
+        
+    }    
+}
+
+function manejoAsignaturas(){
+   
+    let containerDisponibles = document.getElementById("cursosDisponibles");
+    containerDisponibles.innerHTML="";
+  
+   for (let i = 0; i< asignaturasLibres.length; i++) {
+    let name =asignaturasLibres[i].nombre;
+    let codex = asignaturasLibres[i].codigo;
+    let div= document.createElement("DIV");
+    let content = ` 
+                    <div class="name_materias-proceso">
+                        <h2>${name}</h2>
+                        <span>${codex}</span> 
+                    </div>
+                    <label class="fa-solid fa-check icon_btn_materia icon_btn_materia-mxd" id="DarAsignatura" onclick="inscribirAsignatura(${codex});listaDeCursosImpartidos();" title="Inscribir"></label>
+                    
+                    `
+    div.classList.add("contianer_item-inscribir")
+    div.classList.add("items-proceso-Materias")
+    div.setAttribute("id",`${codex}`)
+    div.innerHTML=content;
+    containerDisponibles.appendChild(div);
+    
+   }
+
+   asignaturasDadas();
+   trasladoDeMateria();
+}
+
+function trasladoDeMateria(){
+    let temp = document.querySelectorAll("#DarAsignatura");
+    
+    for(let i = 0; i < temp.length;i++){
+        temp[i].addEventListener("click",(e)=>{
+            let object = e.currentTarget;
+            let id = object.parentNode.getAttribute("id");
+            configAsignatura(id);
+            object.parentNode.remove();
+        })
+    }
+}
+
+
+function deleteAsignatura(id){
+    let temp = document.querySelectorAll(`[id="${id}"]`);
+    for (let i = 0; i < temp.length; i++) {
+       temp[i].remove;
+        
+    }
+}
+
+function configAsignatura(id){
+    let temp = asignaturasLibres.find((object)=> (object.codigo == id))
+    temp = [temp];
+    informacionProfesor.push(temp);
+    asignaturasDadas();
+    initLayout();
+
+}
+
+/******lista de cursos impartidos*/
+var contenedorListaDecursos =document.getElementById("listaCursosImpartidos");
+var contendorTablaEstudiante = document.getElementById("EstudiantesCursos");
+
+
+function listaDeCursosImpartidos(){
+    contenedorListaDecursos.innerHTML="";
+    
+        for (let i = 0; i < informacionProfesor.length; i++) {
+           if(informacionProfesor[i].length > 1){
+            let name =informacionProfesor[i][0].nombre;
+            let codigo =informacionProfesor[i][0].codigo;
+            agregarAlaLista(name,codigo);
+            listaDesplegar();
+           }
+            
+        }
+}
+
+function agregarAlaLista(name,id){
+
+    let li = document.createElement("LI");
+    let content=`
+
+                        <div class="curso_item_li-date">
+                        <h3>${name}</h3>
+                        <h3>${id}</3>
+                        </div>
+                        <div class="iconlistcursos" id="cotainerIcon">
+                            <i class="fa-regular fa-star" id="cursosImparatidos-icon"></i>
+                         </div>
+                
+                `;
+    li.classList.add("cursos_item-li");
+    li.setAttribute("id",`${name}`)
+    li.innerHTML=content;
+    contenedorListaDecursos.appendChild(li);
+}
+
+function listaDesplegar(){
+    let btn_ico = document.getElementById("cursosImparatidos-icon");
+
+    btn_ico.addEventListener("click",(e)=>{
+        let aux = e.currentTarget;
+        let temp = aux.parentNode.parentNode.getAttribute("id");
+        desplegar(temp);
+        hiddenLista();
+    })
+}
+
+function desplegar(codigo){
+    contendorTablaEstudiante.innerHTML="";
+        let indice = buscarPorNombre(codigo);
+        let temp = informacionProfesor[indice][1];
+        let nombreAsignatura =informacionProfesor[indice][0].nombre;
+
+        for (let i = 0; i < temp.length; i++) {
+            let name= temp[i][0].id_alumno;
+            let estado = temp[i][0].estado;
+            let nota = temp[i][0].nota;
+            let id= temp[i][0].id_asignatura;
+            let examen = temp[i][0].tipo_examen;
+            generarDataCursosImpartidos(name,estado,nota,examen,id);
+        }
+        document.getElementById("name_lista_curso-asignatura").innerHTML=nombreAsignatura;
+        cambiarDatosGnerales();
+}
+
+
+function generarDataCursosImpartidos(name,estado,nota,exam,id){
+        //(estado)?estado="Si":estado="No";
+        let div = document.createElement("DIV");
+
+        let content=`
+        
+                        <h3 class="student_name" id="CambiarValoreesGenerale" >${name}</h3>
+                        <h3 class="student_apro">${estado}</h3>
+                        <h3 class="item_examen">${exam}</h3>
+                        <h3 class="student_nota">${nota}</h3>
+                    
+                    `;
+
+        div.classList.add("student_list");
+        div.setAttribute("id",`V${name}`);
+        div.setAttribute("name",`#${id}`);
+
+        div.innerHTML=content;
+        contendorTablaEstudiante.appendChild(div);
+        
+}
+
+function deleteCursosImpartido(){
+    let temp = document.querySelectorAll(".tempCursos");
+    for (let i = 0; i < temp.length; i++) {
+        temp[i].remove();
+        
+    }
+}
+
+function buscarPorNombre(k){
+        for(let i = 0;i< informacionProfesor.length;i++){
+            if (informacionProfesor[i][0].nombre == k) {
+                return i;
+            }
+        }
+}
+
+
+/*Retrocede a la lista nuevamente */
+
+document.getElementById("retroceder_icon").addEventListener("click",hiddenLista);
+
+function hiddenLista(){
+    document.getElementById("listaEstudiantesDelprofesor").classList.toggle("hidden");
+    document.getElementById("listaDelProfesor").classList.toggle("hidden");
+}
+
+/**Cambiar valores generales de los estudiantes */
+
+function cambiarDatosGnerales(){
+        let temp =document.querySelectorAll("#CambiarValoreesGenerale");
+        let btn = document.getElementById("btn_actualizar_general");
+        for (let i = 0; i < temp.length; i++) {
+            temp[i].addEventListener("click",(e)=>{
+                    let tag = e.currentTarget;
+                    let name= tag.parentNode.getAttribute("id");
+                    let id= tag.parentNode.getAttribute("name");
+                    id = id.substring(1,id.length);
+                    name = name.substring(1,name.length);
+                    btn.setAttribute("onclick",`saveInfoAsignatura(${name}, ${id});ActualizarInfoGeneral(${name}, ${id})`)
+                    document.getElementById("name_estudiante_curso_general").innerHTML=name;
+                    document.getElementById("container_Ajuste-general").classList.toggle("hidden");
+            })
+            
+        }
+}
+
+function busquedaPorMateria(int,id){
+    for (let index = 0; index < informacionProfesor.length; index++) {
+
+        for (let j = 0; j < informacionProfesor[index][1].length; j++) {
+            if(informacionProfesor[index][1][j][0].id_alumno == int){
+                if(informacionProfesor[index][0].codigo ==id){
+                     return index;
+
+                }
+            }
+            
+        }
+    }
+
+    return -1;
+} 
+
+
+function ActualizarInfoGeneral(cedula,id){
+    let inputNota = document.getElementById("inputGeneralAlumnoNota");
+    let inputActividad = document.getElementById("inputGeneralAlumnoActiviadad");
+    
+    let materia = busquedaPorMateria(cedula,id);
+    let estudiante = busquedaEstudiante(cedula,false);
+    
+    if((materia != -1) && (estudiante != -1)){
+        let arr = informacionProfesor[materia][1][estudiante][0];
+        arr.nota=inputNota.value;
+        arr.tipo_examen=inputActividad.value;
+        let tempName=busqueda(id);
+        desplegar(informacionProfesor[tempName][0].nombre);
+        document.getElementById("container_Ajuste-general").classList.toggle("hidden");
+        inputNota.value="";
+        inputActividad.value=""
+
+    }
+}

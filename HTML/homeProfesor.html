@@ -23,8 +23,8 @@
                     <div class="nav_reposive-icoClose responsive-lis">
                         <i class="fa-solid fa-xmark"></i>
                     </div>
-                    <li class="lista_items" id="inicio">Inicio</li>
-                    <li class="lista_items" id="materias">Cursos</li>
+                    <li class="lista_items" id="cambioInicio">Inicio</li>
+                    <li class="lista_items" id="cambioCurso">Cursos</li>
                     <li class="lista_items">Data Maestra</li>
                     <li class="lista_items">Perfil</li>
                 </ul>
@@ -50,59 +50,54 @@
             </div>
            </section>
         </header>
-        <main class="container_inicio container_Cursos">
+        <main class="container_inicio container_Cursos" id="incioPage">
             <section class="container_seccion-A container_seccion-items1">
-                <div class="list-cursos-A list_estudiante-A ">
+               
+            </section>
+            <section class="container_seccion-A container_seccion-items2">
+                <div class="list-cursos-A list_estudiante-A hidden" id="listaEstudiantesDelprofesor">
                     <div class="retroceder-list-icon">
                         <i class="fa-solid fa-arrow-left" id="retroceder_icon"></i>
                     </div>
-                    <h1 class="list_title-cursos">Estudiante de <span>MAtematica</span></h1>
+                    <h1 class="list_title-cursos">Curso de <span id="name_lista_curso-asignatura">Matematica I</span></h1>
                     <div class="table_cursos-A">
                         <div class="list_date-A">
                             <h3 class="item_ci">Cedula</h3>
                             <h3 class="item_aprobado">Aprovado</h3>
+                            <h3 class="item_examen">Tipo de examen</h3>
                             <h3 class="item_nota">Nota</h3>
                         </div>
-                        <div class="cursos_items">
-                           <div class="student_list">
-                            <h3 class="student_name">Edwyn Guzman</h3>
-                            <h3 class="student_apro">Si</h3>
-                            <h3 class="student_nota">19</h3>
-                           </div>
-                           <div class="student_list">
-                            <h3 class="student_name">Edwyn Guzman</h3>
-                            <h3 class="student_apro">Si</h3>
-                            <h3 class="student_nota">19</h3>
-                           </div>
-                           <div class="student_list">
-                            <h3 class="student_name">Edwyn Guzman</h3>
-                            <h3 class="student_apro">Si</h3>
-                            <h3 class="student_nota">19</h3>
-                           </div>
-                           <div class="student_list">
-                            <h3 class="student_name">Edwyn Guzman</h3>
-                            <h3 class="student_apro">Si</h3>
-                            <h3 class="student_nota">19</h3>
-                           </div>
+                        <div class="cursos_items" id="EstudiantesCursos">
+                           
                         </div>
                     </div>
                </div>
-               <div class="list-cursos-A hidden">
+               <div class="list-cursos-A " id="listaDelProfesor">
                     <h1 class="list_title-cursos">Lista de Cursos Impartidos</h1>
-                    <ul class="cursos_items">
-                        <li class="cursos_item-li">Matematica</li>
-                        <li class="cursos_item-li">Computacion</li>
-                        <li class="cursos_item-li">Ing de sistemas</li>
-                        <li class="cursos_item-li">Discretas</li>
+                    <ul class="cursos_items" id="listaCursosImpartidos">
+
                     </ul>
                </div>
             </section>
-            <section class="container_seccion-A container_seccion-items2"></section>
-            <section class="container_seccion-A  container_seccion-items3"></section>
-            <section class="container_seccion-A  container_seccion-items4"></section>
+            <section class="container_seccion-A  container_seccion-items3 proceso_asginaturas">
+                <div class="proceso_asignaturas-title">
+                    <h2>Asignaturas disponibles</h2>
+                </div>
+                <div id="cursosDisponibles">
+
+                </div>
+              
+            </section>
+            <section class="container_seccion-A  container_seccion-items4 proceso_asginaturas" >
+                <div class="proceso_asignaturas-title">
+                    <h2>Asignaturas dadas</h2>
+                </div>
+                <div id="AsignaturasDadas"></div>
+               
+            </section>
         </main>
 
-        <main class="container_Cursos hidden">
+        <main class="container_Cursos hidden" id="cursosPage">
             <section class="container_items container_item-1" >
                 <h2 class="list_tilte">Cursos</h2>
                 <div class="divider divider-pro"></div>
@@ -167,13 +162,14 @@
     </section>
 
  <!--INPUTS PARA CARGAR ARCHIVOS-->
- <div class="contenedor_load-file hidden" id="contenedor_load-file">
-    <div class="load_file load_file-profe">
+ <div class="contenedor_load-file" id="contenedor_load-file">
+    <div class="load_file">
 
         <div class="file_items  file_item-title">
             <h1>¡Cargue archivos!</h1>
         </div>
-        <div class="file_items">
+            
+            <div class="file_items load_file-profe">
 
             <h3>Seleccionar archivo Asignatura.txt</h3>
            <label for="asignatura" class="btn_file">Cargar file 1</label>
@@ -196,7 +192,7 @@
             <input type="file" name="profesor" id="profesor" hidden>
         </div>
         <div class="file_items resultadoCarga" id="resultadoCarga">
-            <button class="btn_file btn_result" id="btn_result" style="border:none;">Continuar</button>
+            <button class="btn_file btn_result hidden" id="btn_result" style="border:none;" disabled>Continuar</button>
         </div>
 
     </div>
@@ -210,23 +206,24 @@
         </div>
         <h3 class="ajustes_notas-title">Asignaturas impartidas</h3>
         <!--FORMULARIO DE ESTUDIANTES EN ASIGNATURA-->
-        <h3 class="ajustes_notas-title">Edwyn guzman</h3>
+        <h3 class="ajustes_notas-title" id="name_estudiante_curso_general">Edwyn guzman</h3>
         <form action="" class="formActividad" id="formAsignatura">
             <div class="input_ajuste">
                 <!--Se muestra la actual en caso de que tenga y se le da la opcion de cambiarla-->
                 <i class="fa-regular fa-flag" id="ajuste_imput-icon"></i>
-                <input class="input_ajuste-input" name="notaAsignatura" type="text" placeholder="Nota">
+                <input class="input_ajuste-input" name="notaAsignatura" type="text" placeholder="Nota" id="inputGeneralAlumnoNota" required>
             </div>
 
             <div class="input_ajuste">
                 <!--Se muestra la actual en caso de que tenga y se le da la opcion de cambiarla-->
                 <i class="fa-regular fa-file-lines" id="ajuste_imput-icon"></i>
-                <input class="input_ajuste-input" name="tipoExamen" type="text" placeholder="Tipo de actividad">
+                <input class="input_ajuste-input" name="tipoExamen" type="text" placeholder="Tipo de actividad" id="inputGeneralAlumnoActiviadad" required>
             </div>
 
             <input id="submitInfoAsignatura" type="submit" value="Submit" hidden>
 
-            <button class="ajuste_nota-btn" onclick="saveInfoAsignatura('29897058', '6201')">Guardar</button>
+            <button class="ajuste_nota-btn" id="btn_actualizar_general">Guardar</button>
+            <!-- onclick="saveInfoAsignatura('29897058', '6201')"> -->
         </form>
     </div>
 
@@ -242,17 +239,17 @@
 
          <div class="input_ajuste">
             <i class="fa-regular fa-clock" id="ajuste_imput-icon"></i>
-             <input class="input_ajuste-input" name="horas" type="text" placeholder="Hora" id="ajusteshoras_input" >
+             <input class="input_ajuste-input" name="horas" type="text" placeholder="Hora" id="ajusteshoras_input" required>
          </div>
 
          <div class="input_ajuste">
             <i class="fa-regular fa-eye" id="ajuste_imput-icon"></i>
-             <input class="input_ajuste-input" name="observaciones" type="text" placeholder="Observaciones" id="ajustesObservaciones_input" >
+             <input class="input_ajuste-input" name="observaciones" type="text" placeholder="Observaciones" id="ajustesObservaciones_input" required>
          </div>
 
          <div class="input_ajuste">
             <i class="fa-regular fa-flag" id="ajuste_imput-icon"></i>
-             <input class="input_ajuste-input" name="notaEstudiante" type="text" placeholder="Nota" id="ajustesNotas_input" >
+             <input class="input_ajuste-input" name="notaEstudiante" type="text" placeholder="Nota" id="ajustesNotas_input" required>
          </div>
 
          <input id="submitInfoActividad" type="submit" value="Submit" hidden>
@@ -262,10 +259,7 @@
      <!-- onclick="saveInfoActividad('1', '6201', '29897058')" -->
    </div>
 
-    <div class="hidden">
-        <h3>Inscribir asignatura *salen todas las asignaturasLibres()*</h3>
-        <button onclick="inscribirAsignatura('6107')">Inscribir</button>
-    </div>
+   
     <script src="../JS/homeProfesor.js"></script>
 </body>
 </html>

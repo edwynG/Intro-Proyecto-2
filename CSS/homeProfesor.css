@@ -24,9 +24,8 @@
 }
 
 .load_file-profe {
-    width: 480px !important;
+    width: 538px !important;
     gap: 20px !important;
-
 }
 
 ul{
@@ -247,7 +246,6 @@ h3.curso_codigo {
 .container_ajuste-notas {
     position: fixed;
     background-color: var(--colorSecundario);
-    box-shadow: var(--boxShadow);
     left: 0px;
     top: 0px;
     right: 0px;
@@ -259,6 +257,7 @@ h3.curso_codigo {
     padding-bottom: 20px;
     border-radius: var(--borderRadius);
     text-align: center;
+    box-shadow: 0px 0px 56px -5px rgba(0,0,0,0.15);
 }
 
 .formActividad {
@@ -354,8 +353,9 @@ h3.curso_codigo {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
     width: 100%;
+    height: 100%;
 }
 
 #ajuste_imput-icon {
@@ -383,12 +383,14 @@ h3.curso_codigo {
     align-items: center;
     height: 100%;
     color: #cd3e3e;
+    text-align: center;
+    font-weight: 400;
+    padding: 30px;
 }
 
 .container_Ajuste-general{
     position: fixed;
     background-color: var(--colorSecundario);
-    box-shadow: var(--boxShadow);
     left: 0px;
     top: 0px;
     right: 0px;
@@ -400,6 +402,7 @@ h3.curso_codigo {
     padding-bottom: 20px;
     border-radius: var(--borderRadius);
     text-align: center;
+    box-shadow: 0px 0px 56px -5px rgba(0,0,0,0.15);
 }
 
 
@@ -417,10 +420,10 @@ h2#calificaciones_title {
 
 
 .container_seccion-A {
-    width: 49%;
     min-height: 300px;
+    width: 48%;
     border-radius: var(--borderRadius);
-    outline: 1px solid;
+    box-shadow: var(--boxShadow);
 }
 
 .list_estudiante-A {
@@ -431,37 +434,68 @@ h2#calificaciones_title {
 }
 
 
-
+#CambiarValoreesGenerale {
+    cursor: pointer;
+}
 
 
 .item_nota {
-    width: 20%;
+    width: 15.01%;
+    padding-left: 5px;
+   
 }
 
+
 .item_ci {
-    width: 50%;
+    width: 29.2%;
+    border-right: 1px solid;
 }
 
 .student_name {
-    width: 50%;
+    width: 29%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid;
 }
 
 .student_apro {
-    width: 30%;
+    width: 26.2%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid;
+    padding-left: 5px;
+}
+
+.student_examen {
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    width: 30.5%;
+    border-right: 1px solid;
+    height: 100%;
 }
 
 .student_nota {
-    width: 20%;
+    width: 15%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
 }
-
 .item_aprobado {
-    width: 30%;
+    width: 26.2%;
+    border-right: 1px solid;
+    padding-left: 5px;
 }
 
 .student_list {
     display: flex;
     height: 30px;
     align-items: center;
+    padding-left: 6px;
+    outline: 1px solid;
 }
 
 .cursos_items {
@@ -472,13 +506,16 @@ h2#calificaciones_title {
 .retroceder-list-icon {
     font-size: 20px;
     padding: 0px 5px;
-    height: 35px;
+    height: 25px;
 }
 
 
 .list_date-A {
     display: flex;
     padding: 0px;
+    padding-left: 5px;
+    outline: 1px solid;
+    height: 30px;
 }
 
 .container_seccion-items1 {
@@ -491,8 +528,10 @@ h2#calificaciones_title {
     cursor: pointer;
 }
 
+
 .list_title-cursos {
-    padding: 8px 5px;
+    padding: 5px 3px;
+    font-size: 20px;
 }
 
 main.container_inicio {
@@ -504,11 +543,11 @@ main.container_inicio {
 }
 
 .container_seccion-items3 {
-    width: 50%;
+    max-width: 50%;
 }
 
 #retroceder_icon:hover{
-    transition:background-color .4s ease-in-out ;
+    transition: background-color .3s ease-in-out;
     background-color: var(--fondoOpacity);
 }
 
@@ -520,6 +559,100 @@ main.container_inicio {
     border-radius: 50%;
     transition: background-color .4s ease;
     background-color: var(--fondoOpacity);
+}
+
+.proceso_asginaturas {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 12px;
+    gap: 7px;
+}
+.proceso_asignaturas-title {
+    padding-left: 6px;
+}
+
+.list-cursos-A {
+    padding: 11px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cursos_item-li {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    align-items: center;
+    border-bottom: 1px solid var(--colorDivider);
+    padding: 0px 5px;
+}
+
+.curso_item_li-date {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+}
+
+
+.icon_btn_materia-mxd {
+    padding: 6px 6px !important;
+}
+
+
+#cotainerIcon {
+    width: 26px;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cursosImparatidos-icon {
+    padding: 7px 6px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#cursosImparatidos-icon:hover{
+    transition: background-color .45s ease;
+    background-color: var(--fondoOpacity);
+}
+
+.student_list h3 {
+    font-weight: 500;
+    height: 100%;
+}
+
+
+.item_examen {
+    font-size: 16px;
+    width: 30%;
+    padding-left: 5px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid;
+}
+
+.curso_item_li-date h3 {
+    font-weight: 500;
+}
+
+ .container_seccion-items1{
+    background-image: url(../SRC/img/3573382.jpg);
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center;
+    
+ }
+
+.list_date-A h3 {
+    display: flex;
+    align-items: center;
+}
+
+.load_file-profe {
+    width: 538px !important;
+    gap: 5px !important;
 }
 
 @media screen and (max-width:960px) {
