@@ -8,7 +8,7 @@ EDWYN GUZMAN;30326271;edwyn@hotmail.com;1234;false
 MARCEL MEJIAS;30514210;marcel@gmail.com;1234;false
 MAURICIO AQUINO;29948475;mauricio@gmail.com;1234;false
 ADRIÁN FERNÁNDEZ;30124311;adrian@gmail.com;1234;false
-MANUEL BRICEÑO;29611486;;manuel@gmail.com;1234;false
+MANUEL BRICEÑO;29611486;manuel@gmail.com;1234;false
 JAVIER LEON;30674225;javier@gmail.com;1234;false
 TONY CEDEÑO;29850773;tony@gmail.com;1234;false
 DIEGO HEREDIA;30667176;diego@gmail.com;1234;false

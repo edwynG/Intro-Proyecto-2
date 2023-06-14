@@ -5,11 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/homeAlumno.css">
+    <link rel="stylesheet" href="../CSS/dataMaestra.css">
     <link rel="stylesheet" href="../SRC/icon/css/all.css">
     <title>Monitor de Rendimiento Académico</title>
 </head>
 <body cz-shortcut-listen="true">
-
+<!--HEADER-->
     <section class="container">
         <header class="container_header">
            <section class="container_Subheader">
@@ -22,7 +23,6 @@
                         <i class="fa-solid fa-xmark"></i>
                     </div>
                     <li class="lista_items" id="inicio">Inicio</li>
-                    <li class="lista_items" id="materias">Asignaturas</li>
                     <li class="lista_items" id="dataMaestra">Data maestra</li>
                     <li class="lista_items">Perfil</li>
                 </ul>
@@ -48,6 +48,39 @@
             </div>
            </section>
         </header>
+        
+        <main class="container_main" id="template_Inicio">
+            <!--INSTITUCIONES-->
+            <section class="main_items_new main_items main_item-1 main_item-container-1" id="universidades">
+                <h1 class="main_items-title">Universidades</h1>
+            </section>
+            <!--FACULTADES-->
+            <section class="main_items_new main_items main_item-2 main_item-container-2" id="facultades">
+                <h1 class="main_items-title">Facultades</h1>
+            </section>
+            <section class="main_items_new main_items main_item-1 main_item-container-1" id="escuelas">
+                <h1 class="main_items-title">Escuelas</h1>
+            </section>
+            <section class="main_items_new main_items main_item-2 main_item-container-2" id="carreras">
+                <h1 class="main_items-title">Carreras</h1>
+            </section>
+            <!--PERIODOS-->
+            <section class="main_items_new main_items main_item-1 main_item-container-1" id="periodos">
+                <h1 class="main_items-title">Periodos</h1>
+            </section>
+            <!--AULAS-->
+            <section class="main_items_new main_items main_item-2 main_item-container-2" id="aulas">
+                <h1 class="main_items-title">Aulas</h1>
+            </section>
+            <!--PROFESORES-->
+            <section class="main_items_new main_items main_item-1 main_item-container-1" id="profesores"> 
+                <h1 class="main_items-title">Profesores</h1>
+            </section>
+            <!--ALUMNOS-->
+            <section class="main_items_new main_items main_item-2 main_item-container-2" id="alumnos">
+                <h1 class="main_items-title">Alumnos</h1>
+            </section>
+        </main>
     </section>
 
     <div class="contenedor_load-file" id="contenedor_load-file" style="flex-wrap: wrap;overflow: scroll;">
@@ -81,24 +114,20 @@
             <label for="periodo" class="btn_file">Cargar file 6</label>
             <input type="file" name="periodo" id="periodo" class="items_file-inputs" hidden>
 
-            <h3>Seleccionar archivo Pensum.txt</h3>
-            <label for="pensum" class="btn_file">Cargar file 7</label>
-            <input type="file" name="pensum" id="pensum" class="items_file-inputs" hidden>
-
             <h3>Seleccionar archivo Asignatura.txt</h3>
-            <label for="asignatura" class="btn_file">Cargar file 8</label>
+            <label for="asignatura" class="btn_file">Cargar file 7</label>
             <input type="file" name="asignatura" id="asignatura" class="items_file-inputs" hidden>
 
             <h3>Seleccionar archivo Horario.txt</h3>
-            <label for="horario" class="btn_file">Cargar file 9</label>
+            <label for="horario" class="btn_file">Cargar file 8</label>
             <input type="file" name="horario" id="horario" class="items_file-inputs" hidden>
 
             <h3>Seleccionar archivo Alumno.txt</h3>
-            <label for="alumno" class="btn_file">Cargar file 10</label>
+            <label for="alumno" class="btn_file">Cargar file 9</label>
             <input type="file" name="alumno" id="alumno" class="items_file-inputs" hidden>
 
             <h3>Seleccionar archivo Profesor.txt</h3>
-            <label for="profesor" class="btn_file">Cargar file 11</label>
+            <label for="profesor" class="btn_file">Cargar file 10</label>
             <input type="file" name="profesor" id="profesor" class="items_file-inputs" hidden>
 
            </div>

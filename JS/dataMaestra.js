@@ -56,7 +56,7 @@ class Aula {
 }
 
 class Periodo {
-	constructor(tipo, fecha_inicio, fecha_fin, semanas){
+	constructor(tipo, fecha_inicio, fecha_fin){
 		this.tipo = tipo;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
@@ -145,9 +145,10 @@ function textToObject(data, object, type){
 
 
 //ORGANIZAR UNIVERSIDAD, FACULTAD, ESCUELA, CARRERA, PENSUM
-function instituciones(){
+var instituciones = [];
+function obtenerInstituciones(){
     //UNIVERSIDADES
-    let instituciones = [];
+    
     for(let i = 0; i < objectsUniversidad.length; i++){
 
         //FACULTAD
@@ -247,6 +248,8 @@ document.getElementById("universidad").addEventListener("change", function() {
         
         dataUniversidad = fr.result;
         textToObject(dataUniversidad, objectsUniversidad, "Universidad");
+        if(dataUniversidad.length > 0)
+            mostrarUniversidades();
     }
     fr.readAsText(this.files[0]);
 });
@@ -257,6 +260,8 @@ document.getElementById("facultad").addEventListener("change", function() {
         
         dataFacultad = fr.result;
         textToObject(dataFacultad, objectsFacultad, "Facultad");
+        if(dataFacultad.length > 0)
+            mostrarFacultades();
         
     }
     fr.readAsText(this.files[0]);
@@ -268,6 +273,8 @@ document.getElementById("escuela").addEventListener("change", function() {
         
         dataEscuela = fr.result;
         textToObject(dataEscuela, objectsEscuela, "Escuela");
+        if(dataEscuela.length > 0)
+            mostrarEscuelas();
         
     }
     fr.readAsText(this.files[0]);
@@ -279,6 +286,8 @@ document.getElementById("carrera").addEventListener("change", function() {
         
         dataCarrera = fr.result;
         textToObject(dataCarrera, objectsCarrera, "Carrera");
+        if(dataCarrera.length > 0)
+            mostrarCarreras();
         
     }
     fr.readAsText(this.files[0]);
@@ -292,6 +301,7 @@ document.getElementById("aula").addEventListener("change", function() {
         textToObject(dataAula, objectsAula, "Aula");
         if(dataAula.length > 0)
             aula();
+            mostrarAulas();
         
     }
     fr.readAsText(this.files[0]);
@@ -305,19 +315,7 @@ document.getElementById("periodo").addEventListener("change", function() {
         textToObject(dataPeriodo, objectsPeriodo, "Periodo");
         if(dataPeriodo.length > 0)
             periodos();
-        
-    }
-    fr.readAsText(this.files[0]);
-});
-
-document.getElementById("pensum").addEventListener("change", function() {
-    var fr = new FileReader();
-    fr.onload = function(){
-        
-        dataPensum = fr.result;
-        textToObject(dataPensum, objectsPensum, "Pensum");
-        if(dataPensum.length > 0)
-            instituciones();
+            mostrarPeriodos();
         
     }
     fr.readAsText(this.files[0]);
@@ -342,6 +340,7 @@ document.getElementById("horario").addEventListener("change", function() {
         textToObject(dataHorario, objectsHorario, "Horario");
         if(dataProfesor.length > 0)
             horarioXAsignatura();
+            mostrarHorarios();
         
     }
     fr.readAsText(this.files[0]);
@@ -366,12 +365,15 @@ document.getElementById("profesor").addEventListener("change", function() {
         textToObject(dataProfesor, objectsProfesor, "Profesor");
         if(dataProfesor.length > 0)
             alumnoYProfesor();
+            mostrarAlumnos();
+            mostrarProfesores();
         
     }
     fr.readAsText(this.files[0]);
 });
 
 //FRONTEND
+//POPUP CARGA DE ARCHIVOS
 function cerrarCargaDeArchivo(){
     let temp =document.getElementById("contenedor_load-file");
     temp.style.display="none";
@@ -381,25 +383,16 @@ function btnContinuarSesion(){
     btn.classList.toggle("btn_file-load")
 }
 
-
-/*importa nodos */
-
 var close1,close2;
 const file1Emergente = document.getElementById("universidad");
 const file2Emergente = document.getElementById("profesor");
-/*estado de los inputs */
 let value1Emergente =file1Emergente.value;
 let value2Emergente=file2Emergente.value;
-
-/*Valida si se subio un archivo*/
-
 file1Emergente.addEventListener("change",(e)=>{
     if(file1Emergente.value != value1Emergente){
         close2=true;
     }
-
     file2Emergente.addEventListener("change",(e)=>{
-    
         if(file2Emergente.value != value2Emergente ){
             close1=true;
         }
@@ -411,22 +404,16 @@ file1Emergente.addEventListener("change",(e)=>{
                 temp[index].style.background="#69E0C3"
                 
             }
-
             document.querySelector(".file_item-title h1").style.color="#111";
             
         }
         })
-    
-        
 })
 
-
 file2Emergente.addEventListener("change",(e)=>{
-    
     if(file2Emergente.value != value2Emergente ){
         close1=true;
     }
-
     file1Emergente.addEventListener("change",(e)=>{
         if(file1Emergente.value != value1Emergente){
             close2=true;
@@ -440,12 +427,148 @@ file2Emergente.addEventListener("change",(e)=>{
                 temp[index].style.background="#7EB2FD"
                 
             }
-            
             document.querySelector(".file_item-title h1").style.color="#111";
 
             }
-        
             
     })
 })
 document.getElementById("btn_result").addEventListener("click",cerrarCargaDeArchivo)
+
+//EDITAR CONTAINERS
+function crearTabla(content){
+    let div = document.createElement("DIV")
+    div.classList.add("tabla-date");
+    div.innerHTML = content;
+    return div;
+}
+
+//MOSTRAR AULAS
+function mostrarAulas(){
+    let container = document.getElementById("aulas");
+    for(let i = 1; i < objectsAula.length; i++){
+        let content = 
+                `
+                <p style="width: 50%;" class="item">${objectsAula[i]["nombre"]}</p>
+                <p style="width: 50%;"class="item">${objectsAula[i]["universidad"]}</p>                     
+                `
+        container.appendChild(crearTabla(content));
+        
+    }    
+}
+//MOSTRAR PERIODOS
+function mostrarPeriodos(){
+    let container = document.getElementById("periodos");
+    for(let i = 1; i < objectsPeriodo.length; i++){
+        let content = 
+                `
+                <p style="width: 30%;" class="item">${objectsPeriodo[i]["tipo"]}</p>                     
+                <p style="width: 30%;" class="item">${objectsPeriodo[i]["fecha_inicio"]}</p>
+                <p style="width: 30%;" class="item">${objectsPeriodo[i]["fecha_fin"]}</p>
+                `
+        container.appendChild(crearTabla(content));
+        
+    }    
+}
+//MOSTRAR INSTITUCIOENS
+function mostrarUniversidades(){
+    let container = document.getElementById("universidades");
+    for(let i = 1; i < objectsUniversidad.length; i++){
+        let content = 
+                `
+                <p style="width: 10%;" class="item">${objectsUniversidad[i]["id"]}</p>
+                <p style="width: 50%;"class="item">${objectsUniversidad[i]["nombre"]}</p>                     
+                <p style="width: 40%;"class="item">${objectsUniversidad[i]["rif"]}</p>
+                `
+        container.appendChild(crearTabla(content));
+        
+    }    
+}
+
+function mostrarFacultades(){
+    let container = document.getElementById("facultades");
+    for(let i = 1; i < objectsFacultad.length; i++){
+        let content = 
+                `
+                <p style="width: 10%;" class="item">${objectsFacultad[i]["id"]}</p>
+                <p style="width: 60%;"class="item">${objectsFacultad[i]["nombre"]}</p>                     
+                <p style="width: 30%;"class="item">UCV</p>
+                `
+        container.appendChild(crearTabla(content));
+        
+    }    
+}
+function mostrarEscuelas(){
+    let container = document.getElementById("escuelas");
+    for(let i = 1; i < objectsEscuela.length; i++){
+        let content = 
+                `
+                <p style="width: 40%;" class="item">${objectsEscuela[i]["nombre"]}</p>
+                <p style="width: 10%;"class="item">${objectsEscuela[i]["nro_carreras"]}</p>                     
+                <p style="width: 40%;"class="item">Facultad de Ciencias</p>
+                <p style="width: 10%;"class="item">UCV</p>
+                `
+        container.appendChild(crearTabla(content));
+        
+    }    
+}
+function mostrarCarreras(){
+    let container = document.getElementById("carreras");
+    for(let i = 1; i < objectsCarrera.length; i++){
+        let content = 
+                `
+                <p style="width: 40%;" class="item">${objectsCarrera[i]["nombre"]}</p>
+                <p style="width: 10%;"class="item">${objectsCarrera[i]["nro_est"]}</p>                     
+                <p style="width: 40%;"class="item">Escuela de Computación</p>
+                <p style="width: 10%;"class="item">UCV</p>
+                `
+        container.appendChild(crearTabla(content));
+        
+    }    
+}
+
+function mostrarPensum(){
+    let container = document.getElementById("pensum");
+    for(let i = 1; i < objectsPensum.length; i++){
+        let content = 
+                `
+                <p style="width: 30%;" class="item">${objectsCarrera[i]["nombre_asignatura"]}</p>
+                <p style="width: 30%;"class="item">${objectsCarrera[i]["codigo_asignatura"]}</p>                     
+                <p style="width: 10%;"class="item">Computación</p>
+                <p style="width: 10%;"class="item">UCV</p>
+                `
+        container.appendChild(crearTabla(content));
+        
+    }    
+}
+//MOSTRAR HORARIOS
+//MOSTRAR PROFESORES
+function mostrarProfesores(){
+    let container = document.getElementById("profesores");
+    for(let i = 1; i < objectsProfesor.length; i++){
+        let content = 
+                `
+                <p style="width: 30%;" class="item">${objectsProfesor[i]["nombre"]}</p>
+                <p style="width: 15%;"class="item">${objectsProfesor[i]["cedula"]}</p>                     
+                <p style="width: 35%;"class="item">${objectsProfesor[i]["email"]}</p>
+                <p style="width: 10%;"class="item">${objectsProfesor[i]["universidad"]}</p>
+                `
+        container.appendChild(crearTabla(content));
+        
+    }    
+}
+//MOSTRAR ALUMNOS
+function mostrarAlumnos(){
+    let container = document.getElementById("alumnos");
+    for(let i = 1; i < objectsAlumno.length; i++){
+        let content = 
+                `
+                <p style="width: 30%;" class="item">${objectsAlumno[i]["nombre"]}</p>
+                <p style="width: 15%;" class="item">${objectsAlumno[i]["cedula"]}</p>                     
+                <p style="width: 35%;" class="item">${objectsAlumno[i]["email"]}</p>
+                <p style="width: 10%;" class="item">${objectsAlumno[i]["universidad"]}</p>
+                `
+        container.appendChild(crearTabla(content));
+        
+    }    
+}

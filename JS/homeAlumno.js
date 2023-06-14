@@ -85,7 +85,7 @@ function download(data, nameFile){
 }
 
 function openPage(name){
-    window.open(`${name}.html`,"_self");
+    window.open(`${name}.html`,"_blank");
 }
 
 
