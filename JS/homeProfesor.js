@@ -14,7 +14,6 @@ let asignaturasLibres = [];
 let codigosAsignaturasImpartidas = [];
 let seccionesAsignaturasImpartidas = [];
 let periodosAsignaturasImpartidas = [];
-//debugger
 obtenerCodigoSeccionPeriodo(sessionStorage.getItem("userOtro"), codigosAsignaturasImpartidas, seccionesAsignaturasImpartidas, periodosAsignaturasImpartidas); 
 
 
@@ -296,7 +295,8 @@ function saveInfoAsignatura(id_alumno, id_asignatura){
     for(let i = 0; i < objectsAprendizaje.length; i++){
         aux = replaceChars(objectsAprendizaje[i]);
         dataAprendizaje += aux;
-        dataAprendizaje += "\n";
+        if(i != objectsAprendizaje.length-1)
+            dataAprendizaje += "\n";
     }
 
     download(dataAprendizaje, 'Aprendizaje');
@@ -335,7 +335,8 @@ function saveInfoActividad(id_actividad, id_asignatura, id_alumno){
         delete objectsActividades[i]['notaEstudiante'];
         aux = replaceChars(objectsActividades[i]);
         dataActividades += aux;
-        dataActividades += "\n";
+        if(i != objectsActividades.length-1)
+            dataActividades += "\n";
     }
 
     download(dataActividades, 'Actividad');
@@ -347,7 +348,8 @@ function saveInfoActividad(id_actividad, id_asignatura, id_alumno){
     for(let i = 0; i < objectsNotasActvidades.length; i++){
         aux = replaceChars(objectsNotasActvidades[i]);
         dataNotasActvidades += aux;
-        dataNotasActvidades += "\n";
+        if(i != objectsNotasActvidades.length-1)
+            dataNotasActvidades += "\n";
     }
 
     download(dataNotasActvidades, 'NotasActividades');
@@ -366,7 +368,8 @@ function inscribirAsignatura(id_asignatura){
         }
         aux = replaceChars(objectsProfesor[i]);
         dataProfesor += aux;
-        dataProfesor += "\n";
+        if(i != objectsProfesor.length-1)
+            dataProfesor += "\n";
     }
     download(dataProfesor, 'Profesor');
 }
@@ -565,7 +568,7 @@ function crearEstudiante(ci,seccion,lugar){
 }
 
 function TablaActividade(id){
-         deleteTabla();
+        deleteTabla();
         let asignatura =busquedaEstudiante(id,true);
         let alumno= busquedaEstudiante(id,false);
         let estudiante= informacionProfesor[asignatura][1][alumno];
@@ -884,14 +887,13 @@ function listaDeCursosImpartidos(){
             let name =informacionProfesor[i][0].nombre;
             let codigo =informacionProfesor[i][0].codigo;
             agregarAlaLista(name,codigo);
-            listaDesplegar();
+            listaDesplegar(codigo);
            }
             
         }
 }
 
 function agregarAlaLista(name,id){
-
     let li = document.createElement("LI");
     let content=`
 
@@ -900,7 +902,7 @@ function agregarAlaLista(name,id){
                         <h3>${id}</3>
                         </div>
                         <div class="iconlistcursos" id="cotainerIcon">
-                            <i class="fa-regular fa-star" id="cursosImparatidos-icon"></i>
+                            <i class="fa-regular fa-star" id="cursosImparatidos-icon${id}"></i>
                          </div>
                 
                 `;
@@ -910,8 +912,8 @@ function agregarAlaLista(name,id){
     contenedorListaDecursos.appendChild(li);
 }
 
-function listaDesplegar(){
-    let btn_ico = document.getElementById("cursosImparatidos-icon");
+function listaDesplegar(codigo){
+    let btn_ico = document.getElementById("cursosImparatidos-icon"+codigo);
 
     btn_ico.addEventListener("click",(e)=>{
         let aux = e.currentTarget;

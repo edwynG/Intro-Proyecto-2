@@ -177,7 +177,8 @@ function retirarAsignatura(idAsignatura){
         }
         aux = replaceChars(attrAprendizaje[i]);
         dataAprendizaje += aux;
-        dataAprendizaje += "\n";
+        if(i != attrAprendizaje.length-1)
+            dataAprendizaje += "\n";
     }
     download(dataAprendizaje, 'Aprendizaje');
 
@@ -193,7 +194,8 @@ function inscribirAsignatura(idAsignatura){
     for(let i = 0; i < attrAprendizaje.length; i++){
         aux = replaceChars(attrAprendizaje[i]);
         dataAprendizaje += aux;
-        dataAprendizaje += "\n";
+        if(i != attrAprendizaje.length-1)
+            dataAprendizaje += "\n";
     }
     download(dataAprendizaje, 'Aprendizaje');
     
@@ -472,8 +474,8 @@ function layoutEstrucutrado(){
     boxUC.innerHTML=DataAcademica.UC.toFixed(2).replace(/\.?0+$/, '');
     boxPG.innerHTML=DataAcademica.promedioGeneral.toFixed(2).replace(/\.?0+$/, '');
     boxAsingA.innerHTML=DataAcademica.promedioAsigAprob.toFixed(2).replace(/\.?0+$/, '');
-    let userName = userDate.getItem("userName").split(" ");
-    boxUser.innerHTML= userName[0] +" "+userName[userName.length-2];
+    let userName = userDate.getItem("userName");
+    boxUser.innerHTML= userName;
     boxCorreo.innerHTML=userDate.getItem("userEmail");
     
 
@@ -484,6 +486,7 @@ function layoutEstrucutrado(){
     boxAplazada.innerHTML=DataAcademica.materiasAplazadas.toFixed(2).replace(/\.?0+$/, '');
     boxAprovada.innerHTML=DataAcademica.materiasAprobadas.toFixed(2).replace(/\.?0+$/, '');
     boxEquivalecia.innerHTML=DataAcademica.materiasPorEQ.toFixed(2).replace(/\.?0+$/, '');
+    boxTA.innerHTML=DataAcademica.totalAprobadas.toFixed(2).replace(/\.?0+$/, '');
 
     for (let index = 0; index < asignaturasInscritas.length; index++) {
         appendMateria(asignaturasInscritas[index].nombre,asignaturasInscritas[index].codigo,mainMaterias,true)
