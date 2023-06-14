@@ -4,43 +4,110 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/homeAlumno.css">
+    <link rel="stylesheet" href="../SRC/icon/css/all.css">
     <title>Monitor de Rendimiento Académico</title>
 </head>
-<body>
-    <h3>Seleccionar archivo Universidad.txt</h3>
-    <input type="file" id="universidad">
+<body cz-shortcut-listen="true">
 
-    <h3>Seleccionar archivo Facultad.txt</h3>
-    <input type="file" id="facultad">
+    <section class="container">
+        <header class="container_header">
+           <section class="container_Subheader">
+            <nav class="header_container-nav">
+                <div class="header_menu-resposive responsive">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <ul class="nav_lista responsive-lista">
+                    <div class="nav_reposive-icoClose responsive-lis">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <li class="lista_items" id="inicio">Inicio</li>
+                    <li class="lista_items" id="materias">Asignaturas</li>
+                    <li class="lista_items" id="dataMaestra">Data maestra</li>
+                    <li class="lista_items">Perfil</li>
+                </ul>
+            </nav>
+            <div class="header_container-person">
+                <h2 class="container_person-name"></h2>
+                <div class="header_Notification">
+                    <i class="fa-solid fa-bell" id="Notificacion"></i>
+                </div>
+                <div class="container_person-close" id="userExit">
+                    <i class="fa-regular fa-user" ></i>
+                    <i class="fa-solid fa-sort-down"></i>
+                    
+                </div>
+                <div class="container_list-exit list_user-exit" >
+                    <ul class="lista_exit">
+                        <li class="item_list-exit" id="ci_list">N/A</li>
+                        <li class="divider"></li>
+                        <li class="item_list-exit item_exit">Cambiar contraseña</li>
+                        <li class="item_list-exit item_exit" id="cerrarSesion" title="Cerrar sesión" >Cerrar sesión</li>
+                    </ul>
+                </div>
+            </div>
+           </section>
+        </header>
+    </section>
 
-    <h3>Seleccionar archivo Escuela.txt</h3>
-    <input type="file" id="escuela">
+    <div class="contenedor_load-file" id="contenedor_load-file" style="flex-wrap: wrap;overflow: scroll;">
+        <div class="load_file">
 
-    <h3>Seleccionar archivo Carrera.txt</h3>
-    <input type="file" id="carrera">
+           <div class="file_items  file_item-title">
+                <h1>¡Cargue archivos!</h1> 
+            </div>
+           <div class="file_items">
+            <h3>Seleccionar archivo Universidad.txt</h3>
+            <label for="universidad" class="btn_file">Cargar file 1</label>
+            <input type="file" name="universidad" id="universidad" class="items_file-inputs" hidden>
 
-    <h3>Seleccionar archivo Aula.txt</h3>
-    <input type="file" id="aula">
+            <h3>Seleccionar archivo Facultad.txt</h3>
+            <label for="facultad" class="btn_file">Cargar file 2</label>
+            <input type="file" name="facultad" id="facultad" class="items_file-inputs" hidden>
 
-    <h3>Seleccionar archivo Periodo.txt</h3>
-    <input type="file" id="periodo">
+            <h3>Seleccionar archivo Escuela.txt</h3>
+            <label for="escuela" class="btn_file">Cargar file 3</label>
+            <input type="file" name="escuela" id="escuela" class="items_file-inputs" hidden>
 
-    <h3>Seleccionar archivo Pensum.txt</h3>
-    <input type="file" id="pensum">
+            <h3>Seleccionar archivo Carrera.txt</h3>
+            <label for="carrera" class="btn_file">Cargar file 4</label>
+            <input type="file" name="carrera" id="carrera" class="items_file-inputs" hidden>
 
-    <h3>Seleccionar archivo Asignatura.txt</h3>
-    <input type="file" id="asignatura">
+            <h3>Seleccionar archivo Aula.txt</h3>
+            <label for="aula" class="btn_file">Cargar file 5</label>
+            <input type="file" name="aula" id="aula" class="items_file-inputs" hidden>
 
-    <h3>Seleccionar archivo Horario.txt</h3>
-    <input type="file" id="horario">
+            <h3>Seleccionar archivo Periodo.txt</h3>
+            <label for="periodo" class="btn_file">Cargar file 6</label>
+            <input type="file" name="periodo" id="periodo" class="items_file-inputs" hidden>
 
-    <h3>Seleccionar archivo Alumno.txt</h3>
-    <input type="file" id="alumno">
+            <h3>Seleccionar archivo Pensum.txt</h3>
+            <label for="pensum" class="btn_file">Cargar file 7</label>
+            <input type="file" name="pensum" id="pensum" class="items_file-inputs" hidden>
 
-    <h3>Seleccionar archivo Profesor.txt</h3>
-    <input type="file" id="profesor">
+            <h3>Seleccionar archivo Asignatura.txt</h3>
+            <label for="asignatura" class="btn_file">Cargar file 8</label>
+            <input type="file" name="asignatura" id="asignatura" class="items_file-inputs" hidden>
 
+            <h3>Seleccionar archivo Horario.txt</h3>
+            <label for="horario" class="btn_file">Cargar file 9</label>
+            <input type="file" name="horario" id="horario" class="items_file-inputs" hidden>
 
+            <h3>Seleccionar archivo Alumno.txt</h3>
+            <label for="alumno" class="btn_file">Cargar file 10</label>
+            <input type="file" name="alumno" id="alumno" class="items_file-inputs" hidden>
+
+            <h3>Seleccionar archivo Profesor.txt</h3>
+            <label for="profesor" class="btn_file">Cargar file 11</label>
+            <input type="file" name="profesor" id="profesor" class="items_file-inputs" hidden>
+
+           </div>
+           <div class="file_items resultadoCarga" id="resultadoCarga">
+                <button class="btn_file btn_result btn_file-load" id="btn_result" style="border:none;">Continuar</button>
+           </div>
+
+        </div>
+    </div>
     <script src="../JS/dataMaestra.js"></script>
 </body>
 </html>

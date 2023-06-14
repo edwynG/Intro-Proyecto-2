@@ -145,6 +145,10 @@ function obtenerCodigoSeccionPeriodo(toChange, codigos, secciones, periodos){
     }
 }
 
+function openPage(name){
+    window.open(`${name}.html`,"_self");
+}
+
 
 //OBTENER INFORMACION DEL PROFESOR
 function obtenerInformacionProfesor(){
@@ -395,6 +399,9 @@ function obtenerAsignaturasLibres(){
 /*EDWYN */
 
 /******************************/
+let dataMaestra = document.getElementById("dataMaestra");
+dataMaestra.addEventListener("click",() => openPage("dataMaestra"))
+
 
 function readyInfo(){
         

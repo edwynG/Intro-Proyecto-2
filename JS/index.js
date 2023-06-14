@@ -1,4 +1,3 @@
-
 let btnMenu = document.getElementById("nav_icon-resposive");
 let btnMenuClose = document.getElementById("nav_reposive-close");
 let btnSignUp = document.querySelector(".main_button");
@@ -17,7 +16,6 @@ function menu(){
 
 function openPage(name){
    window.open(`${name}.html`,"_self");
-    
 }
 
 btnSignUp.addEventListener("click",() => openPage("SignUp"))

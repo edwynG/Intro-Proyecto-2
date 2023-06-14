@@ -370,3 +370,82 @@ document.getElementById("profesor").addEventListener("change", function() {
     }
     fr.readAsText(this.files[0]);
 });
+
+//FRONTEND
+function cerrarCargaDeArchivo(){
+    let temp =document.getElementById("contenedor_load-file");
+    temp.style.display="none";
+}
+function btnContinuarSesion(){
+    const btn = document.getElementById("btn_result");
+    btn.classList.toggle("btn_file-load")
+}
+
+
+/*importa nodos */
+
+var close1,close2;
+const file1Emergente = document.getElementById("universidad");
+const file2Emergente = document.getElementById("profesor");
+/*estado de los inputs */
+let value1Emergente =file1Emergente.value;
+let value2Emergente=file2Emergente.value;
+
+/*Valida si se subio un archivo*/
+
+file1Emergente.addEventListener("change",(e)=>{
+    if(file1Emergente.value != value1Emergente){
+        close2=true;
+    }
+
+    file2Emergente.addEventListener("change",(e)=>{
+    
+        if(file2Emergente.value != value2Emergente ){
+            close1=true;
+        }
+        if(close1 && close2){
+            btnContinuarSesion();
+            const temp =document.querySelectorAll(".btn_file");
+
+            for (let index = 0; index < temp.length; index++) {
+                temp[index].style.background="#69E0C3"
+                
+            }
+
+            document.querySelector(".file_item-title h1").style.color="#111";
+            
+        }
+        })
+    
+        
+})
+
+
+file2Emergente.addEventListener("change",(e)=>{
+    
+    if(file2Emergente.value != value2Emergente ){
+        close1=true;
+    }
+
+    file1Emergente.addEventListener("change",(e)=>{
+        if(file1Emergente.value != value1Emergente){
+            close2=true;
+        }
+
+        if(close1 && close2){
+            btnContinuarSesion();
+            const temp =document.querySelectorAll(".btn_file");
+
+            for (let index = 0; index < temp.length; index++) {
+                temp[index].style.background="#7EB2FD"
+                
+            }
+            
+            document.querySelector(".file_item-title h1").style.color="#111";
+
+            }
+        
+            
+    })
+})
+document.getElementById("btn_result").addEventListener("click",cerrarCargaDeArchivo)

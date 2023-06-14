@@ -84,6 +84,10 @@ function download(data, nameFile){
     }, 100);
 }
 
+function openPage(name){
+    window.open(`${name}.html`,"_self");
+}
+
 
 //CALCULAR EXPEDIENTE ACADEMICO
 let expedienteAcademico = new Expediente();
@@ -278,6 +282,8 @@ document.getElementById("aprendizaje").addEventListener("change", function() {
 /*EDWYN*/
 
 // /*Moverse entre paginas ********/
+let dataMaestra = document.getElementById("dataMaestra");
+dataMaestra.addEventListener("click",() => openPage("dataMaestra"))
 
 const template_inicio = document.getElementById("template_Inicio");
 const template_materias = document.getElementById("template_materias");
